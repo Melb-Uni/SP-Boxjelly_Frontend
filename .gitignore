@@ -28,3 +28,4 @@ yarn-error.log*
 /.vs/slnx.sqlite
 /.vs/CIS_SP_frontend/v16/.suo
 
+package.json

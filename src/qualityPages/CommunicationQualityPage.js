@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import Table from "../_utils/Table";
 import { alertConstants } from "../_constants";
 import { InformationalNote } from "../_utils/Alert";
+import CustomisedCalendar from "../_utils/Calendar";
 
 class CommunicationPage extends React.Component {
   constructor(props) {
@@ -63,6 +64,11 @@ class CommunicationPage extends React.Component {
                 />
               )}
           </div>
+        </div>
+
+        <div>
+          <CustomisedCalendar
+          />
         </div>
       </div>
     );
