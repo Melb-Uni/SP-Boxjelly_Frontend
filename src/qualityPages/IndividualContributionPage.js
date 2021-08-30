@@ -12,6 +12,8 @@ import DropdownMenus from "../_utils/DropdownMenus";
 import { InformationalNote } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
 
+import RadarChart from "../_utils/RadarChart";
+
 class IndividualContributionPage extends React.Component {
   constructor(props) {
     super(props);
@@ -60,6 +62,7 @@ class IndividualContributionPage extends React.Component {
 
   render() {
     return (
+      
       <div className="uomcontent">
         <ToastContainer limit={1} />
         {uomHeader("Individual Contribution")}
@@ -92,7 +95,7 @@ class IndividualContributionPage extends React.Component {
                             }
                             onChange={this.selectStudent}
                             value={this.state.selectedStudent}
-                          />
+                          />                  
                         )}
                       {this.state.btnSelected === commonConstants.GITHUB &&
                         typeof this.props.individualGithubData !==
@@ -117,12 +120,21 @@ class IndividualContributionPage extends React.Component {
                           />
                         )}
                     </Col>
+                  
+                  {/** when select individual */}
                     <Col>
                       {this.state.btnSelected === commonConstants.CONFLUENCE &&
                         typeof this.props.individualConfluenceData !==
                           "undefined" &&
                         JSON.stringify(this.props.individualConfluenceData) !==
                           "{}" && (
+
+
+
+                          <div> 
+
+
+
                           <DonutChart
                             data={JSON.parse(
                               JSON.stringify(
@@ -133,6 +145,15 @@ class IndividualContributionPage extends React.Component {
                             )}
                             dataLabel={"Edited Pages"}
                           />
+
+
+                          {/** for individual data */}
+                          <RadarChart />
+                          </div> 
+
+
+
+
                         )}
                       {this.state.btnSelected === commonConstants.GITHUB &&
                         typeof this.props.individualGithubData !==
@@ -166,6 +187,14 @@ class IndividualContributionPage extends React.Component {
                           />
                         )}
                     </Col>
+
+               {/**+++++++++++++++++++++++++++++++++++++++++++++++++++ */}
+               {/*
+                    <Col>
+                    <RadarChart />,
+                    </Col>
+                */}
+
                   </Row>
                 </Tab.Container>
               </Container>
