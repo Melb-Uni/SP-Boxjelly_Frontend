@@ -10,6 +10,13 @@ import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
 import { InformationalNote } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
+import { Button, Dropdown } from "bootstrap";
+
+/** new added */
+import DonutChart from "../_utils/DonutChart";
+import CalendarHeatmap from "../_utils/CalendarHeatmap";
+
+
 
 class ProcessQualityPage extends React.Component {
   constructor(props) {
@@ -21,6 +28,15 @@ class ProcessQualityPage extends React.Component {
         commonConstants.GITHUB,
         commonConstants.JIRA,
       ],
+
+      /** extra buttons */
+      /*
+      btnNames2: [
+        commonConstants.JIRA_VISUALIZATION,
+        commonConstants.CALENDAR,
+      ],
+      */
+      
 
       btnSelected: commonConstants.CONFLUENCE,
       scrollPosition: 0,
@@ -38,6 +54,14 @@ class ProcessQualityPage extends React.Component {
       this.props.getTeamConfluencePages(this.props.currentTeamKey);
     } else if (selected == commonConstants.GITHUB) {
       this.props.getTeamGithubCommits(this.props.currentTeamKey);
+    
+    // } else if (selected == commonConstants.JIRA_VISUALIZATION) {
+    //  this.props.getTeamJiraTickets(this.props.currentTeamKey);
+    
+
+
+
+
     } else {
       this.props.getTeamJiraTickets(this.props.currentTeamKey);
     }
@@ -78,11 +102,25 @@ class ProcessQualityPage extends React.Component {
               <InformationalNote message={alertConstants.NO_CONFIG} />
             )}
             {this.state.hasConfig && (
+              
+             
               <ButtonGroup
                 btnNames={this.state.btnNames}
                 clickHandler={this.handleBtnGroupClick}
                 selected={this.state.btnSelected}
               />
+
+              /** add extra buttons here */
+              /**
+              <div>
+              <ButtonGroup 
+                btnNames={this.state.btnNames2}
+                clickHandler={this.handleBtnGroupClick}
+                selected={this.state.btnSelected}/>
+              </div>
+              */
+              
+
             )}
             <Spin
               spinning={
@@ -93,16 +131,43 @@ class ProcessQualityPage extends React.Component {
             >
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.CONFLUENCE && (
-                  <LineChart data={this.props.confluenceData} />
+                  
+                  /** Confluence Heap Map */
+                  <div>
+                    <LineChart data={this.props.confluenceData} />
+                    <CalendarHeatmap />
+                  </div>
                 )}
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.GITHUB && (
-                  <LineChart data={this.props.githubData} />
+
+                  /** Github Heap Map */
+
+                  <div>
+                    <LineChart data={this.props.githubData} />
+                    <CalendarHeatmap />
+                  </div>
+
+
                 )}
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.JIRA && (
-                  <LineChart data={this.props.jiraData} />
+                  
+                  /** Jira Pie Chart */
+                  /** Jira Heap Map */
+                  <div>
+                    
+                    <LineChart data={this.props.jiraData} />
+                    <DonutChart data={data} />
+                    <CalendarHeatmap />
+
+                  </div>
                 )}
+
+
+
+
+
             </Spin>
           </div>
         </div>
@@ -111,6 +176,29 @@ class ProcessQualityPage extends React.Component {
     );
   }
 }
+
+
+
+
+/** Jira Pie Chart Dummy Data */
+const data = {     
+  labels: [
+       'To Do',
+       'Doing',
+       'Done'
+     ],
+     datasets: [{
+       label: 'My First Dataset',
+       data: [300, 50, 100],
+       backgroundColor: [
+         'rgb(255, 99, 132)',
+         'rgb(54, 162, 235)',
+         'rgb(255, 205, 86)'
+       ],
+       hoverOffset: 4
+     }]
+   };
+
 
 function mapState(state) {
   return {
