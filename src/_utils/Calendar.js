@@ -8,10 +8,11 @@ export default function BigCalendar(props){
   const localizer = momentLocalizer(moment)
   const CURRENT_DATE = moment().toDate();
   const meetingList = ["2021-08-01", "2021-08-05"];
+  const keyDateList = props.keyDateList;
 
   function matchDate(date, dateList) { 
     for (let d in dateList) {
-      if (moment(date).isSame(moment(d), 'day')) {
+      if (moment(date).isSame(moment(dateList[d]), 'day')) {
         return true
       }
     }
@@ -24,17 +25,17 @@ export default function BigCalendar(props){
             ...children.style,
             // backgroundColor: moment(value).isSame(moment("2021-08-01"), 'day') ? 'lightgreen' : 
             // moment(value).isSame(moment(CURRENT_DATE), 'month') ? 'white': 'grey',
-            backgroundColor: matchDate(value, meetingList) ? 'lightblue' : 'white'
+            backgroundColor: matchDate(value, keyDateList) ? 'lightblue' : 'white'
         },
     });
   return (
     <div>
       <Calendar
         localizer={localizer}
-        events={[]}
+        events={props.events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{ height: 500 , width: '70%', padding: '50px'}}
         components={{
           dateCellWrapper: ColoredDateCellWrapper,
       }}
