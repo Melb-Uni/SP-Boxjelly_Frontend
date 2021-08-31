@@ -10,13 +10,13 @@
 **Project Overview Page**
 
 **Product Quality Page**
-ProductQuality_scitools, show code quality into diagram, jennychen89 <br />
+ProductQuality_scitools, ButtonGroup, show directory structure into PolarArea and directory/function metrics into Treemap, jennychen89 <br />
 
 **Process Quality Page**
 ProcessQuality, show Jira pie chart & Github, Confluence, Jira modifications/updates calendar heatmap, Line Graph for Time spent in Confluence, jennychen89 <br />
 
 **Communication Page**
-feature/Calendar Integration, show calendar ....... , Communicaiton Page, breh97 <br />
+feature/Calendar Integration, show calendar for key/meeting dates , Communicaiton Page, breh97 <br />
 
 **Individual Contribution Page**
 radar_chart, show individual contribution in the radar chart, Individual Contribution Page, jennychen89 <br />
