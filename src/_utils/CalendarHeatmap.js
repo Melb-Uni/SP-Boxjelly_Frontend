@@ -14,7 +14,7 @@ export default function App() {
   });
   return (
     <div>
-      <h1>react-calendar-heatmap number of modification/updates</h1>
+      <h3>react-calendar-heatmap number of modification/updates</h3>
       <p>Random values with onClick and react-tooltip</p>
       <CalendarHeatmap
         startDate={shiftDate(today, -150)}
@@ -28,7 +28,7 @@ export default function App() {
         }}
         tooltipDataAttrs={value => {
           return {
-            'data-tip': `${value.date} has count: ${
+            'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${
               value.count
             }`,
           };

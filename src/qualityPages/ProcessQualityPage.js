@@ -133,8 +133,13 @@ class ProcessQualityPage extends React.Component {
                 this.state.btnSelected == commonConstants.CONFLUENCE && (
                   
                   /** Confluence Heap Map */
+                  /** Confluence Time spend - Line graph */
                   <div>
                     <LineChart data={this.props.confluenceData} />
+                    <br />
+                    <h3>Total Time Spent</h3>
+                    <LineChart data={timespent} />
+                    <br />
                     <CalendarHeatmap />
                   </div>
                 )}
@@ -145,6 +150,7 @@ class ProcessQualityPage extends React.Component {
 
                   <div>
                     <LineChart data={this.props.githubData} />
+                    <br />
                     <CalendarHeatmap />
                   </div>
 
@@ -158,7 +164,10 @@ class ProcessQualityPage extends React.Component {
                   <div>
                     
                     <LineChart data={this.props.jiraData} />
+                    <br />
+                    <h3>Card Status in Jira Board</h3>
                     <DonutChart data={data} />
+                    <br />
                     <CalendarHeatmap />
 
                   </div>
@@ -178,6 +187,35 @@ class ProcessQualityPage extends React.Component {
 }
 
 
+/** Confluence total time spent for a week Dummy Data*/
+
+const today = new Date();
+const week = getWeek(today);
+
+function getWeek(today){
+  let week = [];
+  for(let i = 7; i > 0; i--){
+    week.push(shiftDate(today, -i).toISOString().slice(0, 10));
+  }
+  return week;
+}
+
+function shiftDate(date, numDays) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + numDays);
+  return newDate;
+}
+
+const timespent = {     
+    labels: week,
+    datasets: [{
+       label: 'Total Time Spent (minutes)',
+       data: [50, 54, 70, 76, 78, 80, 82],
+       backgroundColor: "rgba(75,192,192,0.2)",
+       borderColor: "rgba(75,192,192,1)"
+     }]
+   };
+
 
 
 /** Jira Pie Chart Dummy Data */
@@ -188,7 +226,7 @@ const data = {
        'Done'
      ],
      datasets: [{
-       label: 'My First Dataset',
+       label: 'Card Status',
        data: [300, 50, 100],
        backgroundColor: [
          'rgb(255, 99, 132)',
