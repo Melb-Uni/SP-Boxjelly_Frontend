@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { tupleExpression } from '@babel/types'
+import { Popover, OverlayTrigger, PopoverTitle, PopoverContent} from 'react-bootstrap';
 
 export default function BigCalendar(props){
   const localizer = momentLocalizer(moment)
@@ -28,6 +29,37 @@ export default function BigCalendar(props){
             backgroundColor: matchDate(value, keyDateList) ? 'lightblue' : 'white'
         },
     });
+
+  function ClickEvent({ event }) {
+    const popoverClickRootClose = (
+      <Popover id="popover-basic" style={{ zIndex: 10000, background: 'lightyellow'}}>
+        {/* <strong>Holy guacamole!</strong> Check this info.
+        <strong>{event.title}</strong> */}
+        <PopoverTitle><strong>{event.title}</strong></PopoverTitle>
+        <PopoverContent>
+          The event is from {event.start.toString()} to {event.end.toString()}
+        </PopoverContent>
+        <PopoverContent>
+          <a href="https://confluence.cis.unimelb.edu.au:8443//display/COMP900822021SM1SP/Meeting+Notes+for+30th%2C+March">
+            sample link to Confluence
+          </a>
+        </PopoverContent>
+        
+      </Popover>
+    );
+  
+    console.log(event);
+    return (
+      <div>
+        <div>
+          <OverlayTrigger id="help" trigger="click" rootClose container={this} placement="bottom" overlay={popoverClickRootClose}>
+            <div>{event.title}</div>
+          </OverlayTrigger>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Calendar
@@ -38,6 +70,7 @@ export default function BigCalendar(props){
         style={{ height: 500 , width: '70%', padding: '50px'}}
         components={{
           dateCellWrapper: ColoredDateCellWrapper,
+          event: ClickEvent
       }}
       />
     </div>

@@ -9,5 +9,10 @@ export default [
     'title': 'Client Meeting',
     'start': new Date(2021, 7, 1, 10, 30),
     'end': new Date(2021, 7, 1, 12, 30)
+  },
+  {
+    'title': 'Internal Meeting',
+    'start': new Date(2021, 7, 1, 13, 30),
+    'end': new Date(2021, 7, 1, 14, 30)
   }
 ]
