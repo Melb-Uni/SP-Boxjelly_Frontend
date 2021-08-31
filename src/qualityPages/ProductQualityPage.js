@@ -14,6 +14,7 @@ import ButtonGroup from "../_utils/ButtonGroup";
 import { commonConstants } from "../_constants";
 import { Spin } from "antd";
 import PolarArea from "../_utils/PolarArea";
+import Treemap from "../_utils/Treemap";
 
 
 class ProductQualityPage extends React.Component {
@@ -181,6 +182,25 @@ class ProductQualityPage extends React.Component {
 
                 )
               }
+              {this.state.hasConfig &&
+                this.state.btnSelected == commonConstants.DIRECTORY_METRICS && (
+
+                  <div>
+                    <Treemap data = {dir_data} />
+                  </div>
+
+                )
+              }
+              {this.state.hasConfig &&
+                this.state.btnSelected == commonConstants.FUNCTION_METRICS && (
+
+                  <div>
+                    <Treemap data={func_data} />
+                    
+                  </div>
+
+                )
+              }
             </Spin>
 
 
@@ -203,6 +223,92 @@ class ProductQualityPage extends React.Component {
     );
   }
 }
+
+/** Data for directory metrics */
+const dir_data = {
+  series: [
+    {
+      data: [
+        {
+          x: 'App.js',
+          y: 318
+        },
+        {
+          x: 'index.html',
+          y: 149
+        },
+        {
+          x: 'style.css',
+          y: 184
+        },
+        {
+          x: 'Home.js',
+          y: 40
+        },
+      ]
+    }
+  ],
+  options: {
+      legend: {
+        show: false
+      },
+      chart: {
+        height: 350,
+        type: 'treemap'
+      },
+      title: {
+      }
+    },
+    hasError: false
+};
+
+/** Data for function metrics */
+const func_data = {
+  series: [
+    {
+      data: [
+        {
+          x: 'my_func',
+          y: 80
+        },
+        {
+          x: 'our_func',
+          y: 149
+        },
+        {
+          x: 'your_func',
+          y: 60
+        },
+        {
+          x: 'his_func',
+          y: 40
+        },
+        {
+          x: 'her_func',
+          y: 50
+        },
+      ]
+    }
+  ],
+  options: {
+      colors: [
+      '#ff9eed'],
+      legend: {
+        show: false
+      },
+      chart: {
+        height: 350,
+        type: 'treemap'
+      },
+      title: {
+      }
+    },
+    hasError: false
+};
+
+
+
+
 
 function mapState(state) {
   return {
