@@ -1,3 +1,30 @@
+# COMP90082-2021-SM2-Boxjelly
+
+### Branches
+
+#### Branch Name, Features, Page, Author
+
+<pre>
+radar_chart, show individual contribution in the radar chart, Individual Contribution Page, jennychen89 <br />
+ProcessQuality, show Jira pie chart & Github, Confluence, Jira modifications/updates calendar heatmap, Process Quality page, jennychen89 <br />
+feature/Calendar Integration, show calendar ....... , Communicaiton Page, breh97 <br />
+
+</pre>
+
+
+### Tag/Version
+
+#### Version 1: (2021.)
+
+#### Version 2: (2021.)
+
+
+### Release
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
       This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
