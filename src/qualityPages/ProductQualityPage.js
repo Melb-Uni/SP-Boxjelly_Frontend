@@ -8,6 +8,15 @@ import { InformationalNote } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
 import ReverseTable from "../_utils/ReverseTable";
 
+
+
+import ButtonGroup from "../_utils/ButtonGroup";
+import { commonConstants } from "../_constants";
+import { Spin } from "antd";
+import PolarArea from "../_utils/PolarArea";
+import Treemap from "../_utils/Treemap";
+
+
 class ProductQualityPage extends React.Component {
   constructor(props) {
     super(props);
@@ -36,10 +45,42 @@ class ProductQualityPage extends React.Component {
           ratio: 50,
         },
       ],
+
+      btnNames: [
+        commonConstants.DIRECTORY_STRUCTURE,
+        commonConstants.DIRECTORY_METRICS,
+        commonConstants.FUNCTION_METRICS,
+      ],
+
+
+
       hasConfig:
         this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
     };
+
+    this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
   }
+
+  /** should be 
+  this.props.getTeamCodeMetrics(this.props.currentTeamKey); 
+  */
+  handleBtnGroupClick(e) {
+    let selected = e.currentTarget.firstChild.innerHTML;
+    if (selected == commonConstants.DIRECTORY_STRUCTURE) {
+      this.props.getTeamGithubCommits(this.props.currentTeamKey);
+    } else if (selected == commonConstants.DIRECTORY_METRICS) {
+      this.props.getTeamGithubCommits(this.props.currentTeamKey);
+    } else {
+      this.props.getTeamGithubCommits(this.props.currentTeamKey);
+    }
+    this.setState({
+      btnSelected: selected,
+    });
+  }
+
+
+
+
 
   componentDidMount() {
     if (this.state.hasConfig) {
@@ -114,6 +155,56 @@ class ProductQualityPage extends React.Component {
             {!this.state.hasConfig && (
               <InformationalNote message={alertConstants.NO_CONFIG} />
             )}
+
+            {/** add button */}
+            {this.state.hasConfig && (
+              
+             
+              <ButtonGroup
+                btnNames={this.state.btnNames}
+                clickHandler={this.handleBtnGroupClick}
+                selected={this.state.btnSelected}
+              />            
+            )}
+            <Spin
+              spinning={
+                this.props.requestTeamGithubCommits ||
+                this.props.requestTeamGithubCommits ||
+                this.props.requestTeamGithubCommits
+              }
+            >
+              {this.state.hasConfig &&
+                this.state.btnSelected == commonConstants.DIRECTORY_STRUCTURE && (
+
+                  <div>
+                    <PolarArea />
+                  </div>
+
+                )
+              }
+              {this.state.hasConfig &&
+                this.state.btnSelected == commonConstants.DIRECTORY_METRICS && (
+
+                  <div>
+                    <Treemap data = {dir_data} />
+                  </div>
+
+                )
+              }
+              {this.state.hasConfig &&
+                this.state.btnSelected == commonConstants.FUNCTION_METRICS && (
+
+                  <div>
+                    <Treemap data={func_data} />
+                    
+                  </div>
+
+                )
+              }
+            </Spin>
+
+
+
             {this.state.hasConfig &&
               this.props.teamCodeMetrics &&
               this.props.teamCodeMetrics.length != 0 && (
@@ -133,17 +224,109 @@ class ProductQualityPage extends React.Component {
   }
 }
 
+/** Data for directory metrics */
+const dir_data = {
+  series: [
+    {
+      data: [
+        {
+          x: 'App.js',
+          y: 318
+        },
+        {
+          x: 'index.html',
+          y: 149
+        },
+        {
+          x: 'style.css',
+          y: 184
+        },
+        {
+          x: 'Home.js',
+          y: 40
+        },
+      ]
+    }
+  ],
+  options: {
+      legend: {
+        show: false
+      },
+      chart: {
+        height: 350,
+        type: 'treemap'
+      },
+      title: {
+      }
+    },
+    hasError: false
+};
+
+/** Data for function metrics */
+const func_data = {
+  series: [
+    {
+      data: [
+        {
+          x: 'my_func',
+          y: 80
+        },
+        {
+          x: 'our_func',
+          y: 149
+        },
+        {
+          x: 'your_func',
+          y: 60
+        },
+        {
+          x: 'his_func',
+          y: 40
+        },
+        {
+          x: 'her_func',
+          y: 50
+        },
+      ]
+    }
+  ],
+  options: {
+      colors: [
+      '#ff9eed'],
+      legend: {
+        show: false
+      },
+      chart: {
+        height: 350,
+        type: 'treemap'
+      },
+      title: {
+      }
+    },
+    hasError: false
+};
+
+
+
+
+
 function mapState(state) {
   return {
     teamCodeMetrics: state.user.teamCodeMetrics,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
     teamInfo: state.user.teamInfo,
+
+
+    requestTeamGithubCommits: state.user.requestTeamGithubCommits,
   };
 }
 
 const actionCreators = {
   getTeamCodeMetrics: userActions.getTeamCodeMetrics,
+
+
+  getTeamGithubCommits: userActions.getTeamGithubCommits,
 };
 
 const ProductQuality = connect(mapState, actionCreators)(ProductQualityPage);
