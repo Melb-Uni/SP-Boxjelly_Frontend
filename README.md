@@ -1,3 +1,42 @@
+# COMP90082-2021-SM2-Boxjelly
+
+### Branches
+
+#### Branch Name, Features, Author
+
+<pre>
+**Home Page**
+
+**Project Overview Page**
+
+**Product Quality Page**
+ProductQuality_scitools, ButtonGroup, show directory structure into PolarArea and directory/function metrics into Treemap, jennychen89 <br />
+
+**Process Quality Page**
+ProcessQuality, show Jira pie chart & Github, Confluence, Jira modifications/updates calendar heatmap, Line Graph for Time spent in Confluence, jennychen89 <br />
+
+**Communication Page**
+feature/Calendar Integration, show calendar for key/meeting dates , Communicaiton Page, breh97 <br />
+
+**Individual Contribution Page**
+radar_chart, show individual contribution in the radar chart, Individual Contribution Page, jennychen89 <br />
+
+</pre>
+
+
+### Tag/Version
+
+#### Version 1: (2021.)
+
+#### Version 2: (2021.)
+
+
+### Release
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
       This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
