@@ -10,6 +10,13 @@ import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
 import { InformationalNote } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
+import { Button, Dropdown } from "bootstrap";
+
+/** new added */
+import DonutChart from "../_utils/DonutChart";
+import CalendarHeatmap from "../_utils/CalendarHeatmap";
+
+
 
 class ProcessQualityPage extends React.Component {
   constructor(props) {
@@ -21,6 +28,15 @@ class ProcessQualityPage extends React.Component {
         commonConstants.GITHUB,
         commonConstants.JIRA,
       ],
+
+      /** extra buttons */
+      /*
+      btnNames2: [
+        commonConstants.JIRA_VISUALIZATION,
+        commonConstants.CALENDAR,
+      ],
+      */
+      
 
       btnSelected: commonConstants.CONFLUENCE,
       scrollPosition: 0,
@@ -38,6 +54,14 @@ class ProcessQualityPage extends React.Component {
       this.props.getTeamConfluencePages(this.props.currentTeamKey);
     } else if (selected == commonConstants.GITHUB) {
       this.props.getTeamGithubCommits(this.props.currentTeamKey);
+    
+    // } else if (selected == commonConstants.JIRA_VISUALIZATION) {
+    //  this.props.getTeamJiraTickets(this.props.currentTeamKey);
+    
+
+
+
+
     } else {
       this.props.getTeamJiraTickets(this.props.currentTeamKey);
     }
@@ -78,11 +102,25 @@ class ProcessQualityPage extends React.Component {
               <InformationalNote message={alertConstants.NO_CONFIG} />
             )}
             {this.state.hasConfig && (
+              
+             
               <ButtonGroup
                 btnNames={this.state.btnNames}
                 clickHandler={this.handleBtnGroupClick}
                 selected={this.state.btnSelected}
               />
+
+              /** add extra buttons here */
+              /**
+              <div>
+              <ButtonGroup 
+                btnNames={this.state.btnNames2}
+                clickHandler={this.handleBtnGroupClick}
+                selected={this.state.btnSelected}/>
+              </div>
+              */
+              
+
             )}
             <Spin
               spinning={
@@ -93,16 +131,52 @@ class ProcessQualityPage extends React.Component {
             >
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.CONFLUENCE && (
-                  <LineChart data={this.props.confluenceData} />
+                  
+                  /** Confluence Heap Map */
+                  /** Confluence Time spend - Line graph */
+                  <div>
+                    <LineChart data={this.props.confluenceData} />
+                    <br />
+                    <h3>Total Time Spent</h3>
+                    <LineChart data={timespent} />
+                    <br />
+                    <CalendarHeatmap />
+                  </div>
                 )}
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.GITHUB && (
-                  <LineChart data={this.props.githubData} />
+
+                  /** Github Heap Map */
+
+                  <div>
+                    <LineChart data={this.props.githubData} />
+                    <br />
+                    <CalendarHeatmap />
+                  </div>
+
+
                 )}
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.JIRA && (
-                  <LineChart data={this.props.jiraData} />
+                  
+                  /** Jira Pie Chart */
+                  /** Jira Heap Map */
+                  <div>
+                    
+                    <LineChart data={this.props.jiraData} />
+                    <br />
+                    <h3>Card Status in Jira Board</h3>
+                    <DonutChart data={data} />
+                    <br />
+                    <CalendarHeatmap />
+
+                  </div>
                 )}
+
+
+
+
+
             </Spin>
           </div>
         </div>
@@ -111,6 +185,58 @@ class ProcessQualityPage extends React.Component {
     );
   }
 }
+
+
+/** Confluence total time spent for a week Dummy Data*/
+
+const today = new Date();
+const week = getWeek(today);
+
+function getWeek(today){
+  let week = [];
+  for(let i = 7; i > 0; i--){
+    week.push(shiftDate(today, -i).toISOString().slice(0, 10));
+  }
+  return week;
+}
+
+function shiftDate(date, numDays) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + numDays);
+  return newDate;
+}
+
+const timespent = {     
+    labels: week,
+    datasets: [{
+       label: 'Total Time Spent (minutes)',
+       data: [50, 54, 70, 76, 78, 80, 82],
+       backgroundColor: "rgba(75,192,192,0.2)",
+       borderColor: "rgba(75,192,192,1)"
+     }]
+   };
+
+
+
+/** Jira Pie Chart Dummy Data */
+const data = {     
+  labels: [
+       'To Do',
+       'Doing',
+       'Done'
+     ],
+     datasets: [{
+       label: 'Card Status',
+       data: [300, 50, 100],
+       backgroundColor: [
+         'rgb(255, 99, 132)',
+         'rgb(54, 162, 235)',
+         'rgb(255, 205, 86)'
+       ],
+       hoverOffset: 4
+     }]
+   };
+
 
 function mapState(state) {
   return {
