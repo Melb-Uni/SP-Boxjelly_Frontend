@@ -15,6 +15,10 @@ import { Button, Dropdown } from "bootstrap";
 /** new added */
 import DonutChart from "../_utils/DonutChart";
 import CalendarHeatmap from "../_utils/CalendarHeatmap";
+import { Tab, Col, Row, Container, DropdownButton } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import burnup from "../_utils/icons/Burnup_Chart.png";
+import burndown from "../_utils/icons/Burndown_Chart.png";
 
 
 
@@ -76,11 +80,20 @@ class ProcessQualityPage extends React.Component {
     });
   }
 
+  handleUpClick = () => {
+    window.open("https://react-bootstrap.github.io/components/buttons/");
+  };
+
+  handleDownClick = () => {
+    window.open("https://react-bootstrap.github.io/components/button-group/");
+  }; 
+
   componentDidMount() {
     if (this.state.hasConfig) {
       this.props.getTeamConfluencePages(this.props.currentTeamKey);
     }
-    window.addEventListener("scroll", this.handleScroll);
+    //comment previous 
+    //window.addEventListener("scroll", this.handleScroll);
   }
 
   componentWillUnmount() {
@@ -90,6 +103,8 @@ class ProcessQualityPage extends React.Component {
   componentDidUpdate() {
     window.scrollTo(0, parseInt(this.state.scrollPosition));
   }
+
+  
 
   render() {
     return (
@@ -135,12 +150,29 @@ class ProcessQualityPage extends React.Component {
                   /** Confluence Heap Map */
                   /** Confluence Time spend - Line graph */
                   <div>
-                    <LineChart data={this.props.confluenceData} />
-                    <br />
-                    <h3>Total Time Spent</h3>
-                    <LineChart data={timespent} />
-                    <br />
-                    <CalendarHeatmap />
+                    <Container>
+                      <Row>
+                        <LineChart data={this.props.confluenceData} />
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                      </Row>
+
+                      <Row>
+                        <h3>Total Time Spent</h3>
+                        <LineChart data={timespent} />
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                      </Row>
+                    
+                      <CalendarHeatmap />
+                      <CalendarHeatmap />
+
+                    </Container>
+
                   </div>
                 )}
               {this.state.hasConfig &&
@@ -149,9 +181,19 @@ class ProcessQualityPage extends React.Component {
                   /** Github Heap Map */
 
                   <div>
-                    <LineChart data={this.props.githubData} />
-                    <br />
-                    <CalendarHeatmap />
+                    <Container>
+                        <Row>
+                          <LineChart data={this.props.githubData} />
+                          <br/>
+                          <br/>
+                          <br/>
+                          <br/>
+                        </Row>
+                      
+                        <CalendarHeatmap />
+                        <CalendarHeatmap />
+                      
+                    </Container>
                   </div>
 
 
@@ -161,14 +203,51 @@ class ProcessQualityPage extends React.Component {
                   
                   /** Jira Pie Chart */
                   /** Jira Heap Map */
+                  /** Jira Report Button */
+
                   <div>
-                    
-                    <LineChart data={this.props.jiraData} />
-                    <br />
-                    <h3>Card Status in Jira Board</h3>
-                    <DonutChart data={data} />
-                    <br />
-                    <CalendarHeatmap />
+                    <Container>
+                      <Row>
+                        <LineChart data={this.props.jiraData} />
+                        <br/>
+                        <br/>
+                      </Row>
+                      
+                      <Row>
+                        <h3>Card Status in Jira Board</h3>
+                        <DonutChart data={data} options={{height: "100"}} />
+                        {/**<DonutChart data={data} options={{height: "100"}} /> */}
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                      </Row>
+
+          
+                        <CalendarHeatmap />
+                        <CalendarHeatmap />
+
+                        
+                        <h3>Report</h3>
+                        <br/>
+                        <br/>
+                      
+                      
+
+                      <Row>
+
+
+                        <Col>
+                          <button><img src={burnup} alt="Burnup Chart" onClick={this.handleUpClick} /></button>
+                        </Col>
+                        <Col>
+                          <button><img src={burndown} alt="Burndown Chart" onClick={this.handleDownClick}/></button>
+                        </Col>
+
+                        
+                      </Row>
+                    </Container>
 
                   </div>
                 )}
