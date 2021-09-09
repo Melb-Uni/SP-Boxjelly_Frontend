@@ -8,7 +8,7 @@ export default function RadarChart(props){
     
     return (
         <div>
-            <ReactApexChart options={options} series={series} type="radar" height={350}/>
+            <ReactApexChart options={options} series={series} type="radar" height={500}/>
         </div>
     );
 }
