@@ -30,7 +30,9 @@ export default function App() {
           return {
             'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${
               value.count
-            }`,
+            } -> who, what commit comment, time, update/modify, url
+            
+            `,
           };
         }}
         showWeekdayLabels={true}
