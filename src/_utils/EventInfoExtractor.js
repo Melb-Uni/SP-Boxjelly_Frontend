@@ -7,8 +7,12 @@ function eventsFilter(events, type) {
 }
 
 function events2HourAndMinute(event) {
-  return [event.start.getHours() + ":" + event.start.getMinutes(), 
-  event.end.getHours() + ":" + event.end.getMinutes()];
+  let startHour = (event.start.getHours() < 10) ? '0' + event.start.getHours() : event.start.getHours();
+  let startMinute = (event.start.getMinutes() < 10) ? '0' + event.start.getMinutes() : event.start.getMinutes();
+  let endHour = (event.end.getHours() < 10) ? '0' + event.end.getHours() : event.end.getHours();
+  let endMinute = (event.end.getMinutes() < 10) ? '0' + event.end.getMinutes() : event.end.getMinutes();
+  return [startHour + ":" + startMinute, 
+  endHour + ":" + endMinute];
 }
 
 function isToday(date) {
