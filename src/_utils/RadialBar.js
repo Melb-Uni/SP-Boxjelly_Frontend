@@ -9,7 +9,7 @@ export default function RadialBar(props){
     
     return (
         <div>
-            <ReactApexChart options={options} series={series} labels={labels} type="radialBar" height={350}/>
+            <ReactApexChart options={options} series={series} labels={labels} type="radialBar" height={400}/>
         </div>
     );
 }
