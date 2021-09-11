@@ -8,7 +8,7 @@ import { alertConstants } from "../_constants";
 import { InformationalNote } from "../_utils/Alert";
 import CustomisedCalendar from "../_utils/Calendar";
 import Events from "../_utils/Events";
-import { events2Dates, events2Title } from "../_utils/EventInfoExtractor"
+import { events2Dates, eventsFilter} from "../_utils/EventInfoExtractor"
 
 class CommunicationPage extends React.Component {
   constructor(props) {
@@ -71,8 +71,9 @@ class CommunicationPage extends React.Component {
         <div>
           <CustomisedCalendar
             events={Events}
-            keyDateList={events2Dates(Events)}
-          />
+            keyDateList={events2Dates(eventsFilter(Events, 'Key date'))}
+            meetingList={events2Dates(eventsFilter(Events, 'Meeting'))}
+          />  
         </div>
       </div>
     );
