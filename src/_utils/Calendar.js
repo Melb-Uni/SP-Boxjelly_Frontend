@@ -23,9 +23,10 @@ const useStyles = makeStyles ({
     padding: 10,
     borderRadius: 6,
     boxShadow: "5px 1px 1px lightgrey",
+    // borderStyle: "solid"
   },
   keyDateCard: {
-    width: '10em',
+    width: 150,
     height: 30,
     background: "lightgreen",
     margin: "auto",
@@ -33,12 +34,11 @@ const useStyles = makeStyles ({
     marginLeft: 20
   },
   meetingCard: {
-    width: '10em',
+    width: 150,
     height: 30,
     background: "lightblue",
     margin: "auto",
-    marginLeft: '0.5em',
-    marginRight: '40em'
+    marginRight: 600
   },
   cardContent: {
     "&:last-child": {
