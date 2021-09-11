@@ -80,7 +80,6 @@ class IndividualContributionPage extends React.Component {
 
              {/**+++++++++++++++++++++++++++++++++++++++++++++++++++ */}
 
-
             {this.state.hasConfig && (
               <Container>
                 <Tab.Container id="left-tabs-example">
@@ -189,7 +188,6 @@ class IndividualContributionPage extends React.Component {
                   <br/>
                   <br/>
                   <h1>Current Design -------------------------------- </h1>
-                  
                   <Row>
                     <Col>
                       <ColumnChart data={column_all_data} />
@@ -202,6 +200,9 @@ class IndividualContributionPage extends React.Component {
                   <br/>
                   <br/>
                   <br/>
+                  
+                  <Row> <h3 class="text-center">More Details Below</h3></Row>
+                  <br/>
 
                   <Row>
 
@@ -212,7 +213,11 @@ class IndividualContributionPage extends React.Component {
                         <Card.Body>
                           <Card.Title><small> Latest Commits</small></Card.Title>
                           <Card.Text>
-                            This is a latest commits
+                            <div class="col-sm col-xs-12">user1: This is a latest commits </div>
+                            <div class="col-sm col-xs-12">user2: This is a latest commits </div>
+                            <div class="col-sm col-xs-12">user3: This is a latest commits </div>
+                            <div class="col-sm col-xs-12">user4: This is a latest commits </div>
+                            <div class="col-sm col-xs-12">user5: This is a latest commits </div>
                           </Card.Text>
                         </Card.Body>
                         <Card.Footer>
@@ -226,7 +231,11 @@ class IndividualContributionPage extends React.Component {
                         <Card.Body>
                           <Card.Title><small>Most Document Updated</small></Card.Title>
                           <Card.Text>
-                            Document Name
+                            <div class="col-sm col-xs-12">user1: Document Name </div>
+                            <div class="col-sm col-xs-12">user2: Document Name </div>
+                            <div class="col-sm col-xs-12">user3: Document Name </div>
+                            <div class="col-sm col-xs-12">user4: Document Name </div>
+                            <div class="col-sm col-xs-12">user5: Document Name </div>
                           </Card.Text>
                         </Card.Body>
                         <Card.Footer>
@@ -240,7 +249,11 @@ class IndividualContributionPage extends React.Component {
                         <Card.Body>
                           <Card.Title><small>Most Document Modified</small></Card.Title>
                           <Card.Text>
-                            Document Name
+                            <div class="col-sm col-xs-12">user1: Document Name </div>
+                            <div class="col-sm col-xs-12">user2: Document Name </div>
+                            <div class="col-sm col-xs-12">user3: Document Name </div>
+                            <div class="col-sm col-xs-12">user4: Document Name </div>
+                            <div class="col-sm col-xs-12">user5: Document Name </div>
                           </Card.Text>
                         </Card.Body>
                         <Card.Footer>
@@ -252,9 +265,13 @@ class IndividualContributionPage extends React.Component {
                     <div className='m-2'>
                       <Card border={'success'}>
                         <Card.Body>
-                          <Card.Title><small>Most Card tag</small></Card.Title>
+                          <Card.Title><small>Most Card Tag</small></Card.Title>
                           <Card.Text>
-                            High Priority
+                            <div class="col-sm col-xs-12">user1: Card Tag Name</div>
+                            <div class="col-sm col-xs-12">user2: Card Tag Name</div>
+                            <div class="col-sm col-xs-12">user3: Card Tag Name</div>
+                            <div class="col-sm col-xs-12">user4: Card Tag Name</div>
+                            <div class="col-sm col-xs-12">user5: Card Tag Name</div>
                           </Card.Text>
                         </Card.Body>
                         <Card.Footer>
@@ -263,6 +280,7 @@ class IndividualContributionPage extends React.Component {
                       </Card>
                     </div>
 
+{/** 
                     <div className='m-2'>         
                       <Card border={'warning'}>
                         <Card.Body>
@@ -276,7 +294,7 @@ class IndividualContributionPage extends React.Component {
                         </Card.Footer>
                       </Card>
                     </div>
-
+*/}
 
                   </CardGroup>
 
@@ -289,6 +307,7 @@ class IndividualContributionPage extends React.Component {
 
                 </Tab.Container>
               </Container>
+
             )}
           </div>
         </div>
@@ -299,19 +318,19 @@ class IndividualContributionPage extends React.Component {
 
 const all_data = [{
   name: 'user1',
-  data: [44, 13, 11, 21, 41, 11],
+  data: [40, 23, 20, 21, 15, 11],
 }, {
   name: 'user2',
-  data: [55, 23, 17, 7, 50, 15],
+  data: [15, 23, 17, 15, 30, 15],
 }, {
   name: 'user3',
-  data: [41, 20, 15, 25, 21, 35],
+  data: [10, 20, 21, 25, 21, 30],
 }, {
   name: 'user4',
-  data: [67, 8, 15, 13, 73, 30],
+  data: [10, 24, 21, 17, 17, 30],
 }, {
   name: 'user5',
-  data: [22, 13, 21, 22, 32, 12],
+  data: [25, 12, 21, 22, 17, 14],
 }
 ];
 
@@ -325,6 +344,18 @@ const radar_all_data = {
       type: 'radar',
     },
     title: {
+      text: "Team Radar Chart: Hover the Name to View Individual",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '15px',
+        fontWeight:  'bold',
+        //fontFamily:  undefined,
+        color:  '#263238'
+      },
     },
     xaxis: {
       categories: ['Document Modification', 'Task Assignment(@)', 'Meeting Attendance', 'Number of Commits', 'Total Code lines', 'Cards Assignment']
@@ -340,22 +371,22 @@ const column_all_data = {
     
   series: [{
     name: 'Document Modification',
-    data: [44, 55, 41, 67, 22]
+    data: [40, 15, 10, 10, 25]
   }, {
     name: 'Task Assignment (@)',
-    data: [13, 23, 20, 8, 13]
+    data: [23, 23, 20, 24, 12]
   }, {
     name: 'Meeting Attendance',
-    data: [11, 17, 15, 15, 21]
+    data: [20, 17, 21, 21, 21]
   }, {
     name: 'Number of Commits',
-    data: [21, 7, 25, 13, 22]
+    data: [21, 15, 25, 17, 22]
   }, {
     name: 'Total Code lines',
-    data: [41, 50, 21, 73, 32]
+    data: [15, 30, 21, 17, 17]
   }, {
     name: 'Cards Assignment',
-    data: [11, 15, 35, 30, 12]
+    data: [11, 15, 30, 30, 14]
   }
 
 
@@ -382,6 +413,30 @@ const column_all_data = {
           console.log(config.dataPointIndex);
         }
       }
+    },
+    title: {
+      text: "Team Bar Chart: Hover the Legend to Compare Task",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '15px',
+        fontWeight:  'bold',
+        //fontFamily:  undefined,
+        color:  '#263238'
+      },
+    },
+    yaxis: { 
+      show: true,
+      title: {
+        text: "% of Tasks",
+      },
+      style: {
+        fontWeight: 'normal',
+      }
+
     },
     responsive: [{
       breakpoint: 480,
