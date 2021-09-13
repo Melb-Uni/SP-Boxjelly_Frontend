@@ -187,7 +187,12 @@ class ProductQualityPage extends React.Component {
                 this.state.btnSelected == commonConstants.DIRECTORY_STRUCTURE && (
 
                   <div>
-                    <PolarArea />
+                    <Container >
+                      <h2 style={{fontSize: "21px"}}><b>Top 10 Files: Number of Lines in Directory</b></h2>
+                      <br/>
+                      <PolarArea data={polar_data}/>
+                    </Container>
+                    <br/>
                   </div>
 
                 )
@@ -307,6 +312,26 @@ class ProductQualityPage extends React.Component {
 
 /********************************************************************************************/
 
+const polar_data = {
+
+  labels: ['Red.js', 'Blue.js', 'Yellow.js', 'Green.html', 'Purple.css', 'Orange.js'],
+  datasets: [
+    {
+      data: [12, 17, 3, 5, 9, 3],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(255, 206, 86, 0.8)',
+        'rgba(75, 192, 192, 0.8)',
+        'rgba(153, 102, 255, 0.8)',
+        'rgba(255, 159, 64, 0.8)',
+      ],
+      borderWidth: 1,
+    }
+  ],
+};
+
+
 const radial_data = {
   series: [44, 50],
   options: {
@@ -339,8 +364,20 @@ const radial_data = {
       }
     },
     labels: ['Declarative Statements', 'Executable Statements'],
-    colors: [
-      '#68b54a', '#735dde'],
+    colors: ['#68b54a', '#735dde'],
+    title: {
+      text: "Statments Comparison",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '16px',
+        fontWeight:  'bold',
+        color:  '#263238'
+      },
+  }
 
 }};
 
@@ -374,6 +411,19 @@ const radar_func_data = {
     },
     xaxis: {
       categories: ['Blank Line', 'Code Line', 'Declarative Code Line', 'Executable Line', 'Comment Line']
+    },
+    title: {
+      text: "Line Comparison",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '16px',
+        fontWeight:  'bold',
+        color:  '#263238'
+      },
     }
   },
 
@@ -405,7 +455,20 @@ const radar_dir_data = {
     },
     xaxis: {
       categories: ['Blank Line', 'Code Line', 'Declarative Code Line', 'Executable Line', 'Comment Line']
-    }
+    },
+    title: {
+      text: "Line Comparison",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '16px',
+        fontWeight:  'bold',
+        color:  '#263238'
+      },
+  }
   },
 
 
@@ -444,7 +507,18 @@ const dir_data = {
         type: 'treemap'
       },
       title: {
-      }
+        text: "Top 10 Files: Choose Metrics to View Various Comparison",
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          color:  '#263238'
+        },
+    }
     },
     hasError: false
 };
@@ -482,7 +556,18 @@ const dir_metric_data = {
         type: 'treemap'
       },
       title: {
-      }
+        text: "Top 10 Files: Choose Metrics to View Various Comparison",
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          color:  '#263238'
+        },
+    }
     },
     hasError: false
 };
@@ -526,7 +611,18 @@ const func_metric_data = {
         type: 'treemap'
       },
       title: {
-      }
+        text: "Top 10 Functions: Choose Metrics to View Various Comparison",
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          color:  '#263238'
+        },
+    }
     },
     hasError: false
 };
@@ -572,7 +668,18 @@ const func_data = {
         type: 'treemap'
       },
       title: {
-      }
+        text: "Top 10 Functions: Choose Metrics to View Various Comparison",
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          color:  '#263238'
+        },
+    }
     },
     hasError: false
 };
