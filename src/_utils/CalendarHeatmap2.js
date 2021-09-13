@@ -10,7 +10,7 @@ export default function Heatmap(props) {
   
   return (
     <div>
-      <h3>Calendar-Heatmap of Updates</h3>
+      <h3>Calendar-Heatmap of Modification</h3>
       <p> Click to View Details</p>
       <CalendarHeatmap
         startDate={shiftDate(today, -150)}
@@ -20,7 +20,7 @@ export default function Heatmap(props) {
           if (!value) {
             return 'color-empty';
           }
-          return `color-github-${value.count}`;
+          return `color-gitlab-${value.count}`;
         }}
         tooltipDataAttrs={value => {
           return {
