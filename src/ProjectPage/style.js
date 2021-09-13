@@ -26,12 +26,32 @@ export const ControlBar = styled.div`
         height: 30px;
     }
 `
+export const MembersWrap = styled.div`
+    margin-top: 50px;
+    width: 100%;
+    thead.ant-table-thead{
+        line-height: 60px;
+    }
+    th.ant-table-cell{
+        font-weight: 600;
+    }
+    td{
+        line-height: 50px;
+        min-width: 283px;
+    }
+    img{
+        width: 60px;
+    }
+    td:last-of-type, th:last-of-type{
+        min-width: 400px;
+    }
+`
 
 export const GitHubContent = styled.div`
     margin-top: 100px;
     width: 100%;
     height: 800px;
-    table a{
+    table .link{
         width: 140px;
         height: 35px;
         border: 1px solid rgb(192, 192, 192);
@@ -54,25 +74,37 @@ export const GitHubContent = styled.div`
     tr td{
         min-width: 200px;
     }
+    th{
+        line-height: 40px;
+    }
+    td{
+        line-height: 35px;
+    }
 }
 
 
 `
 export const JiraContent = styled(GitHubContent)`
-
+    table a{
+        border: none;
+    }
 `
-export const ConfluenceContent = styled(GitHubContent)`
+export const ConfluenceContent = styled.div`
     border-top: 1px solid rgb(192, 192, 192);
     width: 50%;
     margin: 100px auto 0;
     padding-top: 20px;
+    height: 800px;
     img{
         width: 25px;
         vertical-align: center;
     }
-    span{
+    span, p{
         color: rgb(12,48,74);
         font-weight: 500;
+    }
+    p{
+        text-indent: 30px;
     }
 `
 
@@ -80,11 +112,16 @@ export const Comment = styled(GitHubContent)`
     width: 50%;
     margin: 60px auto 0;
     text-align: right;
+    position: relative;
     >div{
         text-align: left;
         font-size: 20px;
         font-weight: 500;
         margin: 20px 0;
+    }
+    button:first-of-type{
+        position: absolute;
+        left: 0;
     }
     button{
         background: rgb(26,66,127);
