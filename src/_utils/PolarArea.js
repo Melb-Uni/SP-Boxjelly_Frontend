@@ -1,6 +1,19 @@
 import React from 'react'
 import PolarArea  from 'react-chartjs-2'
 
+
+export default function Polar(props){
+  const data = props.data;
+
+
+  
+  return (
+      <div>
+          <PolarArea data={data} type="polarArea" options={{legend: { display: true, position: "bottom", labels: {fontSize: 15}}}} />
+      </div>
+  );
+}
+/*
 class App extends React.Component {
     render() {
         const data = {
@@ -20,7 +33,6 @@ class App extends React.Component {
               }
             ],
         };
-        console.log(data);
 
         return(
             <div>
@@ -31,3 +43,4 @@ class App extends React.Component {
     }
 }
 export default App;
+*/

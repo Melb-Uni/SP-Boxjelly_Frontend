@@ -10,16 +10,19 @@ import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
 import { InformationalNote } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
-import { Button, Dropdown } from "bootstrap";
+
+import { Button } from "bootstrap";
 
 /** new added */
 import DonutChart from "../_utils/DonutChart";
 import CalendarHeatmap from "../_utils/CalendarHeatmap";
-import { Tab, Col, Row, Container, DropdownButton } from "react-bootstrap";
+import { Tab, Col, Row, Container, DropdownButton, Dropdown} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import burnup from "../_utils/icons/Burnup_Chart.png";
 import burndown from "../_utils/icons/Burndown_Chart.png";
-
+import CalendarHeatmap2 from "../_utils/CalendarHeatmap2";
+import AreaChart from "../_utils/AreaChart";
+import DonutChart2 from "../_utils/DonutChart2";
 
 
 class ProcessQualityPage extends React.Component {
@@ -46,6 +49,9 @@ class ProcessQualityPage extends React.Component {
       scrollPosition: 0,
       hasConfig:
         this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
+
+      //timespent: all_timespent,
+      doc_time: all_doc_time,
     };
 
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
@@ -159,17 +165,50 @@ class ProcessQualityPage extends React.Component {
                         <br/>
                       </Row>
 
+                      
+
                       <Row>
-                        <h3>Total Time Spent</h3>
-                        <LineChart data={timespent} />
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
+                        <Col xs="9">
+                          <AreaChart data={this.state.doc_time} />
+                        </Col>
+                        <Col xs="1">
+                          <DropdownButton
+                              id="dropdown-button-dark-example2"
+                              variant="secondary"
+                              title="Document"
+                              className="mt-2"
+                            >
+                              <Dropdown.Item onClick={e => this.setState({doc_time: all_doc_time})}>Total</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({doc_time: one_doc_time})}>Project Requirement</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({doc_time: two_doc_time})}>Design Concept</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({doc_time: one_doc_time})}>Architecture</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({doc_time: two_doc_time})}>Product Backlog</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({doc_time: one_doc_time})}>Risk Management</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({doc_time: two_doc_time})}>Quality Assurance</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({doc_time: one_doc_time})}>Sprint Summary</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({doc_time: two_doc_time})}>Meeting Notes</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({doc_time: one_doc_time})}>API Documents</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({doc_time: two_doc_time})}>Deployment</Dropdown.Item>                       
+                            </DropdownButton>
+                        </Col>
+                          
                       </Row>
+                        
+                      
+                      {/* <Row>
+                          <LineChart data={this.state.timespent} />
+                      </Row> */}
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
                     
-                      <CalendarHeatmap />
-                      <CalendarHeatmap />
+                      <CalendarHeatmap values={randomValues}/>
+                      <CalendarHeatmap2 values={randomValues}/>
 
                     </Container>
 
@@ -189,9 +228,9 @@ class ProcessQualityPage extends React.Component {
                           <br/>
                           <br/>
                         </Row>
-                      
-                        <CalendarHeatmap />
-                        <CalendarHeatmap />
+
+                        <CalendarHeatmap values={randomValues}/>
+                        <CalendarHeatmap2 values={randomValues}/>
                       
                     </Container>
                   </div>
@@ -213,23 +252,39 @@ class ProcessQualityPage extends React.Component {
                         <br/>
                       </Row>
                       
+                      {/*
                       <Row>
                         <h3>Card Status in Jira Board</h3>
-                        <DonutChart data={data} options={{height: "100"}} />
+                      <DonutChart data={data} options={{height: "100"}} />*/}
                         {/**<DonutChart data={data} options={{height: "100"}} /> */}
+                      {/*
                         <br/>
                         <br/>
                         <br/>
                         <br/>
 
                       </Row>
-
-          
-                        <CalendarHeatmap />
-                        <CalendarHeatmap />
-
+                      */}
+                      
+                      <Row className="justify-content-center" >
                         
-                        <h3>Report</h3>
+                          <DonutChart2 data={donut_data}/>
+                        
+
+                      
+                      </Row>
+                      
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>
+                      
+
+
+                      <CalendarHeatmap values={randomValues}/>
+                      <CalendarHeatmap2 values={randomValues}/>
+
+                        <h3>Click to Direct to Jira Report</h3>
                         <br/>
                         <br/>
                       
@@ -266,6 +321,7 @@ class ProcessQualityPage extends React.Component {
 }
 
 
+
 /** Confluence total time spent for a week Dummy Data*/
 
 const today = new Date();
@@ -285,7 +341,129 @@ function shiftDate(date, numDays) {
   return newDate;
 }
 
-const timespent = {     
+const all_doc_time = {
+
+  series: [{
+    name: 'Total Time Spent (minutes)',
+    data: [50, 54, 70, 76, 78, 80, 82],
+  }],
+  options: {
+    chart: {
+    type: 'area',
+    height: 350,
+    zoom: {
+        enabled: false
+    }
+    },
+    dataLabels: {
+    enabled: false
+    },
+    colors: ['#FF7F00'],
+    stroke: {
+    curve: 'straight'
+    },
+    
+    title: {
+    text: 'Document Time Spent',
+    align: 'left'
+    },
+    labels: week,
+    xaxis: {
+    type: 'datetime',
+    },
+    yaxis: {
+    opposite: true
+    },
+    legend: {
+    horizontalAlign: 'left'
+    }
+},
+
+};
+
+const one_doc_time = {
+
+  series: [{
+    name: 'Doc1 Time Spent (minutes)',
+    data: [5, 5, 7, 7, 8, 10, 12],
+  }],
+  options: {
+    chart: {
+    type: 'area',
+    height: 350,
+    zoom: {
+        enabled: false
+    }
+    },
+    dataLabels: {
+    enabled: false
+    },
+    colors: ['#FF7F00'],
+    stroke: {
+    curve: 'straight'
+    },
+    
+    title: {
+    text: 'Document Time Spent',
+    align: 'left'
+    },
+    labels: week,
+    xaxis: {
+    type: 'datetime',
+    },
+    yaxis: {
+    opposite: true
+    },
+    legend: {
+    horizontalAlign: 'left'
+    }
+},
+
+};
+
+const two_doc_time = {
+
+  series: [{
+    name: 'Doc2 Time Spent (minutes)',
+    data: [1, 4, 7, 7, 7, 8, 8],
+  }],
+  options: {
+    chart: {
+    type: 'area',
+    height: 350,
+    zoom: {
+        enabled: false
+    }
+    },
+    dataLabels: {
+    enabled: false
+    },
+    colors: ['#FF7F00'],
+    stroke: {
+    curve: 'straight'
+    },
+    
+    title: {
+    text: 'Document Time Spent',
+    align: 'left'
+    },
+    labels: week,
+    xaxis: {
+    type: 'datetime',
+    },
+    yaxis: {
+    opposite: true
+    },
+    legend: {
+    horizontalAlign: 'left'
+    }
+},
+
+};
+
+
+/*
+const all_timespent = {     
     labels: week,
     datasets: [{
        label: 'Total Time Spent (minutes)',
@@ -295,9 +473,48 @@ const timespent = {
      }]
    };
 
+  const one_timespent = {     
+  labels: week,
+  datasets: [{
+      label: 'Total Time Spent (minutes)',
+      data: [5, 5, 7, 7, 8, 10, 12],
+      backgroundColor: "rgba(75,192,192,0.2)",
+      borderColor: "rgba(75,192,192,1)"
+    }]
+  };
+
+  const two_timespent = {     
+  labels: week,
+  datasets: [{
+      label: 'Total Time Spent (minutes)',
+      data: [1, 4, 7, 7, 7, 8, 8],
+      backgroundColor: "rgba(75,192,192,0.2)",
+      borderColor: "rgba(75,192,192,1)"
+    }]
+  };
+*/
 
 
+function getRange(count) {
+  return Array.from({ length: count }, (_, i) => i);
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const randomValues = getRange(200).map(index => {
+  return {
+    date: shiftDate(today, -index),
+    count: getRandomInt(0, 4),
+
+    // tooltip - value.
+    // who, what commit comment, time, update/modify, url
+  };
+});
+  
 /** Jira Pie Chart Dummy Data */
+/** DonutChart
 const data = {     
   labels: [
        'To Do',
@@ -315,7 +532,55 @@ const data = {
        hoverOffset: 4
      }]
    };
+ */
 
+  const donut_data = {
+    
+  series: [20, 17, 9],
+  options: {
+    chart: {
+      type: 'donut',
+    },
+    labels: [
+      'To Do',
+      'Doing',
+      'Done'
+    ],
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          height: 400,
+          width: 400,
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }],
+    title: {
+      text: "Board Card Status: Click to View Card List",
+      align: 'left',
+      margin: 15,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '15px',
+        fontWeight:  'bold',
+        color:  '#263238'
+      },
+    },
+    colors: ['#ff82a5', '#ffe873', '#54d9f7'],
+    tooltip: {
+      y: {
+        formatter: function (val) {
+          return val + " - task_name"
+        }
+      }
+    }
+  },
+  }
 
 function mapState(state) {
   return {
