@@ -1,84 +1,84 @@
 export const github = [
     {
-        title: "Introduce fullfillment creation API",
-        name: "orzechdev and jwm0",
+        commits: "Introduce fullfillment creation API",
+        authorname: "orzechdev and jwm0",
         time: "2 days ago",
         branchName: "orzechdev and jwm0",
         code: "88637b2"
     },
     {
-        title: "Add dashboard extensions",
-        name: "jwm0",
+        commits: "Add dashboard extensions",
+        authorname: "jwm0",
         time: "2 days ago",
         branchName: "jwm0",
         code: "ab4c897"
     },
     {
-        title: "Extend list of languages",
-        name: "mahfetingbala",
+        commits: "Extend list of languages",
+        authorname: "mahfetingbala",
         time: "2 days ago",
         branchName: "mahfetingbala",
         code: "261bf7f"
     },
     {
-        title: "Horizental scroll fix on tables",
-        name: "SqkuDV",
+        commits: "Horizental scroll fix on tables",
+        authorname: "SqkuDV",
         time: "2 days ago",
         branchName: "SqkuDV",
         code: "a94a611"
     },
     {
-        title: "Fix dashboard crash when no channels exist",
-        name: "SqkuDV",
+        commits: "Fix dashboard crash when no channels exist",
+        authorname: "SqkuDV",
         time: "2 days ago",
         branchName: "SqkuDV",
         code: "c4adcda"
     },
     {
-        title: "Merge pull request #1309 from mirumee/fix-gift-cards-currencies-select",
-        name: "mmarkuak",
+        commits: "Merge pull request #1309 from mirumee/fix-gift-cards-currencies-select",
+        authorname: "mmarkuak",
         time: "2 days ago",
         branchName: "mmarkuak",
         code: "12e4ff3"
     },
     {
-        title: "Refactor",
-        name: "mmarkuak",
+        commits: "Refactor",
+        authorname: "mmarkuak",
         time: "2 days ago",
         branchName: "mmarkuak",
         code: "ba2a5442"
     },
     {
-        title: "Add option for left menu to display subitems based on their onwn perml...",
-        name: "mmarkuak",
+        commits: "Add option for left menu to display subitems based on their onwn perml...",
+        authorname: "mmarkuak",
         time: "2 days ago",
         branchName: "mmarkuak",
         code: "745b5d4"
     },
     {
-        title: "Refactor",
-        name: "mmarkuak",
+        commits: "Refactor",
+        authorname: "mmarkuak",
         time: "2 days ago",
         branchName: "mmarkuak",
         code: "14e36db"
     },
     {
-        title: "Add channel currency selection in gift card crate dialog, also add I...",
-        name: "mmarkuak",
+        commits: "Add channel currency selection in gift card crate dialog, also add I...",
+        authorname: "mmarkuak",
         time: "2 days ago",
         branchName: "mmarkuak",
         code: "874f289"
     },
     {
-        title: "Fix auth token check for home page loading",
-        name: "mmarkuak",
+        commits: "Fix auth token check for home page loading",
+        authorname: "mmarkuak",
         time: "3 days ago",
         branchName: "mmarkuak",
         code: "9e5edd7"
     },
     {
-        title: "tests for filters",
-        name: "karois312",
+        commits: "tests for filters",
+        authorname: "karois312",
         time: "4 days ago",
         branchName: "karois312",
         code: "2c916e6"
