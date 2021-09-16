@@ -48,6 +48,12 @@ class ProjectHomePage extends Component {
           align: "center"
         },
         {
+          title: "Branch Name",
+          dataIndex: "branchName",
+          key: "brachname",
+          align: "center"
+        },
+        {
           title: "Time",
           dataIndex: "time",
           key: "time",
