@@ -103,6 +103,9 @@ export const ConfluenceContent = styled.div`
         color: rgb(12,48,74);
         font-weight: 500;
     }
+    p{
+        text-indent: 30px;
+    }
 `
 
 export const Comment = styled(GitHubContent)`

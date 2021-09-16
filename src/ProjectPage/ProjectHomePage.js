@@ -31,14 +31,20 @@ class ProjectHomePage extends Component {
       show: "",
       gitColumns: [
         {
-          title: "Title",
-          dataIndex: "title",
-          key: "title",
+          title: "Commits",
+          dataIndex: "commits",
+          key: "commits",
         },
         {
-          title: "Name",
-          dataIndex: "name",
-          key: "name",
+          title: "Author Name",
+          dataIndex: "authorname",
+          key: "authorname",
+          align: "center"
+        },
+        {
+          title: "Branch Name",
+          dataIndex: "branchName",
+          key: "brachname",
           align: "center"
         },
         {
@@ -72,7 +78,7 @@ class ProjectHomePage extends Component {
       ],
       jiraColumns: [
         {
-          title: "Activity name",
+          title: "Activity Name",
           dataIndex: "activity",
           key: "activity",
           ellipsis: true,
@@ -80,21 +86,21 @@ class ProjectHomePage extends Component {
           align: "center"
         },
         {
-          title: "Date time",
+          title: "Date Time",
           dataIndex: "datetime",
           key: "datetime",
           width: 300,
           align: "center"
         },
         {
-          title: "What did they do",
+          title: "What Did They Do",
           dataIndex: "dowhat",
           key: "dowhat",
           width: 300,
           align: "center"
         },
         {
-          title: "Url",
+          title: "URL",
           dataIndex: "url",
           key: "url",
           width: 300,
