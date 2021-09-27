@@ -48,21 +48,16 @@ class ProjectHomePage extends Component {
           align: "center"
         },
         {
-          title: "Branch Name",
-          dataIndex: "branchName",
-          key: "brachname",
-          align: "center"
-        },
-        {
           title: "Time",
           dataIndex: "time",
           key: "time",
           align: "center",
         },
         {
-          title: "",
+          title: "URL",
           dataIndex: "code",
           key: "code",
+          align: "center",
           render: (text) => (
             <Space size="middle">
               <a href="https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues"
