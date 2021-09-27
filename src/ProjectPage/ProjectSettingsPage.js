@@ -18,7 +18,7 @@ const input = {
 };
 
 const label = {
-  width: "50px",
+  width: "100%",
   textAlign: "left",
   fontWeight: "bold",
   margin: "10px",
@@ -35,12 +35,18 @@ class ProjectSettingsPage extends React.Component {
         this.props.teamInfo[this.props.currentTeamKey].jiraUrl
           ? this.props.teamInfo[this.props.currentTeamKey].jiraUrl
           : "",
-      githubWebsite:
+      githubURLFrontend:
         this.props.teamInfo &&
         this.props.teamInfo[this.props.currentTeamKey] &&
-        this.props.teamInfo[this.props.currentTeamKey].githubUrl
-          ? this.props.teamInfo[this.props.currentTeamKey].githubUrl
+        this.props.teamInfo[this.props.currentTeamKey].githubURLFrontend
+          ? this.props.teamInfo[this.props.currentTeamKey].githubURLFrontend
           : "",
+      githubURLBackend:
+      this.props.teamInfo &&
+      this.props.teamInfo[this.props.currentTeamKey] &&
+      this.props.teamInfo[this.props.currentTeamKey].githubURLBackend
+        ? this.props.teamInfo[this.props.currentTeamKey].githubURLBackend
+        : "",
       githubUsername:
         this.props.teamInfo &&
         this.props.teamInfo[this.props.currentTeamKey] &&
@@ -53,6 +59,12 @@ class ProjectSettingsPage extends React.Component {
         this.props.teamInfo[this.props.currentTeamKey].githubPassword
           ? this.props.teamInfo[this.props.currentTeamKey].githubPassword
           : "",
+      githubToken:
+      this.props.teamInfo &&
+      this.props.teamInfo[this.props.currentTeamKey] &&
+      this.props.teamInfo[this.props.currentTeamKey].githubToken
+        ? this.props.teamInfo[this.props.currentTeamKey].githubToken
+        : "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -69,20 +81,26 @@ class ProjectSettingsPage extends React.Component {
     e.preventDefault();
     if (!/^(?:http(s)?:\/\/)/.test(this.state.jiraWebsite)) {
       alert(alertConstants.INVALID_JIRA_URL);
-    } else if (!/^(?:http(s)?:\/\/)/.test(this.state.githubWebsite)) {
+    } else if (!/^(?:http(s)?:\/\/)/.test(this.state.githubURLFrontend)) {
       alert(alertConstants.INVALID_GITHUB_URL);
+    }  else if (!/^(?:http(s)?:\/\/)/.test(this.state.githubURLBackend)) {
+        alert(alertConstants.INVALID_GITHUB_URL);
     } else if (this.state.githubUsername == "") {
       alert(alertConstants.GIT_USERNAME_REQUIRED);
     } else if (this.state.githubPassword == "") {
       alert(alertConstants.GIT_PASSWORD_REQUIRED);
+    } else if (this.state.githubToken == "") {
+      alert(alertConstants.GIT_TOKEN_REQUIRED);
     } else {
       this.props
         .setTeamInfo(
           this.props.currentTeamKey,
           this.state.jiraWebsite,
-          this.state.githubWebsite,
+          this.state.githubURLFrontend,
+          this.state.githubURLBackend,
           this.state.githubUsername,
-          this.state.githubPassword
+          this.state.githubPassword,
+          this.state.githubToken
         )
         .then(() => {
           if (!this.props.setTeamInfoSuccess) {
@@ -93,12 +111,18 @@ class ProjectSettingsPage extends React.Component {
                 this.props.teamInfo[this.props.currentTeamKey].jiraUrl
                   ? this.props.teamInfo[this.props.currentTeamKey].jiraUrl
                   : "",
-              githubWebsite:
+              githubURLFrontend:
                 this.props.teamInfo &&
                 this.props.teamInfo[this.props.currentTeamKey] &&
-                this.props.teamInfo[this.props.currentTeamKey].githubUrl
-                  ? this.props.teamInfo[this.props.currentTeamKey].githubUrl
+                this.props.teamInfo[this.props.currentTeamKey].githubURLFrontend
+                  ? this.props.teamInfo[this.props.currentTeamKey].githubURLFrontend
                   : "",
+              githubURLBackend:
+              this.props.teamInfo &&
+              this.props.teamInfo[this.props.currentTeamKey] &&
+              this.props.teamInfo[this.props.currentTeamKey].githubURLBackend
+                ? this.props.teamInfo[this.props.currentTeamKey].githubURLBackend
+                : "",
               githubUsername:
                 this.props.teamInfo &&
                 this.props.teamInfo[this.props.currentTeamKey] &&
@@ -113,6 +137,13 @@ class ProjectSettingsPage extends React.Component {
                   ? this.props.teamInfo[this.props.currentTeamKey]
                       .githubPassword
                   : "",
+              githubToken:
+              this.props.teamInfo &&
+              this.props.teamInfo[this.props.currentTeamKey] &&
+              this.props.teamInfo[this.props.currentTeamKey].githubToken
+                ? this.props.teamInfo[this.props.currentTeamKey]
+                    .githubToken
+                : "",
             });
           }
         });
@@ -133,7 +164,7 @@ class ProjectSettingsPage extends React.Component {
               <div className="web">
                 <form onSubmit={this.handleSubmit}>
                   <label style={label}>
-                    Jira Url:
+                    Jira URL:
                     <Input
                       type="text"
                       style={input}
@@ -147,12 +178,12 @@ class ProjectSettingsPage extends React.Component {
                   <br />
 
                   <label style={label}>
-                    Git Url:
+                    Github URL for Frontend:
                     <Input
                       type="text"
                       style={input}
-                      value={this.state.githubWebsite}
-                      name="githubWebsite"
+                      value={this.state.githubURLFrontend}
+                      name="githubURLFrontend"
                       onChange={this.handleChange}
                       placeholder="e.g. https://github.com/<username>/<repository name>"
                     />
@@ -161,7 +192,21 @@ class ProjectSettingsPage extends React.Component {
                   <br />
 
                   <label style={label}>
-                    Git Username:
+                    Github URL for Backend:
+                    <Input
+                      type="text"
+                      style={input}
+                      value={this.state.githubURLBackend}
+                      name="githubURLBackend"
+                      onChange={this.handleChange}
+                      placeholder="e.g. https://github.com/<username>/<repository name>"
+                    />
+                  </label>
+
+                  <br />
+
+                  <label style={label}>
+                    Github Username:
                     <Input
                       type="text"
                       style={input}
@@ -174,13 +219,27 @@ class ProjectSettingsPage extends React.Component {
                   <br />
 
                   <label style={label}>
-                    Git Password:
+                    Github Password:
                     <Input.Password
                       style={input}
                       value={this.state.githubPassword}
                       name="githubPassword"
                       onChange={this.handleChange}
                       iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                  </label>
+
+                  <br />
+
+                  
+                  <label style={label}>
+                    Github Token:
+                    <Input
+                      type="text"
+                      style={input}
+                      value={this.state.githubToken}
+                      name="githubToken"
+                      onChange={this.handleChange}
                     />
                   </label>
 
