@@ -2,7 +2,7 @@ import React , { Children } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { Popover, OverlayTrigger, PopoverTitle, PopoverContent} from 'react-bootstrap';
+import { Popover, OverlayTrigger, PopoverTitle, PopoverContent, Container, Row, Col} from 'react-bootstrap';
 import { events2HourAndMinute, isToday } from "../_utils/EventInfoExtractor"
 import { makeStyles } from '@material-ui/core';
 import Card from "@material-ui/core/Card";
@@ -25,20 +25,12 @@ const useStyles = makeStyles ({
     boxShadow: "5px 1px 1px lightgrey",
   },
   keyDateCard: {
-    width: '10em',
-    height: 30,
     background: "lightgreen",
     margin: "auto",
-    padding: 0,
-    marginLeft: 20
   },
   meetingCard: {
-    width: '10em',
-    height: 30,
     background: "lightblue",
-    margin: "auto",
-    marginLeft: '0.5em',
-    marginRight: '40em'
+    margin: "auto"
   },
   cardContent: {
     "&:last-child": {
@@ -114,40 +106,45 @@ export default function BigCalendar(props){
   }
 
   return (
-    <div>
-      <Calendar
-        localizer={localizer}
-        events={props.events}
-        startAccessor="start"
-        endAccessor="end"
-        className={classes.calendar}
-        components={{
-          dateCellWrapper: ColoredDateCellWrapper,
-          event: ClickEvent
-      }}/>
-      <div className={classes.cardContainer}>
-        
-        <Card className={classes.keyDateCard}>
-          <CardContent className={classes.cardContent}>
-            <Typography
-              className={classes.typography}
-            >
-              Key dates
-            </Typography>
-          </CardContent>
-        </Card>
+    <Container fluid>
+      <Row>
+        <Calendar
+          localizer={localizer}
+          events={props.events}
+          startAccessor="start"
+          endAccessor="end"
+          className={classes.calendar}
+          components={{
+            dateCellWrapper: ColoredDateCellWrapper,
+            event: ClickEvent
+        }}/>
+      </Row>
 
-        <Card className={classes.meetingCard}>
-          <CardContent className={classes.cardContent}>
-            <Typography
-              className={classes.typography}
-            >
-              Meetings
-            </Typography>
-          </CardContent>
-        </Card> 
-      </div>  
-    </div>
+      <Row className={classes.cardContainer}>
+        <Col xs={6} md={4} lg={3}>
+          <Card className={classes.keyDateCard}>
+            <CardContent className={classes.cardContent}>
+              <Typography
+                className={classes.typography}
+              >
+                Key dates
+              </Typography>
+            </CardContent>
+          </Card>
+        </Col>
+        <Col xs={6} md={4} lg={3}>
+          <Card className={classes.meetingCard}>
+            <CardContent className={classes.cardContent}>
+              <Typography
+                className={classes.typography}
+              >
+                Meetings
+              </Typography>
+            </CardContent>
+          </Card>
+        </Col>
+      </Row>  
+    </Container>
 
   )
 }
