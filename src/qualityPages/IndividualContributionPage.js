@@ -118,8 +118,18 @@ class IndividualContributionPage extends React.Component {
                       <br/>
                       <br/>
                       <br/>
+                      <hr class="solid"></hr>
+                      <br/>
+                      <br/>
 
                      <RadarChart2 data={this.state.radar_all_data} />
+
+                      <br/>
+                      <br/>
+                      <hr class="solid"></hr>
+                      <br/>
+                      <br/>
+
                      <ColumnChart data={horizontal_all_data} />
 
                      
@@ -229,24 +239,33 @@ const radar_all_data = {
       type: 'radar',
     },
     title: {
-      text: "Team Radar Chart: Hover the Name to View Individual",
+      text: "Team Radar Chart: Hover the Name to View Individual, Click to Exclude",
       align: 'left',
       margin: 10,
       offsetX: 0,
       offsetY: 0,
       floating: false,
       style: {
-        fontSize:  '15px',
+        fontSize:  '20px',
         fontWeight:  'bold',
         //fontFamily:  undefined,
         color:  '#263238'
       },
     },
     xaxis: {
-      categories: ['Document Updated', 'Document Modified', 'Meeting Attendance', 'Number of Commits', 'Total Code lines', 'Cards Assignment']
-    }, legend: {
+      categories: ['Document Updated', 'Document Modified', 'Meeting Attendance', 'Number of Commits', 'Total Code lines', 'Cards Assignment'],
+      labels:{
+        show: true,
+        style: {
+          fontSize:  '12px',
+          fontWeight: 'bold',
+        },
+      },
+    }, 
+    legend: {
       position: 'bottom',
-      fontsize: 10,
+      fontSize:  '17px',
+      fontWeight: 'normal',
     },
   },
 };
@@ -278,28 +297,27 @@ const horizontal_all_data = {
       }
     },
     title: {
-      text: "Team Bar Chart: Hover the Legend to Show User, Click to Remove the User",
+      text: "Team Bar Chart: Hover the Legend to Show User, Click to Exclude",
       align: 'left',
       margin: 10,
       offsetX: 0,
       offsetY: 0,
       floating: false,
       style: {
-        fontSize:  '15px',
+        fontSize:  '20px',
         fontWeight:  'bold',
         //fontFamily:  undefined,
         color:  '#263238'
       },
     },
-    yaxis: { 
-      show: true,
-      title: {
-        text: "% of Tasks",
+    yaxis: {
+      labels:{
+        show: true,
+        style: {
+          fontSize:  '12px',
+          fontWeight: 'normal',
+        },
       },
-      style: {
-        fontWeight: 'normal',
-      }
-
     },
     responsive: [{
       breakpoint: 480,
@@ -318,13 +336,23 @@ const horizontal_all_data = {
       },
     },
     xaxis: {
-      categories: ['Document Updated', 'Document Modified', 'Meeting Attendance', 'Number of Commits', 'Total Code lines', 'Cards Assignment']
+      categories: ['Document Updated', 'Document Modified', 'Meeting Attendance', 'Number of Commits', 'Total Code lines', 'Cards Assignment'],
+      tickAmount: 10,
+      max: 100,
+      labels:{
+        show: true,
+        style: {
+          fontSize:  '12px',
+          fontWeight: 'normal',
+        },
+      },
     },
     //colors: ['#ff3224', '#ffae00', '#f8ff38', '#8eff38', '#38ffdb', '#386aff'],
     // use default color
     legend: {
       position: 'bottom',
-      fontsize: 10,
+      fontSize:  '17px',
+      fontWeight: 'normal',
       /*
       // use default color
       markers: {
@@ -388,14 +416,14 @@ const column_all_data = {
       }
     },
     title: {
-      text: "Team Bar Chart: Hover the Legend to Compare Task",
+      text: "Team Bar Chart: Hover the Legend to Compare Task, Click to Exclude",
       align: 'left',
       margin: 10,
       offsetX: 0,
       offsetY: 0,
       floating: false,
       style: {
-        fontSize:  '15px',
+        fontSize:  '20px',
         fontWeight:  'bold',
         //fontFamily:  undefined,
         color:  '#263238'
@@ -405,11 +433,11 @@ const column_all_data = {
       show: true,
       title: {
         text: "% of Tasks",
+        style: {
+          fontSize:  '15px',
+          fontWeight: 'normal',
+        },
       },
-      style: {
-        fontWeight: 'normal',
-      }
-
     },
     responsive: [{
       breakpoint: 480,
@@ -428,14 +456,22 @@ const column_all_data = {
       },
     },
     xaxis: {
-      categories: ['user1', 'user2', 'user3', 'user4', 'user5'
-      ],
+      categories: ['user1', 'user2', 'user3', 'user4', 'user5'],
+      labels:{
+        show: true,
+        style: {
+          fontSize:  '15px',
+          fontWeight: 'normal',
+        },
+      }
     },
     colors: ['#f03b20', '#feb24c', '#ffeda0', '#2b8cbe', '#a6bddb', '#a1d99b'],
     legend: {
       position: 'right',
       offsetY: 40,
-      fontsize: 10,
+      fontSize:  '17px',
+      fontWeight: 'normal',
+      
       markers: {
         fillColors: ['#f03b20', '#feb24c', '#ffeda0', '#2b8cbe', '#a6bddb', '#a1d99b']
       }
