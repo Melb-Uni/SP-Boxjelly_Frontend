@@ -17,8 +17,10 @@ import RadarChart2 from "../_utils/RadarChart2";
 import ColumnChart from "../_utils/ColumnChart";
 import Column from "antd/lib/table/Column";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, Nav, Button, CardGroup} from "react-bootstrap";
+//import {Card, Nav, Button, CardGroup} from "react-bootstrap";
 import { Spin } from "antd";
+import {CardGroup} from "react-bootstrap";
+import Card from "../_utils/Card";
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
@@ -130,86 +132,42 @@ class IndividualContributionPage extends React.Component {
                     <Row>
 
                       <CardGroup>
-                        <div className='m-2'>
-                          <Card border={'primary'}>
-                            <Card.Body>
-                              <Card.Title><small> Latest Commits</small></Card.Title>
-                              <Card.Text className="col-sm col-xs-12">user1: This is a latest commits</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user2: This is a latest commits</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user3: This is a latest commits</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user4: This is a latest commits</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user5: This is a latest commits</Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                              <small className="text-muted">Last updated 3 mins ago</small>
-                            </Card.Footer>
-                          </Card>
-                        </div>
+                        <Card 
+                          border={'primary'}
+                          title={'Latest Commits'}
+                          time={'Last updated 3 mins ago'}
+                          data={latest_commit}
+                        />
 
-                        <div className='m-2'>
-                          <Card border={'danger'}>
-                            <Card.Body>
-                              <Card.Title><small>Most Document Updated</small></Card.Title>
-                              <Card.Text className="col-sm col-xs-12">user1: Document Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user2: Document Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user3: Document Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user4: Document Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user5: Document Name</Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                              <small className="text-muted">Last updated 10 mins ago</small>
-                            </Card.Footer>
-                          </Card>
-                          </div>
+                        <Card 
+                          border={'danger'}
+                          title={'Most Document Updated'}
+                          time={'Last updated 10 mins ago'}
+                          data={latest_document}
+                        />
 
-                          <div className='m-2'>
-                          <Card border={'danger'}>
-                            <Card.Body>
-                              <Card.Title><small>Most Document Modified</small></Card.Title>
-                              <Card.Text className="col-sm col-xs-12">user1: Document Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user2: Document Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user3: Document Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user4: Document Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user5: Document Name</Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                              <small className="text-muted">Last updated 1 hour ago</small>
-                            </Card.Footer>
-                          </Card>
-                        </div>
-                        
-                        <div className='m-2'>
-                          <Card border={'success'}>
-                            <Card.Body>
-                              <Card.Title><small>Most Card Tag</small></Card.Title>
-                              <Card.Text className="col-sm col-xs-12">user1: Card Tag Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user2: Card Tag Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user3: Card Tag Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user4: Card Tag Name</Card.Text>
-                              <Card.Text className="col-sm col-xs-12">user5: Card Tag Name</Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                              <small className="text-muted">Last updated 7 mins ago</small>
-                            </Card.Footer>
-                          </Card>
-                        </div>
+                        <Card 
+                          border={'danger'}
+                          title={'Most Document Modified'}
+                          time={'Last updated 60 mins ago'}
+                          data={latest_document}
+                        />
 
-                      {/** 
-                        <div className='m-2'>         
-                          <Card border={'warning'}>
-                            <Card.Body>
-                              <Card.Title><small>Most Frequent Word</small></Card.Title>
-                              <Card.Text>
-                                Sprint
-                              </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                              <small className="text-muted">Last updated 3 mins ago</small>
-                            </Card.Footer>
-                          </Card>
-                        </div>
-                      */}
+                        <Card 
+                          border={'success'}
+                          title={'Most Card Tag'}
+                          time={'Last updated 7 mins ago'}
+                          data={latest_card}
+                        />
 
+                        {/**
+                        <Card 
+                          border={'warning'}
+                          title={'Most Frequent Word'}
+                          time={'Last updated 3 mins ago'}
+                          data={latest_document}
+                        />
+                        */}
                       </CardGroup>
                       </Row>
                   </Container>
@@ -221,6 +179,27 @@ class IndividualContributionPage extends React.Component {
     );
   }
 }
+
+const latest_commit = [
+  "user1: This is a latest commits", 
+  "user2: This is a latest commits", 
+  "user3: This is a latest commits", 
+  "user4: This is a latest commits", 
+  "user5: This is a latest commits"];
+
+const latest_document = [
+  "user1: Document Name", 
+  "user2: Document Name", 
+  "user3: Document Name", 
+  "user4: Document Name", 
+  "user5: Document Name"];
+
+const latest_card = [
+  "user1: Card Tag Name", 
+  "user2: Card Tag Name", 
+  "user3: Card Tag Name", 
+  "user4: Card Tag Name", 
+  "user5: Card Tag Name"];
 
 const all_data = [{
   name: 'user1',
