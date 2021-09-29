@@ -17,10 +17,9 @@ import RadarChart2 from "../_utils/RadarChart2";
 import ColumnChart from "../_utils/ColumnChart";
 import Column from "antd/lib/table/Column";
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import {Card, Nav, Button, CardGroup} from "react-bootstrap";
 import { Spin } from "antd";
-import {CardGroup} from "react-bootstrap";
-import Card from "../_utils/Card";
+//import Card from "../_utils/Card";
+import CardGroup from "../_utils/CardGroup";
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
@@ -118,7 +117,7 @@ class IndividualContributionPage extends React.Component {
                       <br/>
                       <br/>
                       <br/>
-                      <hr class="solid"></hr>
+                      <hr className="solid"></hr>
                       <br/>
                       <br/>
 
@@ -126,7 +125,7 @@ class IndividualContributionPage extends React.Component {
 
                       <br/>
                       <br/>
-                      <hr class="solid"></hr>
+                      <hr className="solid"></hr>
                       <br/>
                       <br/>
 
@@ -140,48 +139,22 @@ class IndividualContributionPage extends React.Component {
                 this.state.btnSelected == commonConstants.MORE_DETAILS && (
                   <Container>
                     <Row>
-
-                      <CardGroup>
-                        <Card 
-                          border={'primary'}
-                          title={'Latest Commits'}
-                          time={'Last updated 3 mins ago'}
-                          data={latest_commit}
-                        />
-
-                        <Card 
-                          border={'danger'}
-                          title={'Most Document Updated'}
-                          time={'Last updated 10 mins ago'}
-                          data={latest_document}
-                        />
-
-                        <Card 
-                          border={'danger'}
-                          title={'Most Document Modified'}
-                          time={'Last updated 60 mins ago'}
-                          data={latest_document}
-                        />
-
-                        <Card 
-                          border={'success'}
-                          title={'Most Card Tag'}
-                          time={'Last updated 7 mins ago'}
-                          data={latest_card}
-                        />
-
-                        {/**
-                        <Card 
-                          border={'warning'}
-                          title={'Most Frequent Word'}
-                          time={'Last updated 3 mins ago'}
-                          data={latest_document}
-                        />
-                        */}
-                      </CardGroup>
-                      </Row>
+                      <CardGroup
+                        borders = {['primary', 'danger', 'danger', 'success']}
+                        titles = {['Latest Commits','Most Document Updated', 'Most Document Modified', 'Most Card Tag']}
+                        times = {['Last updated 3 mins ago', 'Last updated 10 mins ago', 'Last updated 60 mins ago', 'Last updated 7 mins ago']}
+                        data = {[latest_commit, latest_document, latest_document, latest_card]}
+                      />
+                      {/**
+                      <Card 
+                        border={'warning'}
+                        title={'Most Frequent Word'}
+                        time={'Last updated 3 mins ago'}
+                        data={latest_document}
+                      />
+                      */}
+                    </Row>
                   </Container>
-
             )}
           </div>
         </div>
