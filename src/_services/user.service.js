@@ -81,7 +81,7 @@ function getTeamConfluenceMeeting(teamKey) {
 function setTeamInfo(
   teamKey,
   jiraUrl,
-  githubUrl,
+  githubURLFrontend,
   githubUsername,
   githubPassword,
   githubURLBackend,
@@ -90,7 +90,7 @@ function setTeamInfo(
   let payload = {
     space_key: teamKey,
     jira_url: jiraUrl,
-    git_url: githubUrl,
+    git_url: githubURLFrontend,
     git_backend_url: githubURLBackend,
     git_username: githubUsername,
     git_password: githubPassword,

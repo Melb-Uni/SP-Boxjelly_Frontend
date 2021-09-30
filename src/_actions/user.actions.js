@@ -187,7 +187,7 @@ function getTeamConfluenceMeeting(teamKey) {
 function setTeamInfo(
   teamKey,
   jiraUrl,
-  githubUrl,
+  githubURLFrontend,
   githubUsername,
   githubPassword,
   githubURLBackend,
@@ -196,7 +196,7 @@ function setTeamInfo(
   return (dispatch) => {
     dispatch(request(userConstants.SETTEAMINFO_REQUEST));
     return userService
-      .setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword,githubURLBackend,githubToken)
+      .setTeamInfo(teamKey, jiraUrl, githubURLFrontend, githubUsername, githubPassword,githubURLBackend,githubToken)
       .then(
         (response) => {
           if (checkRespCode(response)) {
@@ -205,7 +205,7 @@ function setTeamInfo(
                 [teamKey]: {
                   teamKey,
                   jiraUrl,
-                  githubUrl,
+                  githubURLFrontend,
                   githubUsername,
                   githubPassword,
                   githubURLBackend,
