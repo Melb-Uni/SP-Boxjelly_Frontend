@@ -25,10 +25,6 @@ export const commonConstants = {
 
 
 
-  // JIRA_VISUALIZATION: "JIRA VISUALIZATION",
-  // CALENDAR: "CALENDAR",
-
-
 
 
 
@@ -36,5 +32,10 @@ export const commonConstants = {
   DIRECTORY_STRUCTURE: "DIRECTORY STRUCTURE",
   DIRECTORY_METRICS: "DIRECTORY METRICS",
   FUNCTION_METRICS: "FUNCTION METRICS",
+
+  /** for individual contribution */
+  TASK_COMPARISON: "TASK COMPARISON",
+  USER_COMPARISON: "USER COMPARISON",
+  MORE_DETAILS: "MORE DETAILS",
 
 };
