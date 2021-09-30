@@ -189,22 +189,27 @@ function setTeamInfo(
   jiraUrl,
   githubUrl,
   githubUsername,
-  githubPassword
+  githubPassword,
+  githubURLBackend,
+  githubToken
 ) {
   return (dispatch) => {
     dispatch(request(userConstants.SETTEAMINFO_REQUEST));
     return userService
-      .setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword)
+      .setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword,githubURLBackend,githubToken)
       .then(
         (response) => {
           if (checkRespCode(response)) {
             dispatch(
               success(userConstants.SETTEAMINFO_SUCCESS, {
                 [teamKey]: {
+                  teamKey,
                   jiraUrl,
                   githubUrl,
                   githubUsername,
                   githubPassword,
+                  githubURLBackend,
+                  githubToken
                 },
               })
             );

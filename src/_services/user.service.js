@@ -83,14 +83,18 @@ function setTeamInfo(
   jiraUrl,
   githubUrl,
   githubUsername,
-  githubPassword
+  githubPassword,
+  githubURLBackend,
+  githubToken
 ) {
   let payload = {
     space_key: teamKey,
     jira_url: jiraUrl,
     git_url: githubUrl,
+    git_backend_url: githubURLBackend,
     git_username: githubUsername,
     git_password: githubPassword,
+    git_token: githubToken
   };
 
   let url = baseUrl + "/git/config";

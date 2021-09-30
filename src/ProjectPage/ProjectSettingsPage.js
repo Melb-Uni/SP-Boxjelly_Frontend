@@ -97,9 +97,9 @@ class ProjectSettingsPage extends React.Component {
           this.props.currentTeamKey,
           this.state.jiraWebsite,
           this.state.githubURLFrontend,
-          this.state.githubURLBackend,
           this.state.githubUsername,
           this.state.githubPassword,
+          this.state.githubURLBackend,
           this.state.githubToken
         )
         .then(() => {
