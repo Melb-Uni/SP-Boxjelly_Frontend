@@ -6,6 +6,7 @@ import { formatDonutChartData } from "../_utils/formatDonutChartData.js";
 import { unixToDate } from "../_utils/unixToDate.js";
 import { failureToast } from "../_utils/toast";
 import { successToast } from "../_utils/toast";
+import { formatGitHeatmapUpdateData } from "../_utils/formatGitHeatmapUpdateData.js";
 
 export const userActions = {
   login,
@@ -26,6 +27,8 @@ export const userActions = {
   setCurrentTeamKey,
   setCurrentTeamName,
   getTeamMemberList,
+
+  getTeamGithubDetailCommits,
 };
 
 function request(action, payload) {
@@ -84,6 +87,33 @@ function getTeamConfluencePages(teamKey) {
     );
   };
 }
+
+function getTeamGithubDetailCommits(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST));
+    userService.getTeamGithubDetailCommits(teamKey).then(
+      (response) => {
+        dispatch(
+          success(
+            userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_SUCCESS,
+            formatGitHeatmapUpdateData(response),
+          )
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE,
+            error.toString(),
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
 
 function getTeamGithubCommits(teamKey) {
   return (dispatch) => {
