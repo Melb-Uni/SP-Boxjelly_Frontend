@@ -31,58 +31,68 @@ export const MembersWrap = styled.div`
     width: 100%;
     thead.ant-table-thead{
         line-height: 60px;
+        //line-width: 60px;
     }
     th.ant-table-cell{
         font-weight: 600;
     }
     td{
         line-height: 50px;
-        min-width: 283px;
+        //min-width: 246px;
+        //max-width: 283px;
     }
     img{
         width: 60px;
     }
     td:last-of-type, th:last-of-type{
-        min-width: 400px;
+        //min-width: 400px;
     }
+`
+
+export const MyTAb = styled.div`
+  margin:0 auto;
+  height:200px;
+  width:304px;
+  line-height:50px;
+  text-align:center;
+  display:table;
+
+
 `
 
 export const GitHubContent = styled.div`
     margin-top: 100px;
-    width: 100%;
-    height: 800px;
-    table .link{
-        width: 140px;
-        height: 35px;
-        border: 1px solid rgb(192, 192, 192);
-        border-radius: 5px;
-        line-height: 35px;
-        margin-left: 20px;
-    }
-    table img{
-        vertical-align: center;
-        margin:0 20px;
-        width: 15px;
-
-    }
-    .ant-table-thead > tr > th{
-        white-space:nowrap;
-        }
-        .ant-table-row td{
-        white-space:nowrap;
-    }
-    tr td{
-        min-width: 200px;
-    }
-    th{
-        line-height: 40px;
-    }
-    td{
-        line-height: 35px;
-    }
-}
-
-
+    //width: 100%;
+    //height: 800px;
+    //table .link{
+    //    //width: 140px;
+    //    height: 35px;
+    //    border: 1px solid rgb(192, 192, 192);
+    //    border-radius: 5px;
+    //    line-height: 35px;
+    //    margin-left: 20px;
+    //}
+    //table img{
+    //    vertical-align: center;
+    //    margin:0 20px;
+    //    width: 15px;
+    //
+    //}
+    //.ant-table-thead > tr > th{
+    //    white-space:nowrap;
+    //    }
+    //    .ant-table-row td{
+    //    white-space:nowrap;
+    //}
+    //tr td{
+    //    //min-width: 200px;
+    //}
+    //th{
+    //    line-height: 40px;
+    //}
+    //td{
+    //    line-height: 35px;
+    //}
 `
 export const JiraContent = styled(GitHubContent)`
     table a{
@@ -135,3 +145,4 @@ export const Comment = styled(GitHubContent)`
     }
     
 `
+
