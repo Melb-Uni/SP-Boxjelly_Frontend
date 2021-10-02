@@ -25,10 +25,14 @@ const useStyles = makeStyles ({
     boxShadow: "5px 1px 1px lightgrey",
   },
   keyDateCard: {
-    background: "lightgreen",
+    background: "#f77480",
     margin: "auto",
   },
   meetingCard: {
+    background: "lightgreen",
+    margin: "auto"
+  },
+  standupCard: {
     background: "lightblue",
     margin: "auto"
   },
@@ -58,6 +62,7 @@ export default function BigCalendar(props){
   const CURRENT_DATE = moment().toDate();
   const meetingList = props.meetingList;
   const keyDateList = props.keyDateList;
+  const standupList = props.standupList;
 
   function matchDate(date, dateList) { 
     console.log(date);
@@ -73,8 +78,9 @@ export default function BigCalendar(props){
     React.cloneElement(Children.only(children), {
         style: {
             ...children.style,
-            backgroundColor: matchDate(value, keyDateList) ? 'lightgreen' : 
-            matchDate(value, meetingList) ? 'lightblue' : 
+            backgroundColor: matchDate(value, keyDateList) ? '#f77480' : 
+            matchDate(value, meetingList) ? 'lightgreen' : 
+            matchDate(value, standupList) ? 'lightblue' : 
             isToday(value) ? 'lightgrey' : 'white'
         },
     });
@@ -121,7 +127,7 @@ export default function BigCalendar(props){
       </Row>
 
       <Row className={classes.cardContainer}>
-        <Col xs={6} md={4} lg={3}>
+        <Col xs={4} md={3} lg={2}>
           <Card className={classes.keyDateCard}>
             <CardContent className={classes.cardContent}>
               <Typography
@@ -132,13 +138,24 @@ export default function BigCalendar(props){
             </CardContent>
           </Card>
         </Col>
-        <Col xs={6} md={4} lg={3}>
+        <Col xs={4} md={3} lg={2}>
           <Card className={classes.meetingCard}>
             <CardContent className={classes.cardContent}>
               <Typography
                 className={classes.typography}
               >
                 Meetings
+              </Typography>
+            </CardContent>
+          </Card>
+        </Col>
+        <Col xs={4} md={3} lg={2}>
+          <Card className={classes.standupCard}>
+            <CardContent className={classes.cardContent}>
+              <Typography
+                className={classes.typography}
+              >
+                Standup
               </Typography>
             </CardContent>
           </Card>
