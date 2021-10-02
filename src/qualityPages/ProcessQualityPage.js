@@ -23,6 +23,7 @@ import burndown from "../_utils/icons/Burndown_Chart.png";
 import CalendarHeatmap2 from "../_utils/CalendarHeatmap2";
 import AreaChart from "../_utils/AreaChart";
 import DonutChart2 from "../_utils/DonutChart2";
+import {donut_data, one_doc_time, two_doc_time, all_doc_time} from "../_utils/DummyData";
 
 
 class ProcessQualityPage extends React.Component {
@@ -35,16 +36,6 @@ class ProcessQualityPage extends React.Component {
         commonConstants.GITHUB,
         commonConstants.JIRA,
       ],
-
-      /** extra buttons */
-      /*
-      btnNames2: [
-        commonConstants.JIRA_VISUALIZATION,
-        commonConstants.CALENDAR,
-      ],
-      */
-      
-
       btnSelected: commonConstants.CONFLUENCE,
       scrollPosition: 0,
       hasConfig:
@@ -64,13 +55,12 @@ class ProcessQualityPage extends React.Component {
       this.props.getTeamConfluencePages(this.props.currentTeamKey);
     } else if (selected == commonConstants.GITHUB) {
       this.props.getTeamGithubCommits(this.props.currentTeamKey);
-    
-    // } else if (selected == commonConstants.JIRA_VISUALIZATION) {
-    //  this.props.getTeamJiraTickets(this.props.currentTeamKey);
-    
 
 
-
+      
+      this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+      
+  
 
     } else {
       this.props.getTeamJiraTickets(this.props.currentTeamKey);
@@ -123,25 +113,11 @@ class ProcessQualityPage extends React.Component {
               <InformationalNote message={alertConstants.NO_CONFIG} />
             )}
             {this.state.hasConfig && (
-              
-             
               <ButtonGroup
                 btnNames={this.state.btnNames}
                 clickHandler={this.handleBtnGroupClick}
                 selected={this.state.btnSelected}
               />
-
-              /** add extra buttons here */
-              /**
-              <div>
-              <ButtonGroup 
-                btnNames={this.state.btnNames2}
-                clickHandler={this.handleBtnGroupClick}
-                selected={this.state.btnSelected}/>
-              </div>
-              */
-              
-
             )}
             <Spin
               spinning={
@@ -152,9 +128,6 @@ class ProcessQualityPage extends React.Component {
             >
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.CONFLUENCE && (
-                  
-                  /** Confluence Heap Map */
-                  /** Confluence Time spend - Line graph */
                   <div>
                     <Container>
                       <Row>
@@ -164,8 +137,6 @@ class ProcessQualityPage extends React.Component {
                         <br/>
                         <br/>
                       </Row>
-
-                      
 
                       <Row>
                         <Col xs="9">
@@ -217,7 +188,6 @@ class ProcessQualityPage extends React.Component {
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.GITHUB && (
 
-                  /** Github Heap Map */
 
                   <div>
                     <Container>
@@ -228,6 +198,7 @@ class ProcessQualityPage extends React.Component {
                           <br/>
                           <br/>
                         </Row>
+                        <p>{this.props.githubDetailCommits}</p>
 
                         <CalendarHeatmap values={randomValues}/>
                         <CalendarHeatmap2 values={randomValues}/>
@@ -240,9 +211,6 @@ class ProcessQualityPage extends React.Component {
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.JIRA && (
                   
-                  /** Jira Pie Chart */
-                  /** Jira Heap Map */
-                  /** Jira Report Button */
 
                   <div>
                     <Container>
@@ -266,51 +234,33 @@ class ProcessQualityPage extends React.Component {
                       </Row>
                       */}
                       
-                      <Row className="justify-content-center" >
-                        
-                          <DonutChart2 data={donut_data}/>
-                        
-
-                      
+                      <Row className="justify-content-center" >                        
+                        <DonutChart2 data={donut_data}/>
                       </Row>
                       
                       <br/>
                       <br/>
                       <br/>
                       <br/>
-                      
-
 
                       <CalendarHeatmap values={randomValues}/>
                       <CalendarHeatmap2 values={randomValues}/>
 
-                        <h3>Click to Direct to Jira Report</h3>
-                        <br/>
-                        <br/>
-                      
-                      
-
+                      <h3>Click to Direct to Jira Report</h3>
+                      <br/>
+                      <br/>
                       <Row>
-
-
                         <Col>
                           <button><img src={burnup} alt="Burnup Chart" onClick={this.handleUpClick} /></button>
                         </Col>
                         <Col>
                           <button><img src={burndown} alt="Burndown Chart" onClick={this.handleDownClick}/></button>
-                        </Col>
-
-                        
+                        </Col>      
                       </Row>
                     </Container>
 
                   </div>
                 )}
-
-
-
-
-
             </Spin>
           </div>
         </div>
@@ -319,9 +269,6 @@ class ProcessQualityPage extends React.Component {
     );
   }
 }
-
-
-
 /** Confluence total time spent for a week Dummy Data*/
 
 const today = new Date();
@@ -341,160 +288,6 @@ function shiftDate(date, numDays) {
   return newDate;
 }
 
-const all_doc_time = {
-
-  series: [{
-    name: 'Total Time Spent (minutes)',
-    data: [50, 54, 70, 76, 78, 80, 82],
-  }],
-  options: {
-    chart: {
-    type: 'area',
-    height: 350,
-    zoom: {
-        enabled: false
-    }
-    },
-    dataLabels: {
-    enabled: false
-    },
-    colors: ['#FF7F00'],
-    stroke: {
-    curve: 'straight'
-    },
-    
-    title: {
-    text: 'Document Time Spent',
-    align: 'left'
-    },
-    labels: week,
-    xaxis: {
-    type: 'datetime',
-    },
-    yaxis: {
-    opposite: true
-    },
-    legend: {
-    horizontalAlign: 'left'
-    }
-},
-
-};
-
-const one_doc_time = {
-
-  series: [{
-    name: 'Doc1 Time Spent (minutes)',
-    data: [5, 5, 7, 7, 8, 10, 12],
-  }],
-  options: {
-    chart: {
-    type: 'area',
-    height: 350,
-    zoom: {
-        enabled: false
-    }
-    },
-    dataLabels: {
-    enabled: false
-    },
-    colors: ['#FF7F00'],
-    stroke: {
-    curve: 'straight'
-    },
-    
-    title: {
-    text: 'Document Time Spent',
-    align: 'left'
-    },
-    labels: week,
-    xaxis: {
-    type: 'datetime',
-    },
-    yaxis: {
-    opposite: true
-    },
-    legend: {
-    horizontalAlign: 'left'
-    }
-},
-
-};
-
-const two_doc_time = {
-
-  series: [{
-    name: 'Doc2 Time Spent (minutes)',
-    data: [1, 4, 7, 7, 7, 8, 8],
-  }],
-  options: {
-    chart: {
-    type: 'area',
-    height: 350,
-    zoom: {
-        enabled: false
-    }
-    },
-    dataLabels: {
-    enabled: false
-    },
-    colors: ['#FF7F00'],
-    stroke: {
-    curve: 'straight'
-    },
-    
-    title: {
-    text: 'Document Time Spent',
-    align: 'left'
-    },
-    labels: week,
-    xaxis: {
-    type: 'datetime',
-    },
-    yaxis: {
-    opposite: true
-    },
-    legend: {
-    horizontalAlign: 'left'
-    }
-},
-
-};
-
-
-/*
-const all_timespent = {     
-    labels: week,
-    datasets: [{
-       label: 'Total Time Spent (minutes)',
-       data: [50, 54, 70, 76, 78, 80, 82],
-       backgroundColor: "rgba(75,192,192,0.2)",
-       borderColor: "rgba(75,192,192,1)"
-     }]
-   };
-
-  const one_timespent = {     
-  labels: week,
-  datasets: [{
-      label: 'Total Time Spent (minutes)',
-      data: [5, 5, 7, 7, 8, 10, 12],
-      backgroundColor: "rgba(75,192,192,0.2)",
-      borderColor: "rgba(75,192,192,1)"
-    }]
-  };
-
-  const two_timespent = {     
-  labels: week,
-  datasets: [{
-      label: 'Total Time Spent (minutes)',
-      data: [1, 4, 7, 7, 7, 8, 8],
-      backgroundColor: "rgba(75,192,192,0.2)",
-      borderColor: "rgba(75,192,192,1)"
-    }]
-  };
-*/
-
-
 function getRange(count) {
   return Array.from({ length: count }, (_, i) => i);
 }
@@ -513,75 +306,6 @@ const randomValues = getRange(200).map(index => {
   };
 });
   
-/** Jira Pie Chart Dummy Data */
-/** DonutChart
-const data = {     
-  labels: [
-       'To Do',
-       'Doing',
-       'Done'
-     ],
-     datasets: [{
-       label: 'Card Status',
-       data: [300, 50, 100],
-       backgroundColor: [
-         'rgb(255, 99, 132)',
-         'rgb(54, 162, 235)',
-         'rgb(255, 205, 86)'
-       ],
-       hoverOffset: 4
-     }]
-   };
- */
-
-  const donut_data = {
-    
-  series: [20, 17, 9],
-  options: {
-    chart: {
-      type: 'donut',
-    },
-    labels: [
-      'To Do',
-      'Doing',
-      'Done'
-    ],
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        chart: {
-          height: 400,
-          width: 400,
-        },
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }],
-    title: {
-      text: "Board Card Status: Click to View Card List",
-      align: 'left',
-      margin: 15,
-      offsetX: 0,
-      offsetY: 0,
-      floating: false,
-      style: {
-        fontSize:  '15px',
-        fontWeight:  'bold',
-        color:  '#263238'
-      },
-    },
-    colors: ['#ff82a5', '#ffe873', '#54d9f7'],
-    tooltip: {
-      y: {
-        formatter: function (val) {
-          return val + " - task_name"
-        }
-      }
-    }
-  },
-  }
-
 function mapState(state) {
   return {
     requestTeamConfluencePages: state.user.requestTeamConfluencePages,
@@ -593,6 +317,11 @@ function mapState(state) {
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
     teamInfo: state.user.teamInfo,
+
+
+    requestTeamGithubDetailCommits: state.user.requestTeamGithubDetailCommits,
+    githubDetailCommits: state.user.teamGithubDetailCommits,
+
   };
 }
 
@@ -600,6 +329,9 @@ const actionCreators = {
   getTeamConfluencePages: userActions.getTeamConfluencePages,
   getTeamGithubCommits: userActions.getTeamGithubCommits,
   getTeamJiraTickets: userActions.getTeamJiraTickets,
+
+
+  getTeamGithubDetailCommits: userActions.getTeamGithubDetailCommits,
 };
 
 const qualityPage = connect(mapState, actionCreators)(ProcessQualityPage);

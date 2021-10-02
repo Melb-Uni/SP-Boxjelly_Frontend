@@ -2,7 +2,7 @@ import React , { Children } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { Popover, OverlayTrigger, PopoverTitle, PopoverContent} from 'react-bootstrap';
+import { Popover, OverlayTrigger, PopoverTitle, PopoverContent, Container, Row, Col} from 'react-bootstrap';
 import { events2HourAndMinute, isToday } from "../_utils/EventInfoExtractor"
 import { makeStyles } from '@material-ui/core';
 import Card from "@material-ui/core/Card";
@@ -23,22 +23,18 @@ const useStyles = makeStyles ({
     padding: 10,
     borderRadius: 6,
     boxShadow: "5px 1px 1px lightgrey",
-    // borderStyle: "solid"
   },
   keyDateCard: {
-    width: 150,
-    height: 30,
-    background: "lightgreen",
+    background: "#f77480",
     margin: "auto",
-    padding: 0,
-    marginLeft: 20
   },
   meetingCard: {
-    width: 150,
-    height: 30,
+    background: "lightgreen",
+    margin: "auto"
+  },
+  standupCard: {
     background: "lightblue",
-    margin: "auto",
-    marginRight: 600
+    margin: "auto"
   },
   cardContent: {
     "&:last-child": {
@@ -66,6 +62,7 @@ export default function BigCalendar(props){
   const CURRENT_DATE = moment().toDate();
   const meetingList = props.meetingList;
   const keyDateList = props.keyDateList;
+  const standupList = props.standupList;
 
   function matchDate(date, dateList) { 
     console.log(date);
@@ -81,8 +78,9 @@ export default function BigCalendar(props){
     React.cloneElement(Children.only(children), {
         style: {
             ...children.style,
-            backgroundColor: matchDate(value, keyDateList) ? 'lightgreen' : 
-            matchDate(value, meetingList) ? 'lightblue' : 
+            backgroundColor: matchDate(value, keyDateList) ? '#f77480' : 
+            matchDate(value, meetingList) ? 'lightgreen' : 
+            matchDate(value, standupList) ? 'lightblue' : 
             isToday(value) ? 'lightgrey' : 'white'
         },
     });
@@ -114,40 +112,56 @@ export default function BigCalendar(props){
   }
 
   return (
-    <div>
-      <Calendar
-        localizer={localizer}
-        events={props.events}
-        startAccessor="start"
-        endAccessor="end"
-        className={classes.calendar}
-        components={{
-          dateCellWrapper: ColoredDateCellWrapper,
-          event: ClickEvent
-      }}/>
-      <div className={classes.cardContainer}>
-        
-        <Card className={classes.keyDateCard}>
-          <CardContent className={classes.cardContent}>
-            <Typography
-              className={classes.typography}
-            >
-              Key dates
-            </Typography>
-          </CardContent>
-        </Card>
+    <Container fluid>
+      <Row>
+        <Calendar
+          localizer={localizer}
+          events={props.events}
+          startAccessor="start"
+          endAccessor="end"
+          className={classes.calendar}
+          components={{
+            dateCellWrapper: ColoredDateCellWrapper,
+            event: ClickEvent
+        }}/>
+      </Row>
 
-        <Card className={classes.meetingCard}>
-          <CardContent className={classes.cardContent}>
-            <Typography
-              className={classes.typography}
-            >
-              Meetings
-            </Typography>
-          </CardContent>
-        </Card> 
-      </div>  
-    </div>
+      <Row className={classes.cardContainer}>
+        <Col xs={4} md={3} lg={2}>
+          <Card className={classes.keyDateCard}>
+            <CardContent className={classes.cardContent}>
+              <Typography
+                className={classes.typography}
+              >
+                Key dates
+              </Typography>
+            </CardContent>
+          </Card>
+        </Col>
+        <Col xs={4} md={3} lg={2}>
+          <Card className={classes.meetingCard}>
+            <CardContent className={classes.cardContent}>
+              <Typography
+                className={classes.typography}
+              >
+                Meetings
+              </Typography>
+            </CardContent>
+          </Card>
+        </Col>
+        <Col xs={4} md={3} lg={2}>
+          <Card className={classes.standupCard}>
+            <CardContent className={classes.cardContent}>
+              <Typography
+                className={classes.typography}
+              >
+                Standup
+              </Typography>
+            </CardContent>
+          </Card>
+        </Col>
+      </Row>  
+    </Container>
 
   )
 }
