@@ -518,7 +518,12 @@ const dir_data = {
           fontWeight:  'bold',
           color:  '#263238'
         },
-    }
+      },
+      plotOptions: {
+        treemap: {
+          distributed: true,
+        }
+      }
     },
     hasError: false
 };
@@ -567,7 +572,12 @@ const dir_metric_data = {
           fontWeight:  'bold',
           color:  '#263238'
         },
-    }
+      },
+      plotOptions: {
+        treemap: {
+          distributed: true,
+        }
+      }
     },
     hasError: false
 };
@@ -601,8 +611,7 @@ const func_metric_data = {
     }
   ],
   options: {
-      colors: [
-      '#ff9eed'],
+      //colors: ['#ff9eed'],
       legend: {
         show: false
       },
@@ -622,7 +631,12 @@ const func_metric_data = {
           fontWeight:  'bold',
           color:  '#263238'
         },
-    }
+      },
+      plotOptions: {
+        treemap: {
+          distributed: true,
+        }
+      }
     },
     hasError: false
 };
@@ -658,8 +672,7 @@ const func_data = {
     }
   ],
   options: {
-      colors: [
-      '#ff9eed'],
+      //colors: ['#ff9eed'],
       legend: {
         show: false
       },
@@ -679,7 +692,12 @@ const func_data = {
           fontWeight:  'bold',
           color:  '#263238'
         },
-    }
+      },
+      plotOptions: {
+        treemap: {
+          distributed: true,
+        }
+      }
     },
     hasError: false
 };
