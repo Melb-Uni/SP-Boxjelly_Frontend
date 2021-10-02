@@ -9,7 +9,11 @@ import { userActions } from "../_actions";
 import {
   Table,
   Space,
-  Collapse
+  Collapse,
+  Input,
+  Button,
+  Tree,
+  Tabs
 } from 'antd';
 import { github, jira } from "./temp";
 import {
@@ -19,8 +23,11 @@ import {
   JiraContent,
   ConfluenceContent,
   Comment,
-  MembersWrap
+  MembersWrap, MyTAb
 } from './style';
+
+const { Search } = Input;
+const { TabPane } = Tabs;
 
 class ProjectHomePage extends Component {
   constructor(props) {
@@ -29,7 +36,13 @@ class ProjectHomePage extends Component {
       membersShow: true,
       mainShow: true,
       show: "",
+      currentDesc:"",
       gitColumns: [
+        {
+          title: "Repository",
+          dataIndex: "Repository",
+          key: "Repository",
+        },
         {
           title: "Commits",
           dataIndex: "commits",
@@ -77,28 +90,28 @@ class ProjectHomePage extends Component {
           dataIndex: "activity",
           key: "activity",
           ellipsis: true,
-          width: 500,
+          // width: 500,
           align: "center"
         },
         {
           title: "Date Time",
           dataIndex: "datetime",
           key: "datetime",
-          width: 300,
+          // width: 300,
           align: "center"
         },
         {
           title: "What Did They Do",
           dataIndex: "dowhat",
           key: "dowhat",
-          width: 300,
+          // width: 300,
           align: "center"
         },
         {
           title: "URL",
           dataIndex: "url",
           key: "url",
-          width: 300,
+          // width: 300,
           ellipsis: true,
           align: "center",
           render: (text) => (
@@ -135,8 +148,72 @@ class ProjectHomePage extends Component {
           dataIndex: "email",
           key: "email",
         },
+        {
+          title: "GitHub Username",
+          dataIndex: "name",
+          key: "gitHubUsername",
+          render: (item, record, index) => {
+            // console.log(item, record, index);
+            return !record.editGithubName ?(
+                <Space>
+                  <span>{record.name || "--"}</span>
+                  <Button size={"small"} onClick={()=>this.editAlias(record, index, "editGithubName")}>editor</Button>
+                </Space>
+            ):(
+                <Space>
+                  <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+                  <Button size={"small"} onClick={()=>this.saveAlias(record, 0)}>save</Button>
+                  <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editGithubName")}>cancel</Button>
+                </Space>
+            )
+          },
+        },
+        {
+          title: "Jira Username",
+          dataIndex: "name",
+          key: "jiraUsername",
+          render: (item, record, index) => {
+            // console.log(item, record, index);
+            return !record.editJiraUsername ?(
+                <Space>
+                  <span>{record.name || "--"}</span>
+                  <Button size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
+                </Space>
+            ):(
+                <Space>
+                  <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+                  <Button size={"small"} onClick={()=>this.saveAlias(record, 0)}>save</Button>
+                  <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
+                </Space>
+            )
+          },
+        },
       ],
+      teamMemberListNew:{}
     }
+  }
+  setCurrentDesc = (value)=>{
+    this.setState({
+      currentDesc:value
+    })
+  }
+  editAlias = (record, index, key)=>{
+    // console.log(key,index)
+    this.props.teamMemberList[index][key] = true
+    // console.log(this.state)
+    this.setState({
+      ...this.state,
+      show:'show'
+    })
+  }
+  cancelEdit = async (record, index, key) => {
+    this.props.teamMemberList[index][key] = false
+    this.setState({
+      show:''
+    })
+  };
+  saveAlias = async (record, type) => {
+    console.log(this.state.currentDesc)
   }
   handleSelect = (e) => {
     this.setState({ show: e.target.value }, () => {
@@ -148,9 +225,21 @@ class ProjectHomePage extends Component {
     })
   }
   componentDidMount() {
-    console.log(this.props.currentTeamKey)
+    // console.log(this.props.currentTeamKey)
+    // console.log(this.props)
+
     this.props.getTeamMemberList(this.props.currentTeamKey);
+    this.props.teamMemberList && this.props.teamMemberList.forEach((item)=>{
+      item.editGithubName = false
+      item.editJiraUsername = false
+    })
   }
+
+
+  callback = (key) => {
+    console.log(key);
+  }
+
   render() {
     const { Panel } = Collapse;
     const Span = ({ children }) => (
@@ -169,6 +258,21 @@ class ProjectHomePage extends Component {
           <img src="/icons/page.png" alt="page" /> &nbsp;&nbsp;&nbsp;{children}</a>
       </p>
     )
+
+    const Demo = () => (
+        <Tabs defaultActiveKey="1" onChange={this.callback}>
+          <TabPane tab="To Do" key="1">
+            To Do
+          </TabPane>
+          <TabPane tab="In Progress" key="2">
+            In Progress
+          </TabPane>
+          <TabPane tab="Done" key="3">
+            Done
+          </TabPane>
+        </Tabs>
+    );
+
     return (
       <div className="uomcontent">
         {uomHeader("Project Overview")}
@@ -197,6 +301,7 @@ class ProjectHomePage extends Component {
                       columns={this.state.columns}
                       dataSource={this.props.teamMemberList}
                       pagination={false}
+                      // width={600}
                     ></Table>
                   </MembersWrap>
                   : null
@@ -213,13 +318,18 @@ class ProjectHomePage extends Component {
                           ></Table>
                         </GitHubContent>
                       case "jira":
-                        return <JiraContent>
-                          <Table
-                            dataSource={jira}
-                            columns={this.state.jiraColumns}
-                            pagination={false}
-                          ></Table>
-                        </JiraContent>
+                        return <div>
+                          <MyTAb>
+                            <Demo/>
+                          </MyTAb>
+                          <JiraContent>
+                            <Table
+                                dataSource={jira}
+                                columns={this.state.jiraColumns}
+                                pagination={false}
+                            ></Table>
+                          </JiraContent>
+                        </div>
                       case "confluence":
                         return <ConfluenceContent>
                           <Collapse ghost>
