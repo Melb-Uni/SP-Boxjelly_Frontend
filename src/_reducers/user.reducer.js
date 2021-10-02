@@ -17,6 +17,9 @@ const initState = {
   isLogin: false,
   requestLogin: false,
   teamInfo:{},
+
+
+  requestTeamGithubDetailCommits: false,
 };
 
 export function user(state = initState, action) {
@@ -109,6 +112,37 @@ export function user(state = initState, action) {
         requestTeamGithubCommits: false,
         teamGithubCommits: {},
       };
+
+
+
+      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST:
+        return {
+          ...state,
+          requestTeamGithubDetailCommits: true,
+        };
+      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_SUCCESS:
+        return {
+          ...state,
+          requestTeamGithubDetailCommits: false,
+          teamGithubDetailCommits: action.payload,
+        };
+      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE:
+        return {
+          ...state,
+          requestTeamGithubDetailCommits: false,
+          teamGithubDetailCommits: {},
+        };
+
+
+
+
+
+
+
+
+
+
+
     case userConstants.GET_TEAM_JIRA_TICKETS_REQUEST:
       return {
         ...state,

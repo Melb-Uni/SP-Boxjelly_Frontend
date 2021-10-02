@@ -14,6 +14,8 @@ export const userService = {
   deleteImportedProject,
   getConfluenceSpaceByKeyWord,
   getTeamMemberList,
+
+  getTeamGithubDetailCommits,
 };
 
 const baseUrl = "/api/v1";
@@ -32,6 +34,31 @@ function getTeamConfluencePages(teamKey) {
       return jsonResponse;
     });
 }
+
+function getTeamGithubDetailCommits (teamKey) {
+  let payload = {
+    space_key: teamKey
+  };
+  
+  let url = "getCommits";
+  console.log("GET_TEAM_GITHUB_DETAIL_COMMITS")
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(payload),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+
+      console.log("jsonResponse");
+      console.log(jsonResponse)
+      return jsonResponse;
+    });
+}
+
 
 function getTeamGithubCommits(teamKey) {
   let url = baseUrl + "/git/" + teamKey + "/commit_count";
