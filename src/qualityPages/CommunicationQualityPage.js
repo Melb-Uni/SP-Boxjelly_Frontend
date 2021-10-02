@@ -73,6 +73,7 @@ class CommunicationPage extends React.Component {
             events={Events}
             keyDateList={events2Dates(eventsFilter(Events, 'Key date'))}
             meetingList={events2Dates(eventsFilter(Events, 'Meeting'))}
+            standupList={events2Dates(eventsFilter(Events, 'Standup'))}
           />  
         </div>
       </div>
