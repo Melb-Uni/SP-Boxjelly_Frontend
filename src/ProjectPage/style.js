@@ -56,12 +56,10 @@ export const MyTAb = styled.div`
   line-height:50px;
   text-align:center;
   display:table;
-
-
 `
 
 export const GitHubContent = styled.div`
-    margin-top: 100px;
+    margin-top: 50px;
     //width: 100%;
     //height: 800px;
     //table .link{

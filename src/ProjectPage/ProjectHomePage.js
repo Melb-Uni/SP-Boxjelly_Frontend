@@ -13,7 +13,9 @@ import {
   Input,
   Button,
   Tree,
-  Tabs
+  Tabs,
+  message,
+  Popover
 } from 'antd';
 import { github, jira } from "./temp";
 import {
@@ -37,50 +39,56 @@ class ProjectHomePage extends Component {
       mainShow: true,
       show: "",
       currentDesc:"",
+      githubDetailCommits:[],
       gitColumns: [
         {
           title: "Repository",
-          dataIndex: "Repository",
-          key: "Repository",
+          dataIndex: "source",
+          key: "source",
         },
         {
           title: "Commits",
-          dataIndex: "commits",
-          key: "commits",
+          dataIndex: "message",
+          key: "message",
         },
         {
           title: "Author Name",
-          dataIndex: "authorname",
-          key: "authorname",
+          dataIndex: "author",
+          key: "author",
           align: "center"
         },
         {
           title: "Branch Name",
-          dataIndex: "branchName",
-          key: "brachname",
+          dataIndex: "name",
+          key: "name",
           align: "center"
         },
         {
           title: "Time",
-          dataIndex: "time",
-          key: "time",
+          dataIndex: "date",
+          key: "date",
           align: "center",
         },
         {
           title: "URL",
-          dataIndex: "code",
-          key: "code",
+          dataIndex: "url",
+          key: "url",
           align: "center",
           render: (text) => (
-            <Space size="middle">
-              <a href="https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues"
-                style={{ textDecoration: "none", display: "inline-block" }}
-                className="link"
-              >
-                <img src="/icons/content.png" alt="content" />
-                {text}
-              </a>
-            </Space>
+            <div style={{ textDecoration: "none", display: "inline-block" }}>
+
+              {/*<span>*/}
+              {/*  <a href="https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues"*/}
+              {/*      style={{ textDecoration: "none", display: "inline-block" }}*/}
+              {/*       className="link"*/}
+              {/*  >*/}
+              {/*  <img src="/icons/content.png" alt="content" />*/}
+              {/*                  /!*{text}*!/*/}
+              {/*  </a>*/}
+              {/*</span>*/}
+              <span ><img src="/icons/content.png" onClick={()=>window.open("https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues")} alt="content" /></span>
+              <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>window.open(text)} >view</Button>
+            </div>
           )
         }
       ],
@@ -154,16 +162,16 @@ class ProjectHomePage extends Component {
           key: "gitHubUsername",
           render: (item, record, index) => {
             // console.log(item, record, index);
-            return !record.editGithubName ?(
+            return (
                 <Space>
                   <span>{record.name || "--"}</span>
-                  <Button size={"small"} onClick={()=>this.editAlias(record, index, "editGithubName")}>editor</Button>
-                </Space>
-            ):(
-                <Space>
-                  <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
-                  <Button size={"small"} onClick={()=>this.saveAlias(record, 0)}>save</Button>
-                  <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editGithubName")}>cancel</Button>
+                  <Popover content={
+                    <Space>
+                      <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+                      <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editGithubName")}>save</Button>
+                      <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editGithubName")}>cancel</Button>
+                    </Space>} title="Editor" trigger="click"> <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editGithubName")}>editor</Button>
+                  </Popover>
                 </Space>
             )
           },
@@ -174,16 +182,27 @@ class ProjectHomePage extends Component {
           key: "jiraUsername",
           render: (item, record, index) => {
             // console.log(item, record, index);
-            return !record.editJiraUsername ?(
+            // return !record.editJiraUsername ?(
+            //     <Space>
+            //       <span>{record.name || "--"}</span>
+            //       <Button size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
+            //     </Space>
+            // ):(
+            //     <Space>
+            //       <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+            //       <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editJiraUsername")}>save</Button>
+            //       <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
+            //     </Space>
+            // )
+            return (
                 <Space>
                   <span>{record.name || "--"}</span>
-                  <Button size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
-                </Space>
-            ):(
-                <Space>
-                  <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
-                  <Button size={"small"} onClick={()=>this.saveAlias(record, 0)}>save</Button>
-                  <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
+                  <Popover content={                <Space>
+                    <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+                    <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editJiraUsername")}>save</Button>
+                    <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
+                  </Space>} title="Editor" trigger="click"> <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
+                  </Popover>
                 </Space>
             )
           },
@@ -203,17 +222,66 @@ class ProjectHomePage extends Component {
     // console.log(this.state)
     this.setState({
       ...this.state,
-      show:'show'
+      show:'show',
     })
   }
   cancelEdit = async (record, index, key) => {
     this.props.teamMemberList[index][key] = false
     this.setState({
+      ...this.state,
       show:''
     })
   };
-  saveAlias = async (record, type) => {
-    console.log(this.state.currentDesc)
+  saveAlias = async (record,index, type) => {
+    if(type === "editGithubName"){
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify({
+          user_id:record.id, git_username: this.state.currentDesc || record.name
+        }),
+        credentials: "include",
+      };
+      fetch('/api/v1/confluence/updateGitUsername', requestOptions)
+          .then((response) => response.json())
+          .then((jsonResponse) => {
+            if(jsonResponse.code === 0){
+              message.success("editor success")
+              this.props.teamMemberList[index][type] = false
+              this.setState({
+                ...this.state,
+                show:''
+              })
+            }else {
+              message.error("editor error")
+            }
+            return jsonResponse;
+          });
+    }else {
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify({
+          user_id:record.id, jira_username: this.state.currentDesc || record.name
+        }),
+        credentials: "include",
+      };
+      fetch('/api/v1/confluence/updateJiraUsername', requestOptions)
+          .then((response) => response.json())
+          .then((jsonResponse) => {
+            if(jsonResponse.code === 0){
+              message.success("editor success")
+              this.props.teamMemberList[index][type] = false
+              this.setState({
+                ...this.state,
+                show:''
+              })
+            }else {
+              message.error("editor error")
+            }
+            return jsonResponse;
+          });
+    }
+
+
   }
   handleSelect = (e) => {
     this.setState({ show: e.target.value }, () => {
@@ -225,14 +293,33 @@ class ProjectHomePage extends Component {
     })
   }
   componentDidMount() {
-    // console.log(this.props.currentTeamKey)
-    // console.log(this.props)
-
     this.props.getTeamMemberList(this.props.currentTeamKey);
     this.props.teamMemberList && this.props.teamMemberList.forEach((item)=>{
       item.editGithubName = false
       item.editJiraUsername = false
     })
+    // 获取githubDetailCommits
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify({
+        space_key:this.props.currentTeamKey,
+      }),
+      credentials: "include",
+    };
+    fetch('getCommits', requestOptions)
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          const res = jsonResponse.map((item)=>{
+            return {
+              ...item,
+              name:"master"
+            }
+          })
+          this.setState({
+            ...this.state,
+            githubDetailCommits:res
+          })
+        });
   }
 
 
@@ -277,7 +364,7 @@ class ProjectHomePage extends Component {
       <div className="uomcontent">
         {uomHeader("Project Overview")}
         <div role="main">
-          <H1>Project 1</H1>
+          <H1>{this.props.currentTeamKey}</H1>
           <div className="page-inner">
             {this.state.mainShow
               ? <>
@@ -312,7 +399,7 @@ class ProjectHomePage extends Component {
                       case "github":
                         return <GitHubContent>
                           <Table
-                            dataSource={github}
+                            dataSource={this.state.githubDetailCommits}
                             columns={this.state.gitColumns}
                             pagination={false}
                           ></Table>
@@ -378,11 +465,13 @@ function mapState(state) {
   return {
     teamMemberList: state.user.teamMemberList,
     currentTeamKey: state.user.currentTeamKey,
-    currentTeamName: state.user.currentTeamName
+    currentTeamName: state.user.currentTeamName,
+    // githubDetailCommits: state.user.githubDetailCommits
   };
 }
 const actionCreators = {
   getTeamMemberList: userActions.getTeamMemberList,
+  // getTeamGithubDetailCommits:userActions.getTeamGithubDetailCommits
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);
