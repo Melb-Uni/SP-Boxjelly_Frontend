@@ -24,15 +24,16 @@ export default function Heatmap(props) {
         }}
         tooltipDataAttrs={value => {
           return {
-            'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${
-              value.count
-            } -> who, what commit comment, time, update/modify, url
-            
+            'data-tip': `${value.date} has count: ${value.count} 
+            Authors: ${value.authors} 
+            Sources: ${value.sources} 
+            Message: ${value.messages}
+            Urls: ${value.urls}
             `,
           };
         }}
         showWeekdayLabels={true}
-        //onClick={value => alert(`Clicked on value with count: ${value.count}`)}
+         //onClick={value => alert(`Clicked on value with count: ${value.messages}`)}
       />
       <ReactTooltip />
     </div>
