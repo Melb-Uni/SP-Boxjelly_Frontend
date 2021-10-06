@@ -9,7 +9,13 @@ import { userActions } from "../_actions";
 import {
   Table,
   Space,
-  Collapse
+  Collapse,
+  Input,
+  Button,
+  Tree,
+  Tabs,
+  message,
+  Popover
 } from 'antd';
 import { github, jira } from "./temp";
 import {
@@ -19,8 +25,11 @@ import {
   JiraContent,
   ConfluenceContent,
   Comment,
-  MembersWrap
+  MembersWrap, MyTAb
 } from './style';
+
+const { Search } = Input;
+const { TabPane } = Tabs;
 
 class ProjectHomePage extends Component {
   constructor(props) {
@@ -29,45 +38,57 @@ class ProjectHomePage extends Component {
       membersShow: true,
       mainShow: true,
       show: "",
+      currentDesc:"",
+      githubDetailCommits:[],
       gitColumns: [
         {
+          title: "Repository",
+          dataIndex: "source",
+          key: "source",
+        },
+        {
           title: "Commits",
-          dataIndex: "commits",
-          key: "commits",
+          dataIndex: "message",
+          key: "message",
         },
         {
           title: "Author Name",
-          dataIndex: "authorname",
-          key: "authorname",
+          dataIndex: "author",
+          key: "author",
           align: "center"
         },
         {
           title: "Branch Name",
-          dataIndex: "branchName",
-          key: "brachname",
+          dataIndex: "name",
+          key: "name",
           align: "center"
         },
         {
           title: "Time",
-          dataIndex: "time",
-          key: "time",
+          dataIndex: "date",
+          key: "date",
           align: "center",
         },
         {
           title: "URL",
-          dataIndex: "code",
-          key: "code",
+          dataIndex: "url",
+          key: "url",
           align: "center",
           render: (text) => (
-            <Space size="middle">
-              <a href="https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues"
-                style={{ textDecoration: "none", display: "inline-block" }}
-                className="link"
-              >
-                <img src="/icons/content.png" alt="content" />
-                {text}
-              </a>
-            </Space>
+            <div style={{ textDecoration: "none", display: "inline-block" }}>
+
+              {/*<span>*/}
+              {/*  <a href="https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues"*/}
+              {/*      style={{ textDecoration: "none", display: "inline-block" }}*/}
+              {/*       className="link"*/}
+              {/*  >*/}
+              {/*  <img src="/icons/content.png" alt="content" />*/}
+              {/*                  /!*{text}*!/*/}
+              {/*  </a>*/}
+              {/*</span>*/}
+              <span ><img src="/icons/content.png" onClick={()=>window.open("https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues")} alt="content" /></span>
+              <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>window.open(text)} >view</Button>
+            </div>
           )
         }
       ],
@@ -77,28 +98,28 @@ class ProjectHomePage extends Component {
           dataIndex: "activity",
           key: "activity",
           ellipsis: true,
-          width: 500,
+          // width: 500,
           align: "center"
         },
         {
           title: "Date Time",
           dataIndex: "datetime",
           key: "datetime",
-          width: 300,
+          // width: 300,
           align: "center"
         },
         {
           title: "What Did They Do",
           dataIndex: "dowhat",
           key: "dowhat",
-          width: 300,
+          // width: 300,
           align: "center"
         },
         {
           title: "URL",
           dataIndex: "url",
           key: "url",
-          width: 300,
+          // width: 300,
           ellipsis: true,
           align: "center",
           render: (text) => (
@@ -135,8 +156,132 @@ class ProjectHomePage extends Component {
           dataIndex: "email",
           key: "email",
         },
+        {
+          title: "GitHub Username",
+          dataIndex: "name",
+          key: "gitHubUsername",
+          render: (item, record, index) => {
+            // console.log(item, record, index);
+            return (
+                <Space>
+                  <span>{record.name || "--"}</span>
+                  <Popover content={
+                    <Space>
+                      <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+                      <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editGithubName")}>save</Button>
+                      <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editGithubName")}>cancel</Button>
+                    </Space>} title="Editor" trigger="click"> <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editGithubName")}>editor</Button>
+                  </Popover>
+                </Space>
+            )
+          },
+        },
+        {
+          title: "Jira Username",
+          dataIndex: "name",
+          key: "jiraUsername",
+          render: (item, record, index) => {
+            // console.log(item, record, index);
+            // return !record.editJiraUsername ?(
+            //     <Space>
+            //       <span>{record.name || "--"}</span>
+            //       <Button size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
+            //     </Space>
+            // ):(
+            //     <Space>
+            //       <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+            //       <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editJiraUsername")}>save</Button>
+            //       <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
+            //     </Space>
+            // )
+            return (
+                <Space>
+                  <span>{record.name || "--"}</span>
+                  <Popover content={                <Space>
+                    <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+                    <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editJiraUsername")}>save</Button>
+                    <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
+                  </Space>} title="Editor" trigger="click"> <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
+                  </Popover>
+                </Space>
+            )
+          },
+        },
       ],
+      teamMemberListNew:{}
     }
+  }
+  setCurrentDesc = (value)=>{
+    this.setState({
+      currentDesc:value
+    })
+  }
+  editAlias = (record, index, key)=>{
+    // console.log(key,index)
+    this.props.teamMemberList[index][key] = true
+    // console.log(this.state)
+    this.setState({
+      ...this.state,
+      show:'show',
+    })
+  }
+  cancelEdit = async (record, index, key) => {
+    this.props.teamMemberList[index][key] = false
+    this.setState({
+      ...this.state,
+      show:''
+    })
+  };
+  saveAlias = async (record,index, type) => {
+    if(type === "editGithubName"){
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify({
+          user_id:record.id, git_username: this.state.currentDesc || record.name
+        }),
+        credentials: "include",
+      };
+      fetch('/api/v1/confluence/updateGitUsername', requestOptions)
+          .then((response) => response.json())
+          .then((jsonResponse) => {
+            if(jsonResponse.code === 0){
+              message.success("editor success")
+              this.props.teamMemberList[index][type] = false
+              this.setState({
+                ...this.state,
+                show:''
+              })
+            }else {
+              message.error("editor error")
+            }
+            return jsonResponse;
+          });
+    }else {
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify({
+          user_id:record.id, jira_username: this.state.currentDesc || record.name
+        }),
+        credentials: "include",
+      };
+      fetch('/api/v1/confluence/updateJiraUsername', requestOptions)
+          .then((response) => response.json())
+          .then((jsonResponse) => {
+            if(jsonResponse.code === 0){
+              message.success("editor success")
+              this.props.teamMemberList[index][type] = false
+              this.setState({
+                ...this.state,
+                show:''
+              })
+            }else {
+              message.error("editor error")
+            }
+            return jsonResponse;
+          });
+    }
+
+
   }
   handleSelect = (e) => {
     this.setState({ show: e.target.value }, () => {
@@ -148,9 +293,40 @@ class ProjectHomePage extends Component {
     })
   }
   componentDidMount() {
-    console.log(this.props.currentTeamKey)
     this.props.getTeamMemberList(this.props.currentTeamKey);
+    this.props.teamMemberList && this.props.teamMemberList.forEach((item)=>{
+      item.editGithubName = false
+      item.editJiraUsername = false
+    })
+    // 获取githubDetailCommits
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify({
+        space_key:this.props.currentTeamKey,
+      }),
+      credentials: "include",
+    };
+    fetch('getCommits', requestOptions)
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          const res = jsonResponse.map((item)=>{
+            return {
+              ...item,
+              name:"master"
+            }
+          })
+          this.setState({
+            ...this.state,
+            githubDetailCommits:res
+          })
+        });
   }
+
+
+  callback = (key) => {
+    console.log(key);
+  }
+
   render() {
     const { Panel } = Collapse;
     const Span = ({ children }) => (
@@ -169,11 +345,26 @@ class ProjectHomePage extends Component {
           <img src="/icons/page.png" alt="page" /> &nbsp;&nbsp;&nbsp;{children}</a>
       </p>
     )
+
+    const Demo = () => (
+        <Tabs defaultActiveKey="1" onChange={this.callback}>
+          <TabPane tab="To Do" key="1">
+            To Do
+          </TabPane>
+          <TabPane tab="In Progress" key="2">
+            In Progress
+          </TabPane>
+          <TabPane tab="Done" key="3">
+            Done
+          </TabPane>
+        </Tabs>
+    );
+
     return (
       <div className="uomcontent">
         {uomHeader("Project Overview")}
         <div role="main">
-          <H1>Project 1</H1>
+          <H1>{this.props.currentTeamKey}</H1>
           <div className="page-inner">
             {this.state.mainShow
               ? <>
@@ -197,6 +388,7 @@ class ProjectHomePage extends Component {
                       columns={this.state.columns}
                       dataSource={this.props.teamMemberList}
                       pagination={false}
+                      // width={600}
                     ></Table>
                   </MembersWrap>
                   : null
@@ -207,19 +399,24 @@ class ProjectHomePage extends Component {
                       case "github":
                         return <GitHubContent>
                           <Table
-                            dataSource={github}
+                            dataSource={this.state.githubDetailCommits}
                             columns={this.state.gitColumns}
                             pagination={false}
                           ></Table>
                         </GitHubContent>
                       case "jira":
-                        return <JiraContent>
-                          <Table
-                            dataSource={jira}
-                            columns={this.state.jiraColumns}
-                            pagination={false}
-                          ></Table>
-                        </JiraContent>
+                        return <div>
+                          <MyTAb>
+                            <Demo/>
+                          </MyTAb>
+                          <JiraContent>
+                            <Table
+                                dataSource={jira}
+                                columns={this.state.jiraColumns}
+                                pagination={false}
+                            ></Table>
+                          </JiraContent>
+                        </div>
                       case "confluence":
                         return <ConfluenceContent>
                           <Collapse ghost>
@@ -268,11 +465,13 @@ function mapState(state) {
   return {
     teamMemberList: state.user.teamMemberList,
     currentTeamKey: state.user.currentTeamKey,
-    currentTeamName: state.user.currentTeamName
+    currentTeamName: state.user.currentTeamName,
+    // githubDetailCommits: state.user.githubDetailCommits
   };
 }
 const actionCreators = {
   getTeamMemberList: userActions.getTeamMemberList,
+  // getTeamGithubDetailCommits:userActions.getTeamGithubDetailCommits
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);
