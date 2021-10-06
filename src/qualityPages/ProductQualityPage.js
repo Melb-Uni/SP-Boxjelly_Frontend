@@ -57,6 +57,7 @@ class ProductQualityPage extends React.Component {
         commonConstants.DIRECTORY_METRICS,
         commonConstants.FUNCTION_METRICS,
       ],
+      btnSelected: commonConstants.DIRECTORY_STRUCTURE,
 
 
 
@@ -80,9 +81,9 @@ class ProductQualityPage extends React.Component {
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
     if (selected == commonConstants.DIRECTORY_STRUCTURE) {
-      this.props.getTeamGithubCommits(this.props.currentTeamKey);
+      this.props.getTeamCodeMetrics(this.props.currentTeamKey);
     } else if (selected == commonConstants.DIRECTORY_METRICS) {
-      this.props.getTeamGithubCommits(this.props.currentTeamKey);
+      this.props.getFileCodeMetrics(this.props.currentTeamKey);
     } else {
       this.props.getTeamGithubCommits(this.props.currentTeamKey);
     }
@@ -97,6 +98,8 @@ class ProductQualityPage extends React.Component {
   componentDidMount() {
     if (this.state.hasConfig) {
       this.props.getTeamCodeMetrics(this.props.currentTeamKey);
+      this.props.getFileCodeMetrics(this.props.currentTeamKey);
+
     }
   }
 
@@ -186,6 +189,8 @@ class ProductQualityPage extends React.Component {
               }
             >
               {this.state.hasConfig &&
+                this.props.teamCodeMetrics &&
+                this.props.teamCodeMetrics.length != 0 &&
                 this.state.btnSelected == commonConstants.DIRECTORY_STRUCTURE && (
 
                   <div>
@@ -193,6 +198,7 @@ class ProductQualityPage extends React.Component {
                       <h2 style={{fontSize: "21px"}}><b>Top 10 Files: Number of Lines in Directory</b></h2>
                       <br/>
                       <PolarArea data={polar_data}/>
+                      <ReverseTable data={this.props.teamCodeMetrics}/>
                     </Container>
                     <br/>
                   </div>
@@ -204,6 +210,8 @@ class ProductQualityPage extends React.Component {
 
                   <div>
                     <Container>
+
+                      <Row><p>{this.props.fileCodeMetrics}</p></Row>
                       <Row>
                         <Col xs="9">
                           <Treemap data = {this.state.dir_data} />
@@ -240,8 +248,7 @@ class ProductQualityPage extends React.Component {
                           <RadarChart2 data = {radar_dir_data} />
                         </Col>
                       </Row>
-                    </Container>
-                    
+                    </Container>                    
                   </div>
 
                 )
@@ -290,16 +297,13 @@ class ProductQualityPage extends React.Component {
                 )
               }
             </Spin>
-
-
-
-            {this.state.hasConfig &&
+            {/*{this.state.hasConfig &&
               this.props.teamCodeMetrics &&
               this.props.teamCodeMetrics.length != 0 && (
               <ReverseTable
               data={this.props.teamCodeMetrics}
             />
-            )}
+            )}*/}
             {this.state.hasConfig &&
               (!this.props.teamCodeMetrics ||
                 this.props.teamCodeMetrics.length == 0) && (
@@ -320,6 +324,8 @@ function mapState(state) {
     currentTeamName: state.user.currentTeamName,
     teamInfo: state.user.teamInfo,
 
+    requestfileCodeMetrics: state.user.fileCodeMetrics,
+    fileCodeMetrics: state.user.teamFileCodeMetrics,
 
     requestTeamGithubCommits: state.user.requestTeamGithubCommits,
   };
@@ -327,7 +333,8 @@ function mapState(state) {
 
 const actionCreators = {
   getTeamCodeMetrics: userActions.getTeamCodeMetrics,
-
+  
+  getFileCodeMetrics: userActions.getFileCodeMetrics,
 
   getTeamGithubCommits: userActions.getTeamGithubCommits,
 };

@@ -7,6 +7,7 @@ import { unixToDate } from "../_utils/unixToDate.js";
 import { failureToast } from "../_utils/toast";
 import { successToast } from "../_utils/toast";
 import { formatGitHeatmapUpdateData } from "../_utils/formatGitHeatmapUpdateData.js";
+import { formatFileCodeMetrics } from "../_utils/formatFileCodeMetrics.js";
 
 export const userActions = {
   login,
@@ -29,6 +30,7 @@ export const userActions = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  getFileCodeMetrics,
 };
 
 function request(action, payload) {
@@ -109,6 +111,30 @@ function getTeamGithubDetailCommits(teamKey) {
           )
         );
         failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getFileCodeMetrics(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_FILE_CODE_METRICS_REQUEST));
+    userService.getFileCodeMetrics(teamKey).then(
+      (response) => {
+          dispatch(
+            success(
+              userConstants.GET_FILE_CODE_METRICS_SUCCESS,
+              formatFileCodeMetrics(response),
+            )
+          );
+        },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_FILE_CODE_METRICS_FAILURE, 
+            error.toString()
+          )
+        );
       }
     );
   };
