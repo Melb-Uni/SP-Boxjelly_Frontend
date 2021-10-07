@@ -7,6 +7,7 @@ import { unixToDate } from "../_utils/unixToDate.js";
 import { failureToast } from "../_utils/toast";
 import { successToast } from "../_utils/toast";
 import { formatGitHeatmapUpdateData } from "../_utils/formatGitHeatmapUpdateData.js";
+import { formatGitTableData } from "../_utils/formatGitTableData.js";
 
 export const userActions = {
   login,
@@ -31,6 +32,7 @@ export const userActions = {
   getTeamGithubDetailCommits,
   updateGitUsername,
   updateJiraUsername,
+  getTeamGithubTableCommits,
 };
 
 function request(action, payload) {
@@ -112,6 +114,32 @@ function getTeamGithubDetailCommits(teamKey) {
         );
         failureToast(error.toString());
       }
+    );
+  };
+}
+
+function getTeamGithubTableCommits(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST));
+    userService.getTeamGithubDetailCommits(teamKey).then(
+        (response) => {
+          dispatch(
+              success(
+                  userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_SUCCESS,
+                  formatGitTableData(response),
+              )
+          );
+        },
+        (error) => {
+          dispatch(
+              failure(
+                  userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE,
+                  error.toString(),
+                  error.toString()
+              )
+          );
+          failureToast(error.toString());
+        }
     );
   };
 }

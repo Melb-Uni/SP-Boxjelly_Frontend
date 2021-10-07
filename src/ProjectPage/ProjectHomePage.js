@@ -549,7 +549,7 @@ function mapState(state) {
 }
 const actionCreators = {
   getTeamMemberList: userActions.getTeamMemberList,
-  getTeamGithubDetailCommits:userActions.getTeamGithubDetailCommits,
+  getTeamGithubDetailCommits:userActions.getTeamGithubTableCommits,
   updateGitUsername:userActions.updateGitUsername,
   updateJiraUsername:userActions.updateJiraUsername,
 };
