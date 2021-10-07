@@ -29,6 +29,8 @@ export const userActions = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  updateGitUsername,
+  updateJiraUsername,
 };
 
 function request(action, payload) {
@@ -110,6 +112,58 @@ function getTeamGithubDetailCommits(teamKey) {
         );
         failureToast(error.toString());
       }
+    );
+  };
+}
+
+function updateGitUsername(jsonData) {
+  return (dispatch) => {
+    dispatch(request(userConstants.UPDATE_GIT_USER_NAME_REQUEST));
+    userService.updateGitUsername(jsonData).then(
+        (response) => {
+          dispatch(
+              success(
+                  userConstants.UPDATE_GIT_USER_NAME_SUCCESS,
+                  response,
+              )
+          );
+        },
+        (error) => {
+          dispatch(
+              failure(
+                  userConstants.UPDATE_GIT_USER_NAME_FAILURE,
+                  error.toString(),
+                  error.toString()
+              )
+          );
+          failureToast(error.toString());
+        }
+    );
+  };
+}
+
+function updateJiraUsername(jsonData) {
+  return (dispatch) => {
+    dispatch(request(userConstants.UPDATE_Jira_USER_NAME_REQUEST));
+    userService.updateJiraUsername(jsonData).then(
+        (response) => {
+          dispatch(
+              success(
+                  userConstants.UPDATE_Jira_USER_NAME_SUCCESS,
+                  response,
+              )
+          );
+        },
+        (error) => {
+          dispatch(
+              failure(
+                  userConstants.UPDATE_Jira_USER_NAME_FAILURE,
+                  error.toString(),
+                  error.toString()
+              )
+          );
+          failureToast(error.toString());
+        }
     );
   };
 }

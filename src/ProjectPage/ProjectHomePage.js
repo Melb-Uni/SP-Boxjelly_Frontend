@@ -40,6 +40,8 @@ class ProjectHomePage extends Component {
       show: "",
       currentDesc:"",
       githubDetailCommits:[],
+      backendList:[],
+      frontendList:[],
       gitColumns: [
         {
           title: "Repository",
@@ -59,8 +61,8 @@ class ProjectHomePage extends Component {
         },
         {
           title: "Branch Name",
-          dataIndex: "name",
-          key: "name",
+          dataIndex: "branchName",
+          key: "branchName",
           align: "center"
         },
         {
@@ -158,16 +160,16 @@ class ProjectHomePage extends Component {
         },
         {
           title: "GitHub Username",
-          dataIndex: "name",
+          dataIndex: "gitHubUsername",
           key: "gitHubUsername",
           render: (item, record, index) => {
             // console.log(item, record, index);
             return (
                 <Space>
-                  <span>{record.name || "--"}</span>
+                  <span>{record.gitHubUsername || "--"}</span>
                   <Popover content={
                     <Space>
-                      <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+                      <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.gitHubUsername}/>
                       <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editGithubName")}>save</Button>
                       <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editGithubName")}>cancel</Button>
                     </Space>} title="Editor" trigger="click"> <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editGithubName")}>editor</Button>
@@ -178,7 +180,7 @@ class ProjectHomePage extends Component {
         },
         {
           title: "Jira Username",
-          dataIndex: "name",
+          dataIndex: "jiraUsername",
           key: "jiraUsername",
           render: (item, record, index) => {
             // console.log(item, record, index);
@@ -196,9 +198,9 @@ class ProjectHomePage extends Component {
             // )
             return (
                 <Space>
-                  <span>{record.name || "--"}</span>
+                  <span>{record.jiraUsername || "--"}</span>
                   <Popover content={                <Space>
-                    <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
+                    <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.jiraUsername}/>
                     <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editJiraUsername")}>save</Button>
                     <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
                   </Space>} title="Editor" trigger="click"> <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
@@ -234,55 +236,96 @@ class ProjectHomePage extends Component {
   };
   saveAlias = async (record,index, type) => {
     if(type === "editGithubName"){
-      const requestOptions = {
-        method: "POST",
-        body: JSON.stringify({
-          user_id:record.id, git_username: this.state.currentDesc || record.name
-        }),
-        credentials: "include",
-      };
-      fetch('/api/v1/confluence/updateGitUsername', requestOptions)
-          .then((response) => response.json())
-          .then((jsonResponse) => {
-            if(jsonResponse.code === 0){
-              message.success("editor success")
-              this.props.teamMemberList[index][type] = false
-              this.setState({
-                ...this.state,
-                show:''
-              })
-            }else {
-              message.error("editor error")
-            }
-            return jsonResponse;
-          });
+      await this.props.updateGitUsername({
+        user_id:record.id,
+        git_username: this.state.currentDesc || record.gitHubUsername
+      })
+
+      setTimeout(()=>{
+        if(this.props.updateGitUserName && this.props.updateGitUserName.code === 0){
+          message.success("editor success")
+          this.props.teamMemberList[index][type] = false
+          this.props.teamMemberList[index]["gitHubUsername"] = this.state.currentDesc
+          this.setState({
+            ...this.state,
+            show:''
+          })
+        }else {
+          message.error("editor error")
+        }
+      },100)
+
+
+      // const requestOptions = {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     user_id:record.id, git_username: this.state.currentDesc || record.gitHubUsername
+      //   }),
+      //   credentials: "include",
+      // };
+      // fetch('/api/v1/confluence/updateGitUsername', requestOptions)
+      //     .then((response) => response.json())
+      //     .then((jsonResponse) => {
+      //       if(jsonResponse.code === 0){
+      //         message.success("editor success")
+      //         this.props.teamMemberList[index][type] = false
+      //         this.props.teamMemberList[index]["gitHubUsername"] = this.state.currentDesc
+      //         this.setState({
+      //           ...this.state,
+      //           show:''
+      //         })
+      //       }else {
+      //         message.error("editor error")
+      //       }
+      //       return jsonResponse;
+      //     });
     }else {
-      const requestOptions = {
-        method: "POST",
-        body: JSON.stringify({
-          user_id:record.id, jira_username: this.state.currentDesc || record.name
-        }),
-        credentials: "include",
-      };
-      fetch('/api/v1/confluence/updateJiraUsername', requestOptions)
-          .then((response) => response.json())
-          .then((jsonResponse) => {
-            if(jsonResponse.code === 0){
-              message.success("editor success")
-              this.props.teamMemberList[index][type] = false
-              this.setState({
-                ...this.state,
-                show:''
-              })
-            }else {
-              message.error("editor error")
-            }
-            return jsonResponse;
-          });
+      await this.props.updateJiraUsername({
+        user_id:record.id,
+        jira_username: this.state.currentDesc || record.jiraUsername
+      })
+      setTimeout(()=>{
+        if(this.props.updateJiraUserName.code === 0){
+          message.success("editor success")
+          this.props.teamMemberList[index][type] = false
+          this.props.teamMemberList[index]["jiraUsername"] = this.state.currentDesc
+          this.setState({
+            ...this.state,
+            show:''
+          })
+        }else {
+          message.error("editor error")
+        }
+      },100)
+
+
+      // const requestOptions = {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     user_id:record.id, jira_username: this.state.currentDesc || record.jiraUsername
+      //   }),
+      //   credentials: "include",
+      // };
+      // fetch('/api/v1/confluence/updateJiraUsername', requestOptions)
+      //     .then((response) => response.json())
+      //     .then((jsonResponse) => {
+      //       if(jsonResponse.code === 0){
+      //         message.success("editor success")
+      //         this.props.teamMemberList[index][type] = false
+      //         this.props.teamMemberList[index]["jiraUsername"] = this.state.currentDesc
+      //         this.setState({
+      //           ...this.state,
+      //           show:''
+      //         })
+      //       }else {
+      //         message.error("editor error")
+      //       }
+      //       return jsonResponse;
+      //     });
     }
 
-
   }
+
   handleSelect = (e) => {
     this.setState({ show: e.target.value }, () => {
       if (this.state.show !== "") {
@@ -293,39 +336,56 @@ class ProjectHomePage extends Component {
     })
   }
   componentDidMount() {
+
     this.props.getTeamMemberList(this.props.currentTeamKey);
     this.props.teamMemberList && this.props.teamMemberList.forEach((item)=>{
       item.editGithubName = false
       item.editJiraUsername = false
     })
+    this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+
+    setTimeout(()=>{
+      if(this.props.teamGithubDetailCommits){
+        const backendTemp = this.props.teamGithubDetailCommits.filter((item)=>item.source == 'backend')
+        const frontendTemp = this.props.teamGithubDetailCommits.filter((item)=>item.source == 'frontend')
+        this.setState({
+          ...this.state,
+          githubDetailCommits:this.props.teamGithubDetailCommits,
+          backendList:backendTemp,
+          frontendList:frontendTemp,
+        })
+      }
+    },100)
+
+
     // 获取githubDetailCommits
-    const requestOptions = {
-      method: "POST",
-      body: JSON.stringify({
-        space_key:this.props.currentTeamKey,
-      }),
-      credentials: "include",
-    };
-    fetch('getCommits', requestOptions)
-        .then((response) => response.json())
-        .then((jsonResponse) => {
-          const res = jsonResponse.map((item)=>{
-            return {
-              ...item,
-              name:"master"
-            }
-          })
-          this.setState({
-            ...this.state,
-            githubDetailCommits:res
-          })
-        });
+    // const requestOptions = {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     space_key:this.props.currentTeamKey,
+    //   }),
+    //   credentials: "include",
+    // };
+    // fetch('getCommits', requestOptions)
+    //     .then((response) => response.json())
+    //     .then((jsonResponse) => {
+    //       const res = jsonResponse.map((item)=>{
+    //         return {
+    //           ...item,
+    //           branchName:"master"
+    //         }
+    //       })
+    //       const backendTemp = res.filter((item)=>item.source == 'backend')
+    //       const frontendTemp = res.filter((item)=>item.source == 'frontend')
+    //       this.setState({
+    //         ...this.state,
+    //         githubDetailCommits:res,
+    //         backendList:backendTemp,
+    //         frontendList:frontendTemp,
+    //       })
+    //     });
   }
 
-
-  callback = (key) => {
-    console.log(key);
-  }
 
   render() {
     const { Panel } = Collapse;
@@ -359,6 +419,10 @@ class ProjectHomePage extends Component {
           </TabPane>
         </Tabs>
     );
+
+    const callback = (key)=> {
+      // console.log(key);
+    }
 
     return (
       <div className="uomcontent">
@@ -398,11 +462,23 @@ class ProjectHomePage extends Component {
                     switch (this.state.show) {
                       case "github":
                         return <GitHubContent>
-                          <Table
-                            dataSource={this.state.githubDetailCommits}
-                            columns={this.state.gitColumns}
-                            pagination={false}
-                          ></Table>
+                          <Tabs centered defaultActiveKey="1" onChange={this.callback}>
+                            <TabPane tab="Backend" key="1">
+                              <Table
+                                  dataSource={this.state.backendList}
+                                  columns={this.state.gitColumns}
+                                  pagination={false}
+                              ></Table>
+                            </TabPane>
+                            <TabPane tab="Frontend" key="2">
+                              <Table
+                                  dataSource={this.state.frontendList}
+                                  columns={this.state.gitColumns}
+                                  pagination={false}
+                              ></Table>
+                            </TabPane>
+                          </Tabs>
+
                         </GitHubContent>
                       case "jira":
                         return <div>
@@ -466,12 +542,16 @@ function mapState(state) {
     teamMemberList: state.user.teamMemberList,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
-    // githubDetailCommits: state.user.githubDetailCommits
+    teamGithubDetailCommits: state.user.teamGithubDetailCommits,
+    updateGitUserName: state.user.updateGitUserName,
+    updateJiraUserName: state.user.updateJiraUserName,
   };
 }
 const actionCreators = {
   getTeamMemberList: userActions.getTeamMemberList,
-  // getTeamGithubDetailCommits:userActions.getTeamGithubDetailCommits
+  getTeamGithubDetailCommits:userActions.getTeamGithubDetailCommits,
+  updateGitUsername:userActions.updateGitUsername,
+  updateJiraUsername:userActions.updateJiraUsername,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);

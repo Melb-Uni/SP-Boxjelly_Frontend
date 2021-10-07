@@ -16,6 +16,8 @@ export const userService = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  updateGitUsername,
+  updateJiraUsername,
 };
 
 const baseUrl = "/api/v1";
@@ -57,6 +59,40 @@ function getTeamGithubDetailCommits (teamKey) {
       console.log(jsonResponse)
       return jsonResponse;
     });
+}
+
+function updateGitUsername (jsonData) {
+
+  let url = baseUrl + "/confluence/updateGitUsername";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(jsonData),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        return jsonResponse;
+      });
+}
+
+function updateJiraUsername (jsonData) {
+
+  let url = baseUrl + "/confluence/updateJiraUsername";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(jsonData),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        return jsonResponse;
+      });
 }
 
 
