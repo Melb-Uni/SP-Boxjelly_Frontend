@@ -1,4 +1,6 @@
 import { userConstants } from "../_constants";
+import Events from "../_utils/Events";
+
 
 const initState = {
   requestIndividualConfluencePages: false,
@@ -16,10 +18,13 @@ const initState = {
   currentTeamName: "",
   isLogin: false,
   requestLogin: false,
-  teamInfo:{},
+  teamInfo: {},
 
 
   requestTeamGithubDetailCommits: false,
+  requestCalendarEvents: false,
+  calendarEvents: [...Events] ,
+
 };
 
 export function user(state = initState, action) {
@@ -95,6 +100,8 @@ export function user(state = initState, action) {
         requestTeamConfluencePages: false,
         teamConfluencePages: {},
       };
+
+
     case userConstants.GET_TEAM_GITHUB_COMMITS_REQUEST:
       return {
         ...state,
@@ -115,33 +122,40 @@ export function user(state = initState, action) {
 
 
 
-      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST:
-        return {
-          ...state,
-          requestTeamGithubDetailCommits: true,
-        };
-      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_SUCCESS:
-        return {
-          ...state,
-          requestTeamGithubDetailCommits: false,
-          teamGithubDetailCommits: action.payload,
-        };
-      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE:
-        return {
-          ...state,
-          requestTeamGithubDetailCommits: false,
-          teamGithubDetailCommits: {},
-        };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST:
+      return {
+        ...state,
+        requestTeamGithubDetailCommits: true,
+      };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_SUCCESS:
+      return {
+        ...state,
+        requestTeamGithubDetailCommits: false,
+        teamGithubDetailCommits: action.payload,
+      };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE:
+      return {
+        ...state,
+        requestTeamGithubDetailCommits: false,
+        teamGithubDetailCommits: {},
+      };
 
-
-
-
-
-
-
-
-
-
+    case userConstants.GET_CALENDAR_EVENTS_REQUEST:
+      return {
+        ...state,
+        requestCalendarEvents: true,
+      };
+    case userConstants.GET_CALENDAR_EVENTS_SUCCESS:
+      return {
+        ...state,
+        requestCalendarEvents: false,
+        calendarEvents: action.payload,
+      };
+    case userConstants.GET_CALENDAR_EVENTS_FAILURE:
+      return {
+        ...state,
+        requestCalendarEvents: false,
+      };
 
     case userConstants.GET_TEAM_JIRA_TICKETS_REQUEST:
       return {

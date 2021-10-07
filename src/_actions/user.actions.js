@@ -29,6 +29,8 @@ export const userActions = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  getCalendarEvents
+
 };
 
 function request(action, payload) {
@@ -112,6 +114,34 @@ function getTeamGithubDetailCommits(teamKey) {
       }
     );
   };
+}
+
+function getCalendarEvents(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_CALENDAR_EVENTS_REQUEST));
+    userService.getCalendarEvents(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          console.log(response);
+          dispatch(
+            success(
+              userConstants.GET_CALENDAR_EVENTS_SUCCESS,
+              response
+              // formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_CALENDAR_EVENTS_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      }
+    )
+  }
 }
 
 

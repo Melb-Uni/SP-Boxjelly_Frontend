@@ -16,6 +16,7 @@ export const userService = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  getCalendarEvents,
 };
 
 const baseUrl = "/api/v1";
@@ -55,6 +56,21 @@ function getTeamGithubDetailCommits (teamKey) {
 
       console.log("jsonResponse");
       console.log(jsonResponse)
+      return jsonResponse;
+    });
+}
+
+function getCalendarEvents (teamKey) {
+  let url = baseUrl + "/events/" + teamKey;
+  
+  const requestOptions = {
+    method: "GET",
+    credentials: "include",
+  }
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
       return jsonResponse;
     });
 }

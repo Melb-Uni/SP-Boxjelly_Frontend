@@ -28,6 +28,8 @@ class CommunicationPage extends React.Component {
       ],
       hasConfig:
         this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
+      events:
+        this.props.getCalendarEvents(currentTeamKey),
     };
   }
 
@@ -70,10 +72,10 @@ class CommunicationPage extends React.Component {
 
         <div>
           <CustomisedCalendar
-            events={Events}
-            keyDateList={events2Dates(eventsFilter(Events, 'Key date'))}
-            meetingList={events2Dates(eventsFilter(Events, 'Meeting'))}
-            standupList={events2Dates(eventsFilter(Events, 'Standup'))}
+            events={this.state.events}
+            keyDateList={events2Dates(eventsFilter(this.state.events, 'Key date'))}
+            meetingList={events2Dates(eventsFilter(this.state.events, 'Meeting'))}
+            standupList={events2Dates(eventsFilter(this.state.events, 'Standup'))}
           />  
         </div>
       </div>
@@ -87,11 +89,13 @@ function mapState(state) {
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
     teamInfo: state.user.teamInfo,
+    events: state.user.calendarEvents,
   };
 }
 
 const actionCreators = {
   getTeamConfluenceMeeting: userActions.getTeamConfluenceMeeting,
+  getCalendarEvents: userActions.getCalendarEvents,
 };
 
 const Communication = connect(mapState, actionCreators)(CommunicationPage);
