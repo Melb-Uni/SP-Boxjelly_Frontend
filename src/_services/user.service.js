@@ -18,6 +18,7 @@ export const userService = {
   getTeamGithubDetailCommits,
   updateGitUsername,
   updateJiraUsername,
+  getFileCodeMetrics,
 };
 
 const baseUrl = "/api/v1";
@@ -61,6 +62,7 @@ function getTeamGithubDetailCommits (teamKey) {
     });
 }
 
+
 function updateGitUsername (jsonData) {
 
   let url = baseUrl + "/confluence/updateGitUsername";
@@ -89,10 +91,32 @@ function updateJiraUsername (jsonData) {
   };
 
   return fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        return jsonResponse;
-      });
+  .then((response) => response.json())
+  .then((jsonResponse) => {
+    return jsonResponse;
+  });
+}
+
+function getFileCodeMetrics(teamKey) {
+  let payload = {
+    space_key: teamKey
+  };
+
+  let url = "getFileMetrics";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(payload),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      console.log("file");
+      console.log(jsonResponse)
+      return jsonResponse;
+    });
 }
 
 
@@ -186,6 +210,8 @@ function getTeamCodeMetrics(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
+      console.log("directory")
+      console.log(jsonResponse)
       return jsonResponse;
     });
 }

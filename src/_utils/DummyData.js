@@ -1,3 +1,6 @@
+/********************************************************************************************/
+/***************************** Process Quality Page *****************************************/
+
 /** DonutChart2.js */
 export const donut_data = {
     series: [20, 17, 9],
@@ -233,3 +236,384 @@ const two_timespent = {
     }]
 };
 */
+
+
+/********************************************************************************************/
+/***************************** Product Quality Page *****************************************/
+
+export const polar_data = {
+  labels: ['Red.js', 'Blue.js', 'Yellow.js', 'Green.html', 'Purple.css', 'Orange.js'],
+  datasets: [
+    {
+      data: [12, 17, 3, 5, 9, 3],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(255, 206, 86, 0.8)',
+        'rgba(75, 192, 192, 0.8)',
+        'rgba(153, 102, 255, 0.8)',
+        'rgba(255, 159, 64, 0.8)',
+      ],
+      borderWidth: 1,
+    }
+  ],
+};
+
+export const radial_data = {
+  series: [44, 50],
+  options: {
+    chart: {
+      height: 350,
+      type: 'radialBar',
+    },
+    plotOptions: {
+      radialBar: {
+        dataLabels: {
+          name: {
+            fontSize: '16px',
+          },
+          value: {
+            fontSize: '16px',
+            formatter: function(w){
+              return w
+            }
+          },
+          total: {
+            show: true,
+            color: '#000000',
+            label: 'Count Statements',
+            formatter: function (w) {
+              // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+              return String(w.globals.seriesTotals.reduce((a, b) => {return a + b}, 0));
+            }
+          }
+        }
+      }
+    },
+    labels: ['Declarative Statements', 'Executable Statements'],
+    colors: ['#68b54a', '#735dde'],
+    title: {
+      text: "Statments Comparison",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '16px',
+        fontWeight:  'bold',
+        color:  '#263238'
+      },
+  }
+}};
+
+export const radar_func_data = {
+    
+  series: [{
+    name: 'my_func',
+    data: [80, 50, 30, 40, 100],
+  }, {
+    name: 'our_func',
+    data: [20, 30, 40, 80, 20],
+  }, {
+    name: 'your_func',
+    data: [44, 76, 78, 13, 43],
+  }, {
+    name: 'his_func',
+    data: [74, 7, 18, 16, 35],
+  }, {
+    name: 'her_func',
+    data: [50, 37, 12, 10, 30],
+  }],
+  options: {
+    chart: {
+      height: 350,
+      type: 'radar',
+    },
+    title: {
+    },
+    xaxis: {
+      categories: ['Blank Line', 'Code Line', 'Declarative Code Line', 'Executable Line', 'Comment Line']
+    },
+    title: {
+      text: "Line Comparison",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '16px',
+        fontWeight:  'bold',
+        color:  '#263238'
+      },
+    }
+  },
+};
+
+export const radar_dir_data = {
+  series: [{
+    name: 'App.js',
+    data: [80, 50, 30, 40, 100],
+  }, {
+    name: 'index.html',
+    data: [20, 30, 40, 80, 20],
+  }, {
+    name: 'style.css',
+    data: [44, 76, 78, 13, 43],
+  }, {
+    name: 'Home.js',
+    data: [74, 7, 18, 16, 35],
+  }],
+  options: {
+    chart: {
+      height: 350,
+      type: 'radar',
+    },
+    title: {
+    },
+    xaxis: {
+      categories: ['Blank Line', 'Code Line', 'Declarative Code Line', 'Executable Line', 'Comment Line']
+    },
+    title: {
+      text: "Line Comparison",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '16px',
+        fontWeight:  'bold',
+        color:  '#263238'
+      },
+    }
+  },
+};
+
+/** Data for directory metrics */
+export const dir_data = {
+  series: [
+    {
+      data: [
+        {
+          x: 'App.js',
+          y: 318
+        },
+        {
+          x: 'index.html',
+          y: 149
+        },
+        {
+          x: 'style.css',
+          y: 184
+        },
+        {
+          x: 'Home.js',
+          y: 40
+        },
+      ]
+    }
+  ],
+  options: {
+      legend: {
+        show: false
+      },
+      chart: {
+        height: 350,
+        type: 'treemap'
+      },
+      title: {
+        text: "Top 10 Files: Choose Metrics to View Various Comparison",
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          color:  '#263238'
+        },
+      },
+      plotOptions: {
+        treemap: {
+          distributed: true,
+        }
+      }
+    },
+    hasError: false
+};
+
+/** Data for directory metrics */
+export const dir_metric_data = {
+  series: [
+    {
+      data: [
+        {
+          x: 'App.js',
+          y: 9
+        },
+        {
+          x: 'index.html',
+          y: 20
+        },
+        {
+          x: 'style.css',
+          y: 8
+        },
+        {
+          x: 'Home.js',
+          y: 4
+        },
+      ]
+    }
+  ],
+  options: {
+      legend: {
+        show: false
+      },
+      chart: {
+        height: 350,
+        type: 'treemap'
+      },
+      title: {
+        text: "Top 10 Files: Choose Metrics to View Various Comparison",
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          color:  '#263238'
+        },
+      },
+      plotOptions: {
+        treemap: {
+          distributed: true,
+        }
+      }
+    },
+    hasError: false
+};
+
+export const func_metric_data = {
+  series: [
+    {
+      data: [
+        {
+          x: 'my_func',
+          y: 30
+        },
+        {
+          x: 'our_func',
+          y: 80
+        },
+        {
+          x: 'your_func',
+          y: 20
+        },
+        {
+          x: 'his_func',
+          y: 20
+        },
+        {
+          x: 'her_func',
+          y: 20
+        },
+      ]
+    }
+  ],
+  options: {
+      //colors: ['#ff9eed'],
+      legend: {
+        show: false
+      },
+      chart: {
+        height: 350,
+        type: 'treemap'
+      },
+      title: {
+        text: "Top 10 Functions: Choose Metrics to View Various Comparison",
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          color:  '#263238'
+        },
+      },
+      plotOptions: {
+        treemap: {
+          distributed: true,
+        }
+      }
+    },
+    hasError: false
+};
+
+/** Data for function metrics */
+export const func_data = {
+  series: [
+    {
+      data: [
+        {
+          x: 'my_func',
+          y: 80
+        },
+        {
+          x: 'our_func',
+          y: 149
+        },
+        {
+          x: 'your_func',
+          y: 60
+        },
+        {
+          x: 'his_func',
+          y: 40
+        },
+        {
+          x: 'her_func',
+          y: 50
+        },
+      ]
+    }
+  ],
+  options: {
+      //colors: ['#ff9eed'],
+      legend: {
+        show: false
+      },
+      chart: {
+        height: 350,
+        type: 'treemap'
+      },
+      title: {
+        text: "Top 10 Functions: Choose Metrics to View Various Comparison",
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          color:  '#263238'
+        },
+      },
+      plotOptions: {
+        treemap: {
+          distributed: true,
+        }
+      }
+    },
+    hasError: false
+};
+
+/********************************************************************************************/

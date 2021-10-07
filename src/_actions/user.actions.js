@@ -8,6 +8,7 @@ import { failureToast } from "../_utils/toast";
 import { successToast } from "../_utils/toast";
 import { formatGitHeatmapUpdateData } from "../_utils/formatGitHeatmapUpdateData.js";
 import { formatGitTableData } from "../_utils/formatGitTableData.js";
+import { formatFileCodeMetrics } from "../_utils/formatFileCodeMetrics.js";
 
 export const userActions = {
   login,
@@ -33,6 +34,7 @@ export const userActions = {
   updateGitUsername,
   updateJiraUsername,
   getTeamGithubTableCommits,
+  getFileCodeMetrics,
 };
 
 function request(action, payload) {
@@ -192,6 +194,30 @@ function updateJiraUsername(jsonData) {
           );
           failureToast(error.toString());
         }
+    )
+ };
+}
+  
+function getFileCodeMetrics(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_FILE_CODE_METRICS_REQUEST));
+    userService.getFileCodeMetrics(teamKey).then(
+      (response) => {
+          dispatch(
+            success(
+              userConstants.GET_FILE_CODE_METRICS_SUCCESS,
+              formatFileCodeMetrics(response),
+            )
+          );
+        },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_FILE_CODE_METRICS_FAILURE, 
+            error.toString()
+          )
+        );
+      }
     );
   };
 }

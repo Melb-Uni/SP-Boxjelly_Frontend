@@ -20,6 +20,7 @@ const initState = {
 
 
   requestTeamGithubDetailCommits: false,
+  requestFileCodeMetricsCommits: false,
 };
 
 export function user(state = initState, action) {
@@ -169,6 +170,23 @@ export function user(state = initState, action) {
           teamGithubDetailCommits: {},
         };
 
+      case userConstants.GET_FILE_CODE_METRICS_REQUEST:
+        return {
+          ...state,
+          requestFileCodeMetricsCommits: true,
+        };
+      case userConstants.GET_FILE_CODE_METRICS_SUCCESS:
+        return {
+          ...state,
+          requestFileCodeMetricsCommits: false,
+          teamFileCodeMetrics: action.payload,
+        };
+      case userConstants.GET_FILE_CODE_METRICS_FAILURE:
+        return {
+          ...state,
+          requestFileCodeMetricsCommits: false,
+          teamFileCodeMetrics: {},
+        };
 
 
 
