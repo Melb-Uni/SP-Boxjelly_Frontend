@@ -178,7 +178,7 @@ class ProcessQualityPage extends React.Component {
                         <br/>
                         <br/>
                     
-                      <CalendarHeatmap values={randomValues}/>
+                      {/*<CalendarHeatmap values={randomValues}/>*/}
                       <CalendarHeatmap2 values={randomValues}/>
 
                     </Container>
@@ -198,9 +198,9 @@ class ProcessQualityPage extends React.Component {
                           <br/>
                           <br/>
                         </Row>
-                        <p>{this.props.githubDetailCommits}</p>
 
-                        <CalendarHeatmap values={randomValues}/>
+                        
+                        <CalendarHeatmap values={this.props.githubDetailCommits}/>
                         <CalendarHeatmap2 values={randomValues}/>
                       
                     </Container>
@@ -243,7 +243,7 @@ class ProcessQualityPage extends React.Component {
                       <br/>
                       <br/>
 
-                      <CalendarHeatmap values={randomValues}/>
+                      {/*<CalendarHeatmap values={randomValues}/>*/}
                       <CalendarHeatmap2 values={randomValues}/>
 
                       <h3>Click to Direct to Jira Report</h3>
