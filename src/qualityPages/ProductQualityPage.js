@@ -184,7 +184,7 @@ class ProductQualityPage extends React.Component {
             <Spin
               spinning={
                 this.props.requestTeamGithubCommits ||
-                this.props.requestTeamGithubCommits ||
+                this.props.requestfileCodeMetrics ||
                 this.props.requestTeamGithubCommits
               }
             >
