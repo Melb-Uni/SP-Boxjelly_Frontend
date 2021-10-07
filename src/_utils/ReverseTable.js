@@ -14,38 +14,56 @@ export default function ReverseTable(props) {
   datasets.push(data[0].declarative_lines_count);
   datasets.push(data[0].executable_lines_count);
 
+  const datasets1 = [];
+  datasets1.push(data[1].code_lines_count);
+  datasets1.push(data[1].class_count);
+  datasets1.push(data[1].file_count);
+  datasets1.push(data[1].function_count);
+  datasets1.push(data[1].comment_lines_count);
+  datasets1.push(data[1].comment_to_code_ratio);
+  datasets1.push(data[1].declarative_lines_count);
+  datasets1.push(data[1].executable_lines_count);
+
   const formattedData = [
     {
       metric: "Lines",
       number: data[0].code_lines_count,
+      number1: data[1].code_lines_count,
     },
     {
       metric: "Classes",
       number: data[0].class_count,
+      number1: data[1].class_count,
     },
     {
       metric: "Files",
       number: data[0].file_count,
+      number1: data[1].file_count,
     },
     {
       metric: "Functions",
       number: data[0].function_count,
+      number1: data[1].function_count,
     },
     {
       metric: "Comment Lines",
       number: data[0].comment_lines_count,
+      number1: data[1].comment_lines_count,
     },
     {
       metric: "Comment Lines / Code Lines",
       number: data[0].comment_to_code_ratio,
+      number1: data[1].comment_to_code_ratio,
     },
     {
       metric: "Declarible Statements",
       number: data[0].declarative_lines_count,
+      number1: data[1].declarative_lines_count,
     },
     {
       metric: "Excutable Statements",
       number: data[0].executable_lines_count,
+      number1: data[1].executable_lines_count,
     },
   ];
 
@@ -57,8 +75,14 @@ export default function ReverseTable(props) {
       sortable: true,
     },
     {
-      name: "Number",
+      name: "Frontend",
       selector: "number",
+      center: true,
+      sortable: true,
+    },
+    {
+      name: "Backend",
+      selector: "number1",
       center: true,
       sortable: true,
     },
