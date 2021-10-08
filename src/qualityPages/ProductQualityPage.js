@@ -82,6 +82,7 @@ class ProductQualityPage extends React.Component {
     let selected = e.currentTarget.firstChild.innerHTML;
     if (selected == commonConstants.DIRECTORY_STRUCTURE) {
       this.props.getTeamCodeMetrics(this.props.currentTeamKey);
+      this.props.getTenFileCodeMetrics(this.props.currentTeamKey);
     } else if (selected == commonConstants.DIRECTORY_METRICS) {
       this.props.getFileCodeMetrics(this.props.currentTeamKey);
     } else {
@@ -99,6 +100,7 @@ class ProductQualityPage extends React.Component {
     if (this.state.hasConfig) {
       this.props.getTeamCodeMetrics(this.props.currentTeamKey);
       this.props.getFileCodeMetrics(this.props.currentTeamKey);
+      this.props.getTenFileCodeMetrics(this.props.currentTeamKey);
 
     }
   }
@@ -194,9 +196,14 @@ class ProductQualityPage extends React.Component {
 
                   <div>
                     <Container >
-                      <h2 style={{fontSize: "21px"}}><b>Top 10 Files: Number of Lines in Directory</b></h2>
+                      <h2 style={{fontSize: "21px"}}><b>Top 10 Countline JavaScript Files - Frontend</b></h2>
                       <br/>
-                      <PolarArea data={polar_data}/>
+                      <PolarArea data={this.props.fileTenCodeMetrics.frontend}/>
+                      <br/>
+                      <br/>
+                      <h2 style={{fontSize: "21px"}}><b>Top 10 Countline Python Files - Backend</b></h2>
+                      <br/>
+                      <PolarArea data={this.props.fileTenCodeMetrics.backend}/>
                       <ReverseTable data={this.props.teamCodeMetrics}/>
                     </Container>
                     <br/>
@@ -306,7 +313,7 @@ class ProductQualityPage extends React.Component {
             {this.state.hasConfig &&
               (!this.props.teamCodeMetrics ||
                 this.props.teamCodeMetrics.length == 0) && (
-                <InformationalNote message={alertConstants.NO_DATA} />
+                <InformationalNote message={alertConstants.WAIT_FOR_A_FEW_SECOND_FOR_ANALYZING} />
               )}
           </div>
         </div>
@@ -326,6 +333,9 @@ function mapState(state) {
     requestfileCodeMetrics: state.user.fileCodeMetrics,
     fileCodeMetrics: state.user.teamFileCodeMetrics,
 
+    requestTenfileCodeMetrics: state.user.fileTenCodeMetrics,
+    fileTenCodeMetrics: state.user.teamTenFileCodeMetrics,
+
     requestTeamGithubCommits: state.user.requestTeamGithubCommits,
   };
 }
@@ -334,6 +344,7 @@ const actionCreators = {
   getTeamCodeMetrics: userActions.getTeamCodeMetrics,
   
   getFileCodeMetrics: userActions.getFileCodeMetrics,
+  getTenFileCodeMetrics: userActions.getTenFileCodeMetrics,
 
   getTeamGithubCommits: userActions.getTeamGithubCommits,
 };
