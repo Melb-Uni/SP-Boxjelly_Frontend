@@ -8,5 +8,6 @@ export const alertConstants = {
   INVALID_GITHUB_URL: "Please enter the valid github repository url!",
   GIT_USERNAME_REQUIRED: "Github username is required!",
   GIT_PASSWORD_REQUIRED: "Github password is required!",
-  WAIT_AFTER_CONFIG: "You may need to wait for a few minutes before you can view the data after finishing the configuration"
+  WAIT_AFTER_CONFIG: "You may need to wait for a few minutes before you can view the data after finishing the configuration",
+  WAIT_FOR_A_FEW_SECOND_FOR_ANALYZING: "Please wait for a few second for analyzing",
 };
