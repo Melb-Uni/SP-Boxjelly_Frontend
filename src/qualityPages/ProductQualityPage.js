@@ -21,6 +21,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RadialBar from '../_utils/RadialBar';
 import {polar_data, radial_data, radar_func_data, radar_dir_data, dir_data, 
   dir_metric_data, func_metric_data, func_data} from "../_utils/DummyData";
+import NegativeBar from '../_utils/NegativeBar';
 
 
 class ProductQualityPage extends React.Component {
@@ -204,6 +205,11 @@ class ProductQualityPage extends React.Component {
                       <h2 style={{fontSize: "21px"}}><b>Top 10 Countline Python Files - Backend</b></h2>
                       <br/>
                       <PolarArea data={this.props.fileTenCodeMetrics.backend}/>
+                      <br/>
+                      <h2 style={{fontSize: "21px"}}><b>Classes, Files & Functions Comparison</b></h2>
+                      <NegativeBar data={this.props.teamCodeMetrics}/>
+                      <br/>
+                      <h2 style={{fontSize: "21px"}}><b>Frontend and Backend Repository Comparison</b></h2>
                       <ReverseTable data={this.props.teamCodeMetrics}/>
                     </Container>
                     <br/>

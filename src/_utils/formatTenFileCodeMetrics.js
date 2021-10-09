@@ -9,11 +9,8 @@ export function formatTenFileCodeMetrics(response) {
     "#c3e1fd", "#cbe5fd", "#d3e9fe", "#dbedfe", "#e3f1fe"]
     
     for (let i = 0; i < labelDataMap.source.length; i++){
-        console.log(labelDataMap.source[i])
 
         if (labelDataMap.source[i] =="frontend"){
-
-            console.log(labelDataMap.source[i])
             frontend.push([labelDataMap.file_name[i], labelDataMap.code_lines_count[i]])
             frontend_countline.push(labelDataMap.code_lines_count[i])
         }
