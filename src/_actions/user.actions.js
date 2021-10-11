@@ -151,7 +151,6 @@ function getTenFileCodeMetrics(teamKey) {
             success(
               userConstants.GET_TEN_FILE_CODE_METRICS_SUCCESS,
               formatTenFileCodeMetrics(response),
-              console.log(formatTenFileCodeMetrics(response))
             )
           );
         },
