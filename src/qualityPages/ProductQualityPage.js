@@ -23,7 +23,6 @@ import {polar_data, radial_data, radar_func_data, radar_dir_data, dir_data,
   dir_metric_data, func_metric_data, func_data} from "../_utils/DummyData";
 import NegativeBar from '../_utils/NegativeBar';
 import DirectoryRadialBar from '../_utils/DirectoryRadialBar';
-import DirectoryCodeRadialBar from '../_utils/DirectoryRadarChart';
 import DirectoryRadarChart from "../_utils/DirectoryRadarChart";
 
 
@@ -31,31 +30,6 @@ class ProductQualityPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      CodeMetrics: [
-        {
-          all: 1,
-          classes: 0,
-          decst: 0,
-          excst: 0,
-          file: 0,
-          func: 0,
-          pre: 0,
-          ratio: 0,
-        },
-      ],
-      data: [
-        {
-          all: 10,
-          classes: 30,
-          decst: 40,
-          excst: 50,
-          file: 50,
-          func: 60,
-          pre: 30,
-          ratio: 50,
-        },
-      ],
-
       btnNames: [
         commonConstants.DIRECTORY_STRUCTURE,
         commonConstants.DIRECTORY_METRICS,
@@ -63,14 +37,8 @@ class ProductQualityPage extends React.Component {
       ],
       btnSelected: commonConstants.DIRECTORY_STRUCTURE,
 
-
-
       hasConfig:
         this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
-
-
-
-
 
       dir_data: dir_data,
       func_data: func_data,
@@ -110,63 +78,6 @@ class ProductQualityPage extends React.Component {
   }
 
   render() {
-    const columns1 = [
-      {
-        name: "Number of all lines",
-        selector: "code_lines_count",
-        center: Boolean(true),
-      },
-      {
-        name: "Number of classes",
-        selector: "class_count",
-        center: Boolean(true),
-      },
-      {
-        name: "Number of files",
-        selector: "file_count",
-        center: Boolean(true),
-      },
-      {
-        name: "Number of functions",
-        selector: "function_count",
-        center: Boolean(true),
-      },
-    ];
-    const columns2 = [
-      {
-        name: "Number of comment lines",
-        selector: "comment_lines_count",
-        center: Boolean(true),
-      },
-      {
-        name: "Ratio of comment lines to code lines",
-        selector: "comment_to_code_ratio",
-        center: Boolean(true),
-      },
-      {
-        name: "Number of declarible statements",
-        selector: "declarative_lines_count",
-        center: Boolean(true),
-      },
-      {
-        name: "Number of excutable statements",
-        selector: "executable_lines_count",
-        center: Boolean(true),
-      },
-    ];
-    const customStyles = {
-      headCells: {
-        style: {
-          fontSize: "20px",
-          background: "#EEEEEE",
-        },
-      },
-      cells: {
-        style: {
-          fontSize: "20px",
-        },
-      },
-    };
     return (
       <div className="uomcontent">
         {uomHeader("Product Quality")}
@@ -248,10 +159,22 @@ class ProductQualityPage extends React.Component {
                         Move cursor on the white space to view total number of statements <br/>
                       </i></p>
                       <br/>
-
-
-                      <h2 style={{fontSize: "21px"}}><b>Frontend and Backend Repository Comparison</b></h2>
+                      <h2 style={{fontSize: "21px"}}><b>Other Metrics</b></h2>
                       <ReverseTable data={this.props.teamCodeMetrics}/>
+                      <br/>
+                      <p style={{fontSize: "16px"}}><i>
+                        Path Count: Number of possible paths, not counting abnormal exits or gotos.<br/>
+                        <br/>
+                        Cyclomatic: Cyclomatic Complexity, also known as McCabe Cyclomatic Complexity or Conditional Complexity,
+                        is the measure of the complexity of a function’s decision structure. Cyclomatic Complexity counts the 
+                        number of independent paths through a module.<br/>
+                        <br/>
+                        Essential: Iteratively replaces all well structured control structures with a single statement. 
+                        Structures such as if-then-else and while loops are considered well structured.<br/>
+                        <br/>
+                        Max Nesting: 	Maximum nesting level of control constructs.<br/>
+                      </i></p>
+                      <br/>
                     </Container>
                     <br/>
                   </div>
