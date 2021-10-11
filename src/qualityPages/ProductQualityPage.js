@@ -199,12 +199,12 @@ class ProductQualityPage extends React.Component {
                     <Container >
                       <h2 style={{fontSize: "21px"}}><b>Top 10 Countline JavaScript Files - Frontend</b></h2>
                       <br/>
-                      <PolarArea data={this.props.fileTenCodeMetrics.frontend}/>
+                      <PolarArea data={this.props.fileTenCodeMetrics[0]}/>
                       <br/>
                       <br/>
                       <h2 style={{fontSize: "21px"}}><b>Top 10 Countline Python Files - Backend</b></h2>
                       <br/>
-                      <PolarArea data={this.props.fileTenCodeMetrics.backend}/>
+                      <PolarArea data={this.props.fileTenCodeMetrics[1]}/>
                       <br/>
                       <h2 style={{fontSize: "21px"}}><b>Classes, Files & Functions Comparison</b></h2>
                       <NegativeBar data={this.props.teamCodeMetrics}/>

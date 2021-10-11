@@ -11,12 +11,12 @@ export function formatTenFileCodeMetrics(response) {
     for (let i = 0; i < labelDataMap.source.length; i++){
 
         if (labelDataMap.source[i] =="frontend"){
-            frontend.push([labelDataMap.file_name[i], labelDataMap.code_lines_count[i]])
-            frontend_countline.push(labelDataMap.code_lines_count[i])
+            frontend.push([labelDataMap.file_name[i], labelDataMap.CountLine[i]])
+            frontend_countline.push(labelDataMap.CountLine[i])
         }
         else {
-            backend.push([labelDataMap.file_name[i], labelDataMap.code_lines_count[i]])
-            backend_countline.push(labelDataMap.code_lines_count[i])
+            backend.push([labelDataMap.file_name[i], labelDataMap.CountLine[i]])
+            backend_countline.push(labelDataMap.CountLine[i])
         }
     }
 
@@ -44,24 +44,23 @@ export function formatTenFileCodeMetrics(response) {
         sort_backend_countline.push(backend[i][1])
     }
 
-    return {
-        frontend: {
-            labels: sort_frontend_filename,
+    return [
+        {
+            labels: sort_frontend_filename.slice(0,10),
             datasets: [{
-                data: sort_frontend_countline,
+                data: sort_frontend_countline.slice(0,10),
                 backgroundColor: frontend_background_color,
                 borderWidth: 1,
             }]
-        },
-        backend: {
-            labels: sort_backend_filename,
+        },{
+            labels: sort_backend_filename.slice(0,10),
             datasets: [{
-                data: sort_backend_countline,
+                data: sort_backend_countline.slice(0,10),
                 backgroundColor: backend_background_color,
                 borderWidth: 1,
             }]
-        },
-    };
+        }
+    ]
 }
 
 function getlabelDataMap(rawData) {
