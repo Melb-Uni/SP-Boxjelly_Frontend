@@ -5,14 +5,14 @@ export default function NegativeBar(props){
     const data = props.data;
 
     const datasets = [];
-    datasets.push(-data[0].class_count);
-    datasets.push(-data[0].file_count);
-    datasets.push(-data[0].function_count);
+    datasets.push(-data[0].CountDeclClass);
+    datasets.push(-data[0].CountDeclFile);
+    datasets.push(-data[0].CountDeclFunction);
 
     const datasets1 = [];
-    datasets1.push(data[1].class_count);
-    datasets1.push(data[1].file_count);
-    datasets1.push(data[1].function_count);
+    datasets1.push(data[1].CountDeclClass);
+    datasets1.push(data[1].CountDeclFile);
+    datasets1.push(data[1].CountDeclFunction);
 
 
     const series = [
