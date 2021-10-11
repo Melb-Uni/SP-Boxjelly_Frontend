@@ -6,14 +6,19 @@ export default function NegativeBar(props){
 
     const datasets = [];
     datasets.push(-data[0].CountDeclClass);
+    datasets.push(-data[0].CountDeclExecutableUnit);
     datasets.push(-data[0].CountDeclFile);
     datasets.push(-data[0].CountDeclFunction);
+    datasets.push(-data[0].CountDeclMethod);
+    datasets.push(-data[0].CountDeclMethodAll);
 
     const datasets1 = [];
     datasets1.push(data[1].CountDeclClass);
+    datasets1.push(data[1].CountDeclExecutableUnit);
     datasets1.push(data[1].CountDeclFile);
     datasets1.push(data[1].CountDeclFunction);
-
+    datasets1.push(data[1].CountDeclMethod);
+    datasets1.push(data[1].CountDeclMethodAll);
 
     const series = [
         {
@@ -63,15 +68,9 @@ export default function NegativeBar(props){
             fontSize:  '20px',
         },
         title: {
-        //   text: 'Classes, Files & Functions Comparison',
-        //   style: {
-        //     fontSize:  '21px',
-        //     fontWeight:  'bold',
-        //     color:  '#263238'
-        //   },
         },
         xaxis: {
-          categories: ["Classes", "Files", "Functions"],
+          categories: ["Classes", "Executable Unit", "Files", "Functions", "Local Methods", "Methods"],
           
           title: {
             text: 'Count',
@@ -89,10 +88,11 @@ export default function NegativeBar(props){
         },
         yaxis: {
             labels:{
-            style: {
-              fontSize:  '16px',
-              color:  '#263238'
-            },
+              maxWidth: 200,
+              style: {
+                fontSize:  '16px',
+                color:  '#263238'
+              },
             }
           },
       };

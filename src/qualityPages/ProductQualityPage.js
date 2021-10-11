@@ -201,13 +201,34 @@ class ProductQualityPage extends React.Component {
                       <br/>
                       <PolarArea data={this.props.fileTenCodeMetrics[0]}/>
                       <br/>
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the slice to view count <br/>
+                        Click on the legend to remove <br/>
+                      </i></p>
                       <br/>
                       <h2 style={{fontSize: "21px"}}><b>Top 10 Countline Python Files - Backend</b></h2>
                       <br/>
                       <PolarArea data={this.props.fileTenCodeMetrics[1]}/>
                       <br/>
-                      <h2 style={{fontSize: "21px"}}><b>Classes, Files & Functions Comparison</b></h2>
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the slice to view count <br/>
+                        Click on the legend to remove <br/>
+                      </i></p>
+                      <br/>
+                      <h2 style={{fontSize: "21px"}}><b>Classes, Executable Unit, Files, Functions & Methods Comparison</b></h2>
                       <NegativeBar data={this.props.teamCodeMetrics}/>
+                      <p style={{fontSize: "16px"}}><i>
+                        Classes: Number of classes.<br/>
+                        Executable Unit: Number of program units with executable code.<br/>
+                        Files: Number of files.<br/>
+                        Functions: 	Number of functions.<br/>
+                        Local Methods: Number of local methods.<br/>
+                        Methods: Number of methods, including inherited ones.<br/>
+                        <br/>
+                        Hover on the slice to view count <br/>
+                        Hover on the legend to hightlight <br/>
+                        Click on the legend to remove <br/>
+                      </i></p>
                       <br/>
                       <h2 style={{fontSize: "21px"}}><b>Frontend and Backend Repository Comparison</b></h2>
                       <ReverseTable data={this.props.teamCodeMetrics}/>
