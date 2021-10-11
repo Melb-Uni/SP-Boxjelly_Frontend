@@ -31,11 +31,11 @@ class ProductQualityPage extends React.Component {
     super(props);
     this.state = {
       btnNames: [
-        commonConstants.DIRECTORY_STRUCTURE,
         commonConstants.DIRECTORY_METRICS,
-        commonConstants.FUNCTION_METRICS,
+        commonConstants.FRONTEND_METRICS,
+        commonConstants.BACKEND_METRICS,
       ],
-      btnSelected: commonConstants.DIRECTORY_STRUCTURE,
+      btnSelected: commonConstants.DIRECTORY_METRICS,
 
       hasConfig:
         this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
@@ -52,10 +52,10 @@ class ProductQualityPage extends React.Component {
   */
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
-    if (selected == commonConstants.DIRECTORY_STRUCTURE) {
+    if (selected == commonConstants.DIRECTORY_METRICS) {
       this.props.getTeamCodeMetrics(this.props.currentTeamKey);
       this.props.getTenFileCodeMetrics(this.props.currentTeamKey);
-    } else if (selected == commonConstants.DIRECTORY_METRICS) {
+    } else if (selected == commonConstants.FRONTEND_METRICS) {
       this.props.getFileCodeMetrics(this.props.currentTeamKey);
     } else {
       this.props.getTeamGithubCommits(this.props.currentTeamKey);
@@ -107,7 +107,7 @@ class ProductQualityPage extends React.Component {
               {this.state.hasConfig &&
                 this.props.teamCodeMetrics &&
                 this.props.teamCodeMetrics.length != 0 &&
-                this.state.btnSelected == commonConstants.DIRECTORY_STRUCTURE && (
+                this.state.btnSelected == commonConstants.DIRECTORY_METRICS && (
 
                   <div>
                     <Container >
@@ -182,7 +182,7 @@ class ProductQualityPage extends React.Component {
                 )
               }
               {this.state.hasConfig &&
-                this.state.btnSelected == commonConstants.DIRECTORY_METRICS && (
+                this.state.btnSelected == commonConstants.FRONTEND_METRICS && (
 
                   <div>
                     <Container>
@@ -230,7 +230,7 @@ class ProductQualityPage extends React.Component {
                 )
               }
               {this.state.hasConfig &&
-                this.state.btnSelected == commonConstants.FUNCTION_METRICS && (
+                this.state.btnSelected == commonConstants.BACKEND_METRICS && (
 
                   <div>
                     <Container>
