@@ -22,6 +22,7 @@ import RadialBar from '../_utils/RadialBar';
 import {polar_data, radial_data, radar_func_data, radar_dir_data, dir_data, 
   dir_metric_data, func_metric_data, func_data} from "../_utils/DummyData";
 import NegativeBar from '../_utils/NegativeBar';
+import DirectoryRadialBar from '../_utils/DirectoryRadialBar';
 
 
 class ProductQualityPage extends React.Component {
@@ -230,6 +231,16 @@ class ProductQualityPage extends React.Component {
                         Click on the legend to remove <br/>
                       </i></p>
                       <br/>
+                      <h2 style={{fontSize: "21px"}}><b>Statement Comparison</b></h2>
+                      <DirectoryRadialBar data={this.props.teamCodeMetrics}/>
+                      <br/>
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the bar to view number of executable/declarative statements <br/>
+                        Move cursor on the white space to view total number of statements <br/>
+                      </i></p>
+                      <br/>
+
+
                       <h2 style={{fontSize: "21px"}}><b>Frontend and Backend Repository Comparison</b></h2>
                       <ReverseTable data={this.props.teamCodeMetrics}/>
                     </Container>
