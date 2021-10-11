@@ -23,6 +23,8 @@ import {polar_data, radial_data, radar_func_data, radar_dir_data, dir_data,
   dir_metric_data, func_metric_data, func_data} from "../_utils/DummyData";
 import NegativeBar from '../_utils/NegativeBar';
 import DirectoryRadialBar from '../_utils/DirectoryRadialBar';
+import DirectoryCodeRadialBar from '../_utils/DirectoryRadarChart';
+import DirectoryRadarChart from "../_utils/DirectoryRadarChart";
 
 
 class ProductQualityPage extends React.Component {
@@ -229,6 +231,13 @@ class ProductQualityPage extends React.Component {
                         Hover on the slice to view count <br/>
                         Hover on the legend to hightlight <br/>
                         Click on the legend to remove <br/>
+                      </i></p>
+                      <br/>
+                      <h2 style={{fontSize: "21px"}}><b>Line Comparison</b></h2>
+                      <DirectoryRadarChart data={this.props.teamCodeMetrics}/>
+                      <br/>
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the point to view number of code/blank/comment lines <br/>
                       </i></p>
                       <br/>
                       <h2 style={{fontSize: "21px"}}><b>Statement Comparison</b></h2>
