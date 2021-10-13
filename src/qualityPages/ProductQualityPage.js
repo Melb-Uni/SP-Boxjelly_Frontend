@@ -24,7 +24,9 @@ import {polar_data, radial_data, radar_func_data, radar_dir_data, dir_data,
 import NegativeBar from '../_utils/NegativeBar';
 import DirectoryRadialBar from '../_utils/DirectoryRadialBar';
 import DirectoryRadarChart from "../_utils/DirectoryRadarChart";
-
+import FileColumnChart from "../_utils/FileColumnChart";
+import FrontendRadarChart from "../_utils/FrontendRadarChart";
+import BackendRadarChart from "../_utils/BackendRadarChart";
 
 class ProductQualityPage extends React.Component {
   constructor(props) {
@@ -41,15 +43,12 @@ class ProductQualityPage extends React.Component {
         this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
 
       dir_data: dir_data,
-      func_data: func_data,
+      backend_data: func_data,
     };
 
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
   }
 
-  /** should be 
-  this.props.getTeamCodeMetrics(this.props.currentTeamKey); 
-  */
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
     if (selected == commonConstants.DIRECTORY_METRICS) {
@@ -57,16 +56,15 @@ class ProductQualityPage extends React.Component {
       this.props.getTenFileCodeMetrics(this.props.currentTeamKey);
     } else if (selected == commonConstants.FRONTEND_METRICS) {
       this.props.getFileCodeMetrics(this.props.currentTeamKey);
+      this.setState({dir_data: this.props.fileCodeMetrics[0].countline})
     } else {
-      this.props.getTeamGithubCommits(this.props.currentTeamKey);
+      this.props.getFileCodeMetrics(this.props.currentTeamKey);
+      this.setState({backend_data: this.props.fileCodeMetrics[1].countline})
     }
     this.setState({
       btnSelected: selected,
     });
   }
-
-
-
 
   componentDidMount() {
     if (this.state.hasConfig) {
@@ -186,10 +184,10 @@ class ProductQualityPage extends React.Component {
 
                   <div>
                     <Container>
-
-                      <Row><p>{this.props.fileCodeMetrics}</p></Row>
+                      <h2 style={{fontSize: "21px"}}><b>Top 10 Countline JavaScript Files - Frontend</b></h2>
+                      <br/>
                       <Row>
-                        <Col xs="9">
+                        <Col xs="11">
                           <Treemap data = {this.state.dir_data} />
                         </Col>
                         <Col xs="1">
@@ -199,32 +197,54 @@ class ProductQualityPage extends React.Component {
                               title="Metrics"
                               className="mt-2"
                             >
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_data})}>Count Line</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_metric_data})}>Count Path</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_data})}>Ratio Comment To Code</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countline})}>Count Line</Dropdown.Item>
                               <Dropdown.Divider />
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_metric_data})}>Cyclomatic</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_data})}>Essential</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_metric_data})}>Max Nesting</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countdeclclass})}>Count Decl Class</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countdeclexecutableunit})}>Count Decl Executable Unit</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countdeclfunction})}>Count Decl Function</Dropdown.Item>
                               <Dropdown.Divider />
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_data})}>Count Decl Class</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_metric_data})}>Count Decl Executable Unit</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({dir_data: dir_data})}>Count Decl Function</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countpath})}>Count Path</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].cyclomatic})}>Cyclomatic</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].essential})}>Essential</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].maxnesting})}>Max Nesting</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].ratiocommenttocode})}>Ratio Comment To Code</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countcode})}>Count Code</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countblank})}>Count Blank</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countcomment})}>Count Comment</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countstmt})}>Count Statement</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countstmtdecl})}>Count Declarative Statement</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({dir_data: this.props.fileCodeMetrics[0].countstmtexe})}>Count Executable Statement</Dropdown.Item>
                             </DropdownButton>
                           </Col>
-                      </Row>
-                    </Container>
+                        </Row>
+                        <br/>
+                        <p style={{fontSize: "16px"}}><i>
+                        Choose a metric from dropdown menu to view <br/>
+                        Hover on the square to view count <br/>
+                        If show nothing, every file has a value of zero <br/>
+                        </i></p>
+                        <br/>
 
-                    <Container>
-                      <Row>
-                        <Col xs="4">
-                          <RadialBar data = {radial_data} />
-                        </Col>
-                        <Col xs="7">
-                          <RadarChart2 data = {radar_dir_data} />
-                        </Col>
-                      </Row>
-                    </Container>                    
+                        <h2 style={{fontSize: "21px"}}><b>Line Comparison</b></h2>
+                        <FrontendRadarChart data = {this.props.fileCodeMetrics[0]} />
+                        <br/>
+                        <p style={{fontSize: "16px"}}><i>
+                          Hover on the legend to hightlight one file <br/>
+                          Click the legend to exclude one file <br/>
+                        </i></p>
+                        <br/>
+
+                        <h2 style={{fontSize: "21px"}}><b>Statement Comparison</b></h2>
+                        <FileColumnChart data = {this.props.fileCodeMetrics[0]} />
+                        <p style={{fontSize: "16px"}}><i>
+                          Hover on the bar to view number of executable/declarative statements <br/>
+                          Hover on the legend to hightlight a statement type <br/>
+                          Click the legend to exclude a statement type<br/>
+                        </i></p>
+                        <br/>
+                    </Container>
                   </div>
 
                 )
@@ -234,9 +254,11 @@ class ProductQualityPage extends React.Component {
 
                   <div>
                     <Container>
+                      <h2 style={{fontSize: "21px"}}><b>Top 10 Countline Python Files - Backend</b></h2>
+                      <br/>
                       <Row>
-                        <Col xs="9">
-                          <Treemap data = {this.state.func_data} />
+                        <Col xs="11">
+                          <Treemap data = {this.state.backend_data} />
                         </Col>
                         <Col xs="1">
                           <DropdownButton
@@ -245,27 +267,55 @@ class ProductQualityPage extends React.Component {
                               title="Metrics"
                               className="mt-2"
                             >
-                              <Dropdown.Item onClick={e => this.setState({func_data: func_data})}>Count Line</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({func_data: func_metric_data})}>Count Path</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({func_data: func_data})}>Ratio Comment To Code</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countline})}>Count Line</Dropdown.Item>
                               <Dropdown.Divider />
-                              <Dropdown.Item onClick={e => this.setState({func_data: func_metric_data})}>Cyclomatic</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({func_data: func_data})}>Essential</Dropdown.Item>
-                              <Dropdown.Item onClick={e => this.setState({func_data: func_metric_data})}>Max Nesting</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countdeclclass})}>Count Decl Class</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countdeclexecutableunit})}>Count Decl Executable Unit</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countdeclfunction})}>Count Decl Function</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countpath})}>Count Path</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].cyclomatic})}>Cyclomatic</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].essential})}>Essential</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].maxnesting})}>Max Nesting</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].ratiocommenttocode})}>Ratio Comment To Code</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countcode})}>Count Code</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countcodedecl})}>Count Declarative Code</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countcodeexe})}>Count Executable Code</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countblank})}>Count Blank</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countcomment})}>Count Comment</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countstmt})}>Count Statement</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countstmtdecl})}>Count Declarative Statement</Dropdown.Item>
+                              <Dropdown.Item onClick={e => this.setState({backend_data: this.props.fileCodeMetrics[1].countstmtexe})}>Count Executable Statement</Dropdown.Item>
                             </DropdownButton>
                           </Col>
                       </Row>
-                    </Container>
+                      <br/>
+                      <p style={{fontSize: "16px"}}><i>
+                      Choose a metric from dropdown menu to view<br/>
+                      Hover on the square to view count <br/>
+                      If show nothing, every file has a value of zero <br/>
+                      </i></p>
+                      <br/>
+                      
+                      <h2 style={{fontSize: "21px"}}><b>Line Comparison</b></h2>
+                      <BackendRadarChart data = {this.props.fileCodeMetrics[1]} />
+                      <br/>
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the legend to hightlight one file <br/>
+                        Click the legend to exclude one file <br/>
+                      </i></p>
+                      <br/>
 
-                    <Container>
-                      <Row>
-                        <Col xs="4">
-                          <RadialBar data = {radial_data} />
-                        </Col>
-                        <Col xs="7">
-                          <RadarChart2 data = {radar_func_data} />
-                        </Col>
-                      </Row>
+                      <h2 style={{fontSize: "21px"}}><b>Statement Comparison</b></h2>
+                      <FileColumnChart data = {this.props.fileCodeMetrics[1]} />
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the bar to view number of executable/declarative statements <br/>
+                        Hover on the legend to hightlight a statement type <br/>
+                        Click the legend to exclude a statement type<br/>
+                      </i></p>
+                      <br/>
                     </Container>
                     
                   </div>
