@@ -9,6 +9,7 @@ import { successToast } from "../_utils/toast";
 import { formatGitHeatmapUpdateData } from "../_utils/formatGitHeatmapUpdateData.js";
 import { formatGitTableData } from "../_utils/formatGitTableData.js";
 import { formatFileCodeMetrics } from "../_utils/formatFileCodeMetrics.js";
+import { formatTenFileCodeMetrics } from "../_utils/formatTenFileCodeMetrics.js";
 
 export const userActions = {
   login,
@@ -36,6 +37,7 @@ export const userActions = {
   getTeamGithubTableCommits,
   getFileCodeMetrics,
   updateCommits,
+  getTenFileCodeMetrics,
 };
 
 function request(action, payload) {
@@ -241,6 +243,30 @@ function getFileCodeMetrics(teamKey) {
         dispatch(
           failure(
             userConstants.GET_FILE_CODE_METRICS_FAILURE, 
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
+function getTenFileCodeMetrics(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_TEN_FILE_CODE_METRICS_REQUEST));
+    userService.getFileCodeMetrics(teamKey).then(
+      (response) => {
+          dispatch(
+            success(
+              userConstants.GET_TEN_FILE_CODE_METRICS_SUCCESS,
+              formatTenFileCodeMetrics(response),
+            )
+          );
+        },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEN_FILE_CODE_METRICS_FAILURE, 
             error.toString()
           )
         );

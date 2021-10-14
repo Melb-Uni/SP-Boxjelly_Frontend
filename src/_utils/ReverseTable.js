@@ -4,66 +4,27 @@ import { customStyles } from "../_utils/Table";
 
 export default function ReverseTable(props) {
   const data = props.data;
-  const datasets = [];
-  datasets.push(data[0].code_lines_count);
-  datasets.push(data[0].class_count);
-  datasets.push(data[0].file_count);
-  datasets.push(data[0].function_count);
-  datasets.push(data[0].comment_lines_count);
-  datasets.push(data[0].comment_to_code_ratio);
-  datasets.push(data[0].declarative_lines_count);
-  datasets.push(data[0].executable_lines_count);
-
-  const datasets1 = [];
-  datasets1.push(data[1].code_lines_count);
-  datasets1.push(data[1].class_count);
-  datasets1.push(data[1].file_count);
-  datasets1.push(data[1].function_count);
-  datasets1.push(data[1].comment_lines_count);
-  datasets1.push(data[1].comment_to_code_ratio);
-  datasets1.push(data[1].declarative_lines_count);
-  datasets1.push(data[1].executable_lines_count);
-
+  
   const formattedData = [
     {
-      metric: "Lines",
-      number: data[0].code_lines_count,
-      number1: data[1].code_lines_count,
+      metric: "Path Count",
+      number: data[0].CountPath,
+      number1: data[1].CountPath,
     },
     {
-      metric: "Classes",
-      number: data[0].class_count,
-      number1: data[1].class_count,
+      metric: "Cyclomatic",
+      number: data[0].Cyclomatic,
+      number1: data[1].Cyclomatic,
     },
     {
-      metric: "Files",
-      number: data[0].file_count,
-      number1: data[1].file_count,
+      metric: "Essential",
+      number: data[0].Essential,
+      number1: data[1].Essential,
     },
     {
-      metric: "Functions",
-      number: data[0].function_count,
-      number1: data[1].function_count,
-    },
-    {
-      metric: "Comment Lines",
-      number: data[0].comment_lines_count,
-      number1: data[1].comment_lines_count,
-    },
-    {
-      metric: "Comment Lines / Code Lines",
-      number: data[0].comment_to_code_ratio,
-      number1: data[1].comment_to_code_ratio,
-    },
-    {
-      metric: "Declarible Statements",
-      number: data[0].declarative_lines_count,
-      number1: data[1].declarative_lines_count,
-    },
-    {
-      metric: "Excutable Statements",
-      number: data[0].executable_lines_count,
-      number1: data[1].executable_lines_count,
+      metric: "Max Nesting",
+      number: data[0].MaxNesting,
+      number1: data[1].MaxNesting,
     },
   ];
 
