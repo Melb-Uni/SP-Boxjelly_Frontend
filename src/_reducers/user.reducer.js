@@ -1,6 +1,4 @@
 import { userConstants } from "../_constants";
-import Events from "../_utils/Events";
-
 
 const initState = {
   requestIndividualConfluencePages: false,
@@ -234,23 +232,6 @@ export function user(state = initState, action) {
 
 
 
-
-    case userConstants.GET_CALENDAR_EVENTS_REQUEST:
-      return {
-        ...state,
-        requestCalendarEvents: true,
-      };
-    case userConstants.GET_CALENDAR_EVENTS_SUCCESS:
-      return {
-        ...state,
-        requestCalendarEvents: false,
-        calendarEvents: action.payload,
-      };
-    case userConstants.GET_CALENDAR_EVENTS_FAILURE:
-      return {
-        ...state,
-        requestCalendarEvents: false,
-      };
 
     case userConstants.GET_TEAM_JIRA_TICKETS_REQUEST:
       return {

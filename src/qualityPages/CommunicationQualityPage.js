@@ -87,13 +87,11 @@ function mapState(state) {
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
     teamInfo: state.user.teamInfo,
-    events: state.user.calendarEvents,
   };
 }
 
 const actionCreators = {
   getTeamConfluenceMeeting: userActions.getTeamConfluenceMeeting,
-  getCalendarEvents: userActions.getCalendarEvents,
 };
 
 const Communication = connect(mapState, actionCreators)(CommunicationPage);
