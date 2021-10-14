@@ -1,10 +1,8 @@
 function events2Dates(events) {
-  console.log("events: " + events); 
   return events.map(event => event.start);
 }
 
 function eventsFilter(events, type) {
-  console.log("events: " + events);
   return events.filter(event => event.type == type)
 }
 

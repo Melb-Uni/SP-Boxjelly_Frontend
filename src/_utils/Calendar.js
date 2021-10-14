@@ -65,7 +65,6 @@ export default function BigCalendar(props){
   const standupList = props.standupList;
 
   function matchDate(date, dateList) { 
-    console.log(date);
     for (let d in dateList) {
       if (moment(date).isSame(moment(dateList[d]), 'day')) {
         return true

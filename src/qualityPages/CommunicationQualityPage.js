@@ -28,8 +28,6 @@ class CommunicationPage extends React.Component {
       ],
       hasConfig:
         this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
-      events:
-        this.props.getCalendarEvents(currentTeamKey),
     };
   }
 

@@ -62,8 +62,9 @@ function formatEventTime(eventArray) {
   eventArray.forEach(function(event) {
     const startArray = event.start.split("-")
     const endArray = event.end.split("-")
-    event.start = new Date(parseInt(startArray[0]), parseInt(startArray[1])-1, parseInt(startArray[2]))
-    event.end = new Date(parseInt(endArray[0]), parseInt(endArray[1])-1, parseInt(endArray[2]))
+    event.start = new Date(parseInt(startArray[0]), parseInt(startArray[1])-1, parseInt(startArray[2]), 0 , 0)
+    event.end = new Date(parseInt(endArray[0]), parseInt(endArray[1])-1, parseInt(endArray[2]), 23 , 59)
+    console.log(typeof(event.start))
   })
 
   return eventArray;
