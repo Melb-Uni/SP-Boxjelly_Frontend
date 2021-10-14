@@ -16,7 +16,7 @@ export const userService = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
-  getCalendarEvents,
+  getFileCodeMetrics,
 };
 
 const baseUrl = "/api/v1";
@@ -60,21 +60,27 @@ function getTeamGithubDetailCommits (teamKey) {
     });
 }
 
-function getCalendarEvents (teamKey) {
-  let url = baseUrl + "/events/" + teamKey;
-  
+function getFileCodeMetrics(teamKey) {
+  let payload = {
+    space_key: teamKey
+  };
+
+  let url = "getFileMetrics";
+
   const requestOptions = {
-    method: "GET",
+    method: "POST",
+    body: JSON.stringify(payload),
     credentials: "include",
-  }
+  };
 
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
+      console.log("file");
+      console.log(jsonResponse)
       return jsonResponse;
     });
 }
-
 
 function getTeamGithubCommits(teamKey) {
   let url = baseUrl + "/git/" + teamKey + "/commit_count";
@@ -166,6 +172,8 @@ function getTeamCodeMetrics(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
+      console.log("directory")
+      console.log(jsonResponse)
       return jsonResponse;
     });
 }
