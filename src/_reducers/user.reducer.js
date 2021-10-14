@@ -119,6 +119,59 @@ export function user(state = initState, action) {
         teamGithubCommits: {},
       };
 
+    case userConstants.UPDATE_GIT_USER_NAME_REQUEST:
+      return {
+        ...state,
+        requestUpdateGitUserName: true,
+      };
+    case userConstants.UPDATE_GIT_USER_NAME_SUCCESS:
+      return {
+        ...state,
+        requestUpdateGitUserName: false,
+        updateGitUserName: action.payload,
+      };
+    case userConstants.UPDATE_GIT_USER_NAME_FAILURE:
+      return {
+        ...state,
+        requestUpdateGitUserName: false,
+        updateGitUserName: {},
+      };
+
+    case userConstants.UPDATE_Jira_USER_NAME_REQUEST:
+      return {
+        ...state,
+        requestUpdateJiraUserName: true,
+      };
+    case userConstants.UPDATE_Jira_USER_NAME_SUCCESS:
+      return {
+        ...state,
+        requestUpdateJiraUserName: false,
+        updateJiraUserName: action.payload,
+      };
+    case userConstants.UPDATE_Jira_USER_NAME_FAILURE:
+      return {
+        ...state,
+        requestUpdateJiraUserName: false,
+        updateJiraUserName: {},
+      };
+
+    case userConstants.UPDATE_COMMITS_REQUEST:
+      return {
+        ...state,
+        requestUpdateCommits: true,
+      };
+    case userConstants.UPDATE_COMMITS_SUCCESS:
+      return {
+        ...state,
+        requestUpdateCommits: false,
+        updateCommits: action.payload,
+      };
+    case userConstants.UPDATE_COMMITS_FAILURE:
+      return {
+        ...state,
+        requestUpdateCommits: false,
+        updateCommits: {},
+      };
 
 
       case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST:

@@ -27,7 +27,7 @@ const label = {
 class ProjectSettingsPage extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log(this.props.teamMemberList)
     this.state = {
       jiraWebsite:
         this.props.teamInfo &&
@@ -259,6 +259,7 @@ class ProjectSettingsPage extends React.Component {
 
 function mapState(state) {
   return {
+    teamMemberList: state.user.teamMemberList,
     requestSetTeamInfo: state.user.requestSetTeamInfo,
     teamInfo: state.user.teamInfo,
     currentTeamKey: state.user.currentTeamKey,

@@ -7,6 +7,7 @@ import { unixToDate } from "../_utils/unixToDate.js";
 import { failureToast } from "../_utils/toast";
 import { successToast } from "../_utils/toast";
 import { formatGitHeatmapUpdateData } from "../_utils/formatGitHeatmapUpdateData.js";
+import { formatGitTableData } from "../_utils/formatGitTableData.js";
 import { formatFileCodeMetrics } from "../_utils/formatFileCodeMetrics.js";
 import { formatTenFileCodeMetrics } from "../_utils/formatTenFileCodeMetrics.js";
 
@@ -31,7 +32,11 @@ export const userActions = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  updateGitUsername,
+  updateJiraUsername,
+  getTeamGithubTableCommits,
   getFileCodeMetrics,
+  updateCommits,
   getTenFileCodeMetrics,
 };
 
@@ -129,6 +134,110 @@ function getTeamGithubDetailCommits(teamKey) {
   };
 }
 
+function getTeamGithubTableCommits(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST));
+    userService.getTeamGithubDetailCommits(teamKey).then(
+        (response) => {
+          dispatch(
+              success(
+                  userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_SUCCESS,
+                  formatGitTableData(response),
+              )
+          );
+        },
+        (error) => {
+          dispatch(
+              failure(
+                  userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE,
+                  error.toString(),
+                  error.toString()
+              )
+          );
+          failureToast(error.toString());
+        }
+    );
+  };
+}
+
+function updateCommits(jsonData) {
+  return (dispatch) => {
+    dispatch(request(userConstants.UPDATE_COMMITS_REQUEST));
+    userService.updateCommits(jsonData).then(
+        (response) => {
+          dispatch(
+              success(
+                  userConstants.UPDATE_COMMITS_SUCCESS,
+                  response,
+              )
+          );
+        },
+        (error) => {
+          dispatch(
+              failure(
+                  userConstants.UPDATE_COMMITS_FAILURE,
+                  error.toString(),
+                  error.toString()
+              )
+          );
+          failureToast(error.toString());
+        }
+    );
+  };
+}
+
+function updateJiraUsername(jsonData) {
+  return (dispatch) => {
+    dispatch(request(userConstants.UPDATE_Jira_USER_NAME_REQUEST));
+    userService.updateJiraUsername(jsonData).then(
+        (response) => {
+          dispatch(
+              success(
+                  userConstants.UPDATE_Jira_USER_NAME_SUCCESS,
+                  response,
+              )
+          );
+        },
+        (error) => {
+          dispatch(
+              failure(
+                  userConstants.UPDATE_Jira_USER_NAME_FAILURE,
+                  error.toString(),
+                  error.toString()
+              )
+          );
+          failureToast(error.toString());
+        }
+    )
+ };
+}
+
+function updateGitUsername(jsonData) {
+    return (dispatch) => {
+        dispatch(request(userConstants.UPDATE_GIT_USER_NAME_REQUEST));
+        userService.updateGitUsername(jsonData).then(
+            (response) => {
+                dispatch(
+                    success(
+                        userConstants.UPDATE_GIT_USER_NAME_SUCCESS,
+                        response,
+                    )
+                );
+            },
+            (error) => {
+                dispatch(
+                    failure(
+                        userConstants.UPDATE_GIT_USER_NAME_FAILURE,
+                        error.toString(),
+                        error.toString()
+                    )
+                );
+                failureToast(error.toString());
+            }
+        );
+    };
+}
+  
 function getFileCodeMetrics(teamKey) {
   return (dispatch) => {
     dispatch(request(userConstants.GET_FILE_CODE_METRICS_REQUEST));
