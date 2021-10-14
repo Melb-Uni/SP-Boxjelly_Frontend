@@ -70,10 +70,10 @@ class CommunicationPage extends React.Component {
 
         <div>
           <CustomisedCalendar
-            events={Events}
-            keyDateList={events2Dates(eventsFilter(Events, 'Key date'))}
-            meetingList={events2Dates(eventsFilter(Events, 'Meeting'))}
-            standupList={events2Dates(eventsFilter(Events, 'Standup'))}
+            events={this.props.confluenceData}
+            keyDateList={events2Dates(eventsFilter(this.props.confluenceData, 'Key date'))}
+            meetingList={events2Dates(eventsFilter(this.props.confluenceData, 'Meeting'))}
+            standupList={events2Dates(eventsFilter(this.props.confluenceData, 'Standup'))}
           />  
         </div>
       </div>

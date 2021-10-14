@@ -16,7 +16,7 @@ const initState = {
   currentTeamName: "",
   isLogin: false,
   requestLogin: false,
-  teamInfo:{},
+  teamInfo: {},
 
 
   requestTeamGithubDetailCommits: false,
@@ -97,6 +97,8 @@ export function user(state = initState, action) {
         requestTeamConfluencePages: false,
         teamConfluencePages: {},
       };
+
+
     case userConstants.GET_TEAM_GITHUB_COMMITS_REQUEST:
       return {
         ...state,
@@ -224,7 +226,6 @@ export function user(state = initState, action) {
             teamTenFileCodeMetrics: {},
           };
   
-
 
 
 
