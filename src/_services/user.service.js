@@ -16,7 +16,11 @@ export const userService = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  updateGitUsername,
+  updateJiraUsername,
   getFileCodeMetrics,
+  updateCommits,
+
 };
 
 const baseUrl = "/api/v1";
@@ -60,6 +64,58 @@ function getTeamGithubDetailCommits (teamKey) {
     });
 }
 
+
+function updateGitUsername (jsonData) {
+
+  let url = baseUrl + "/confluence/updateGitUsername";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(jsonData),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        return jsonResponse;
+      });
+}
+
+function updateJiraUsername (jsonData) {
+
+  let url = baseUrl + "/confluence/updateJiraUsername";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(jsonData),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+  .then((response) => response.json())
+  .then((jsonResponse) => {
+    return jsonResponse;
+  });
+}
+
+function updateCommits (jsonData) {
+
+  let url = "updateCommits";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(jsonData),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        return jsonResponse;
+      });
+}
+
 function getFileCodeMetrics(teamKey) {
   let payload = {
     space_key: teamKey
@@ -81,6 +137,7 @@ function getFileCodeMetrics(teamKey) {
       return jsonResponse;
     });
 }
+
 
 function getTeamGithubCommits(teamKey) {
   let url = baseUrl + "/git/" + teamKey + "/commit_count";

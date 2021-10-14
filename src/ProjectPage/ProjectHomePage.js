@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import uomHeader from "../header/uomheader.js";
 import { userActions } from "../_actions";
@@ -12,12 +12,11 @@ import {
   Collapse,
   Input,
   Button,
-  Tree,
   Tabs,
   message,
   Popover
 } from 'antd';
-import { github, jira } from "./temp";
+import { jira } from "./temp";
 import {
   H1,
   ControlBar,
@@ -28,7 +27,6 @@ import {
   MembersWrap, MyTAb
 } from './style';
 
-const { Search } = Input;
 const { TabPane } = Tabs;
 
 class ProjectHomePage extends Component {
@@ -40,6 +38,8 @@ class ProjectHomePage extends Component {
       show: "",
       currentDesc:"",
       githubDetailCommits:[],
+      backendList:[],
+      frontendList:[],
       gitColumns: [
         {
           title: "Repository",
@@ -59,8 +59,8 @@ class ProjectHomePage extends Component {
         },
         {
           title: "Branch Name",
-          dataIndex: "name",
-          key: "name",
+          dataIndex: "branchName",
+          key: "branchName",
           align: "center"
         },
         {
@@ -137,20 +137,17 @@ class ProjectHomePage extends Component {
           dataIndex: "name",
           key: "name",
         },
-
         {
           title: "Profile",
           dataIndex: "picture",
           key: "picture",
-          render: (url) => <img alt="Avatar" width="40" src={url}></img>,
+          render: (item, record) => <img alt="Avatar" width="40" src={record.picture}></img>,
         },
-
         {
           title: "Student ID",
           dataIndex: "id",
           key: "id",
         },
-
         {
           title: "Email Address",
           dataIndex: "email",
@@ -158,57 +155,51 @@ class ProjectHomePage extends Component {
         },
         {
           title: "GitHub Username",
-          dataIndex: "name",
+          dataIndex: "gitHubUsername",
           key: "gitHubUsername",
           render: (item, record, index) => {
-            // console.log(item, record, index);
             return (
-                <Space>
-                  <span>{record.name || "--"}</span>
-                  <Popover content={
-                    <Space>
-                      <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
-                      <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editGithubName")}>save</Button>
-                      <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editGithubName")}>cancel</Button>
-                    </Space>} title="Editor" trigger="click"> <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editGithubName")}>editor</Button>
-                  </Popover>
-                </Space>
+                <div key={record.id}>
+                  <Space>
+                    <span>{record.gitHubUsername || "--"}</span>
+                    <Popover title="Editor" trigger="click" content={
+                      <Space>
+                        <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.gitHubUsername}/>
+                        <Button size={"small"} onClick={()=>this.saveAlias(record, index,"gitHubUsername")}>save</Button>
+                        <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editGithubName")}>cancel</Button>
+                      </Space>
+                    }>
+                      <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editGithubName")}>editor</Button>
+                    </Popover>
+                  </Space>
+                </div>
             )
           },
         },
         {
           title: "Jira Username",
-          dataIndex: "name",
+          dataIndex: "jiraUsername",
           key: "jiraUsername",
           render: (item, record, index) => {
-            // console.log(item, record, index);
-            // return !record.editJiraUsername ?(
-            //     <Space>
-            //       <span>{record.name || "--"}</span>
-            //       <Button size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
-            //     </Space>
-            // ):(
-            //     <Space>
-            //       <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
-            //       <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editJiraUsername")}>save</Button>
-            //       <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
-            //     </Space>
-            // )
             return (
-                <Space>
-                  <span>{record.name || "--"}</span>
-                  <Popover content={                <Space>
-                    <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.name}/>
-                    <Button size={"small"} onClick={()=>this.saveAlias(record, index,"editJiraUsername")}>save</Button>
-                    <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
-                  </Space>} title="Editor" trigger="click"> <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
-                  </Popover>
-                </Space>
+                <div key={record.id}>
+                  <Space>
+                    <span>{record.jiraUsername || "--"}</span>
+                    <Popover title="Editor" trigger="click" content={
+                      <Space>
+                        <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.jiraUsername}/>
+                        <Button size={"small"} onClick={()=>this.saveAlias(record, index,"jiraUsername")}>save</Button>
+                        <Button size={"small"} onClick={()=>this.cancelEdit(record, index, "editJiraUsername")}>cancel</Button>
+                      </Space>
+                    }>
+                      <Button style={{ backgroundColor:'#1a427f',color:'white'}} size={"small"} onClick={()=>this.editAlias(record, index, "editJiraUsername")}>editor</Button>
+                    </Popover>
+                  </Space>
+                </div>
             )
           },
         },
       ],
-      teamMemberListNew:{}
     }
   }
   setCurrentDesc = (value)=>{
@@ -218,7 +209,7 @@ class ProjectHomePage extends Component {
   }
   editAlias = (record, index, key)=>{
     // console.log(key,index)
-    this.props.teamMemberList[index][key] = true
+    this.props.teamMemberList[index][key] = "yang"
     // console.log(this.state)
     this.setState({
       ...this.state,
@@ -233,57 +224,53 @@ class ProjectHomePage extends Component {
     })
   };
   saveAlias = async (record,index, type) => {
-    if(type === "editGithubName"){
-      const requestOptions = {
-        method: "POST",
-        body: JSON.stringify({
-          user_id:record.id, git_username: this.state.currentDesc || record.name
-        }),
-        credentials: "include",
-      };
-      fetch('/api/v1/confluence/updateGitUsername', requestOptions)
-          .then((response) => response.json())
-          .then((jsonResponse) => {
-            if(jsonResponse.code === 0){
-              message.success("editor success")
-              this.props.teamMemberList[index][type] = false
-              this.setState({
-                ...this.state,
-                show:''
-              })
-            }else {
-              message.error("editor error")
-            }
-            return jsonResponse;
-          });
+    if(type === "gitHubUsername"){
+      await this.props.updateGitUsername({
+        user_id:record.id,
+        git_username: this.state.currentDesc || record.gitHubUsername
+      })
+
+      this.timerEditorGithubName = setTimeout(()=>{
+        if(this.props.updateGitUserName && this.props.updateGitUserName.code === 0){
+          message.success("editor success")
+          this.setState({
+            ...this.state,
+            show:''
+          })
+        }else {
+          message.error("editor error")
+        }
+      },100)
+
+      this.props.teamMemberList[index][type] = this.state.currentDesc
+
     }else {
-      const requestOptions = {
-        method: "POST",
-        body: JSON.stringify({
-          user_id:record.id, jira_username: this.state.currentDesc || record.name
-        }),
-        credentials: "include",
-      };
-      fetch('/api/v1/confluence/updateJiraUsername', requestOptions)
-          .then((response) => response.json())
-          .then((jsonResponse) => {
-            if(jsonResponse.code === 0){
-              message.success("editor success")
-              this.props.teamMemberList[index][type] = false
-              this.setState({
-                ...this.state,
-                show:''
-              })
-            }else {
-              message.error("editor error")
-            }
-            return jsonResponse;
-          });
+      await this.props.updateJiraUsername({
+        user_id:record.id,
+        jira_username: this.state.currentDesc || record.jiraUsername
+      })
+      this.timerEditorJiraName = setTimeout(()=>{
+        if(this.props.updateJiraUserName.code === 0){
+          message.success("editor success")
+          this.setState({
+            ...this.state,
+            show:''
+          })
+        }else {
+          message.error("editor error")
+        }
+      },100)
+      this.props.teamMemberList[index]["jiraUsername"] = this.state.currentDesc
     }
 
-
+    this.props.updateCommits({
+      space_key:this.props.currentTeamKey
+    })
   }
+
   handleSelect = (e) => {
+    console.log("this.props.teamGithubDetailCommits")
+    console.log(this.props.teamGithubDetailCommits)
     this.setState({ show: e.target.value }, () => {
       if (this.state.show !== "") {
         this.setState({
@@ -293,38 +280,32 @@ class ProjectHomePage extends Component {
     })
   }
   componentDidMount() {
-    this.props.getTeamMemberList(this.props.currentTeamKey);
-    this.props.teamMemberList && this.props.teamMemberList.forEach((item)=>{
-      item.editGithubName = false
-      item.editJiraUsername = false
-    })
-    // 获取githubDetailCommits
-    const requestOptions = {
-      method: "POST",
-      body: JSON.stringify({
-        space_key:this.props.currentTeamKey,
-      }),
-      credentials: "include",
-    };
-    fetch('getCommits', requestOptions)
-        .then((response) => response.json())
-        .then((jsonResponse) => {
-          const res = jsonResponse.map((item)=>{
-            return {
-              ...item,
-              name:"master"
-            }
-          })
-          this.setState({
-            ...this.state,
-            githubDetailCommits:res
-          })
-        });
+
+    if(!this.props.teamMemberList){
+      this.props.getTeamMemberList(this.props.currentTeamKey)
+    }
+
+    this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+
+    this.timer = setTimeout(()=>{
+      if(this.props.teamGithubDetailCommits){
+        const backendTemp = this.props.teamGithubDetailCommits.filter((item)=>item.source === 'backend')
+        const frontendTemp = this.props.teamGithubDetailCommits.filter((item)=>item.source === 'frontend')
+        this.setState({
+          ...this.state,
+          githubDetailCommits:this.props.teamGithubDetailCommits,
+          backendList:backendTemp,
+          frontendList:frontendTemp,
+        })
+      }
+    },100)
+
   }
 
-
-  callback = (key) => {
-    console.log(key);
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
+    this.timerEditorGithubName && clearTimeout(this.timerEditorGithubName);
+    this.timerEditorJiraName && clearTimeout(this.timerEditorJiraName);
   }
 
   render() {
@@ -388,7 +369,7 @@ class ProjectHomePage extends Component {
                       columns={this.state.columns}
                       dataSource={this.props.teamMemberList}
                       pagination={false}
-                      // width={600}
+                      rowKey={record=>record.id}
                     ></Table>
                   </MembersWrap>
                   : null
@@ -398,11 +379,25 @@ class ProjectHomePage extends Component {
                     switch (this.state.show) {
                       case "github":
                         return <GitHubContent>
-                          <Table
-                            dataSource={this.state.githubDetailCommits}
-                            columns={this.state.gitColumns}
-                            pagination={false}
-                          ></Table>
+                          <Tabs centered defaultActiveKey="1" onChange={this.callback}>
+                            <TabPane tab="Backend" key="1">
+                              <Table
+                                  dataSource={this.state.backendList}
+                                  columns={this.state.gitColumns}
+                                  pagination={false}
+                                  rowKey={record=>record.url}
+                              ></Table>
+                            </TabPane>
+                            <TabPane tab="Frontend" key="2">
+                              <Table
+                                  dataSource={this.state.frontendList}
+                                  columns={this.state.gitColumns}
+                                  pagination={false}
+                                  rowKey={record=>record.url}
+                              ></Table>
+                            </TabPane>
+                          </Tabs>
+
                         </GitHubContent>
                       case "jira":
                         return <div>
@@ -414,6 +409,7 @@ class ProjectHomePage extends Component {
                                 dataSource={jira}
                                 columns={this.state.jiraColumns}
                                 pagination={false}
+                                rowKey={record=>Math.random()}
                             ></Table>
                           </JiraContent>
                         </div>
@@ -466,12 +462,17 @@ function mapState(state) {
     teamMemberList: state.user.teamMemberList,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
-    // githubDetailCommits: state.user.githubDetailCommits
+    teamGithubDetailCommits: state.user.teamGithubDetailCommits,
+    updateGitUserName: state.user.updateGitUserName,
+    updateJiraUserName: state.user.updateJiraUserName,
   };
 }
 const actionCreators = {
   getTeamMemberList: userActions.getTeamMemberList,
-  // getTeamGithubDetailCommits:userActions.getTeamGithubDetailCommits
+  getTeamGithubDetailCommits:userActions.getTeamGithubTableCommits,
+  updateGitUsername:userActions.updateGitUsername,
+  updateJiraUsername:userActions.updateJiraUsername,
+  updateCommits:userActions.updateCommits,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);
