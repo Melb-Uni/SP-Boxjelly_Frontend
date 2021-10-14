@@ -19,6 +19,8 @@ export const userService = {
   updateGitUsername,
   updateJiraUsername,
   getFileCodeMetrics,
+  updateCommits,
+
 };
 
 const baseUrl = "/api/v1";
@@ -95,6 +97,23 @@ function updateJiraUsername (jsonData) {
   .then((jsonResponse) => {
     return jsonResponse;
   });
+}
+
+function updateCommits (jsonData) {
+
+  let url = "updateCommits";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(jsonData),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        return jsonResponse;
+      });
 }
 
 function getFileCodeMetrics(teamKey) {

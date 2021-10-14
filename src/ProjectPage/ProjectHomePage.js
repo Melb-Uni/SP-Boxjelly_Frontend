@@ -262,6 +262,10 @@ class ProjectHomePage extends Component {
       },100)
       this.props.teamMemberList[index]["jiraUsername"] = this.state.currentDesc
     }
+
+    this.props.updateCommits({
+      space_key:this.props.currentTeamKey
+    })
   }
 
   handleSelect = (e) => {
@@ -468,6 +472,7 @@ const actionCreators = {
   getTeamGithubDetailCommits:userActions.getTeamGithubTableCommits,
   updateGitUsername:userActions.updateGitUsername,
   updateJiraUsername:userActions.updateJiraUsername,
+  updateCommits:userActions.updateCommits,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);

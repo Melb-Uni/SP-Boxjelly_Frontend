@@ -150,6 +150,23 @@ export function user(state = initState, action) {
         updateJiraUserName: {},
       };
 
+    case userConstants.UPDATE_COMMITS_REQUEST:
+      return {
+        ...state,
+        requestUpdateCommits: true,
+      };
+    case userConstants.UPDATE_COMMITS_SUCCESS:
+      return {
+        ...state,
+        requestUpdateCommits: false,
+        updateCommits: action.payload,
+      };
+    case userConstants.UPDATE_COMMITS_FAILURE:
+      return {
+        ...state,
+        requestUpdateCommits: false,
+        updateCommits: {},
+      };
 
 
       case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST:

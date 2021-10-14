@@ -35,6 +35,7 @@ export const userActions = {
   updateJiraUsername,
   getTeamGithubTableCommits,
   getFileCodeMetrics,
+  updateCommits,
 };
 
 function request(action, payload) {
@@ -146,14 +147,14 @@ function getTeamGithubTableCommits(teamKey) {
   };
 }
 
-function updateGitUsername(jsonData) {
+function updateCommits(jsonData) {
   return (dispatch) => {
-    dispatch(request(userConstants.UPDATE_GIT_USER_NAME_REQUEST));
-    userService.updateGitUsername(jsonData).then(
+    dispatch(request(userConstants.UPDATE_COMMITS_REQUEST));
+    userService.updateCommits(jsonData).then(
         (response) => {
           dispatch(
               success(
-                  userConstants.UPDATE_GIT_USER_NAME_SUCCESS,
+                  userConstants.UPDATE_COMMITS_SUCCESS,
                   response,
               )
           );
@@ -161,7 +162,7 @@ function updateGitUsername(jsonData) {
         (error) => {
           dispatch(
               failure(
-                  userConstants.UPDATE_GIT_USER_NAME_FAILURE,
+                  userConstants.UPDATE_COMMITS_FAILURE,
                   error.toString(),
                   error.toString()
               )
@@ -196,6 +197,32 @@ function updateJiraUsername(jsonData) {
         }
     )
  };
+}
+
+function updateGitUsername(jsonData) {
+    return (dispatch) => {
+        dispatch(request(userConstants.UPDATE_GIT_USER_NAME_REQUEST));
+        userService.updateGitUsername(jsonData).then(
+            (response) => {
+                dispatch(
+                    success(
+                        userConstants.UPDATE_GIT_USER_NAME_SUCCESS,
+                        response,
+                    )
+                );
+            },
+            (error) => {
+                dispatch(
+                    failure(
+                        userConstants.UPDATE_GIT_USER_NAME_FAILURE,
+                        error.toString(),
+                        error.toString()
+                    )
+                );
+                failureToast(error.toString());
+            }
+        );
+    };
 }
   
 function getFileCodeMetrics(teamKey) {
