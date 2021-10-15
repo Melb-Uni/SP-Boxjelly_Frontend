@@ -53,7 +53,10 @@ export function formatGitHeatmapChangeData(response) {
       let totals = total.reduce(function(a,b){return a + b}, 0)
       json_info.totals = totals
 
-      let changes = Math.floor(totals/100)
+      let changes = Math.floor(totals/150)
+      if(totals/150 < 1){
+        changes = 1
+      }
       json_info.count = changes
 
       let sources = labelDataMap.source.slice(count, new_count)
@@ -67,18 +70,7 @@ export function formatGitHeatmapChangeData(response) {
       let deletions = deletion.reduce(function(a,b){return a + b}, 0)
       json_info.deletions = deletions
 
-
-      let file = labelDataMap.file_change.slice(count, new_count)
-      let files = []
-      for (let each in file){
-          for (let every in file[each]){
-              files.push(file[each][every].filename)
-          }
-      }
-      json_info.files = files
-
       count = new_count
-
       calendar_list.push(json_info);
 
     }else {
@@ -88,8 +80,6 @@ export function formatGitHeatmapChangeData(response) {
       json_info.sources = []
       json_info.additions = []
       json_info.deletions = []
-
-      json_info.files = []
 
       calendar_list.push(json_info);
     }

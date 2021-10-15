@@ -27,7 +27,6 @@ export default function GitChangeCalendarHeatmap(props) {
             Additions: ${value.additions}
             Deletions: ${value.deletions}
             Sources: ${value.sources} 
-            Files: ${value.files}
             `,
           };
         }}
