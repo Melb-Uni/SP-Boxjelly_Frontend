@@ -202,12 +202,12 @@ class ProcessQualityPage extends React.Component {
                           <br/>
                         </Row> */}
 
-                        <h2 style={{fontSize: "21px"}}><b>200 GitHub Update Commit Counts</b></h2>
+                        <h2 style={{fontSize: "21px"}}><b>GitHub Update Commit Counts</b></h2>
                         <p style={{fontSize: "16px"}}><i>Click to view more details</i></p>
                         <GitUpdateCalendarHeatmap values={this.props.githubDetailCommits}/>
-                        <h2 style={{fontSize: "21px"}}><b>100 GitHub Lines Change (Additions & Deletions)</b></h2>
+                        <h2 style={{fontSize: "21px"}}><b>GitHub Total Lines Change (Additions & Deletions)</b></h2>
                         <p style={{fontSize: "16px"}}><i>Click to view more details</i></p>
-                        <p style={{fontSize: "16px"}}><i>Value 1 = 100 lines changed</i></p>
+                        <p style={{fontSize: "16px"}}><i>Value 1 = 150 lines changed</i></p>
                         <GitChangeCalendarHeatmap values={this.props.githubDetailChanges}/>
                       
                     </Container>
