@@ -68,6 +68,7 @@ class ProjectHomePage extends Component {
           dataIndex: "date",
           key: "date",
           align: "center",
+          sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
         },
         {
           title: "URL",
@@ -266,11 +267,19 @@ class ProjectHomePage extends Component {
     this.props.updateCommits({
       space_key:this.props.currentTeamKey
     })
+
+    this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+
   }
 
   handleSelect = (e) => {
-    console.log("this.props.teamGithubDetailCommits")
-    console.log(this.props.teamGithubDetailCommits)
+    if(this.props.teamGithubDetailCommits){
+      this.setState({
+        ...this.state,
+        backendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'backend'),
+        frontendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'frontend')
+      })
+    }
     this.setState({ show: e.target.value }, () => {
       if (this.state.show !== "") {
         this.setState({
@@ -287,23 +296,9 @@ class ProjectHomePage extends Component {
 
     this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
 
-    this.timer = setTimeout(()=>{
-      if(this.props.teamGithubDetailCommits){
-        const backendTemp = this.props.teamGithubDetailCommits.filter((item)=>item.source === 'backend')
-        const frontendTemp = this.props.teamGithubDetailCommits.filter((item)=>item.source === 'frontend')
-        this.setState({
-          ...this.state,
-          githubDetailCommits:this.props.teamGithubDetailCommits,
-          backendList:backendTemp,
-          frontendList:frontendTemp,
-        })
-      }
-    },100)
-
   }
 
   componentWillUnmount() {
-    this.timer && clearTimeout(this.timer);
     this.timerEditorGithubName && clearTimeout(this.timerEditorGithubName);
     this.timerEditorJiraName && clearTimeout(this.timerEditorJiraName);
   }
