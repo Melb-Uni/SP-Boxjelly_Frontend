@@ -5,13 +5,11 @@ import 'react-calendar-heatmap/dist/styles.css';
 
 const today = new Date();
 
-export default function CalendarHeatmap2(props) {
+export default function GitChangeCalendarHeatmap(props) {
   const values = props.values;
   
   return (
     <div>
-      <h3>Calendar-Heatmap of Modification</h3>
-      <p> Click to View Details</p>
       <CalendarHeatmap
         startDate={shiftDate(today, -150)}
         endDate={today}
@@ -24,15 +22,16 @@ export default function CalendarHeatmap2(props) {
         }}
         tooltipDataAttrs={value => {
           return {
-            'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${
-              value.count
-            } -> who, what commit comment, time, update/modify, url
-            
+            'data-tip': `${value.date} has count: ${value.count} 
+            Totals: ${value.totals} 
+            Additions: ${value.additions}
+            Deletions: ${value.deletions}
+            Sources: ${value.sources} 
             `,
           };
         }}
         showWeekdayLabels={true}
-        //onClick={value => alert(`Clicked on value with count: ${value.count}`)}
+         //onClick={value => alert(`Clicked on value with count: ${value.messages}`)}
       />
       <ReactTooltip />
     </div>

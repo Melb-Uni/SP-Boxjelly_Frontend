@@ -7,6 +7,7 @@ import { unixToDate } from "../_utils/unixToDate.js";
 import { failureToast } from "../_utils/toast";
 import { successToast } from "../_utils/toast";
 import { formatGitHeatmapUpdateData } from "../_utils/formatGitHeatmapUpdateData.js";
+import { formatGitHeatmapChangeData } from "../_utils/formatGitHeatmapChangeData.js";
 import { formatGitTableData } from "../_utils/formatGitTableData.js";
 import { formatFileCodeMetrics } from "../_utils/formatFileCodeMetrics.js";
 import { formatTenFileCodeMetrics } from "../_utils/formatTenFileCodeMetrics.js";
@@ -32,6 +33,7 @@ export const userActions = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  getTeamGithubDetailChanges,
   updateGitUsername,
   updateJiraUsername,
   getTeamGithubTableCommits,
@@ -126,7 +128,31 @@ function getTeamGithubDetailCommits(teamKey) {
           failure(
             userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE,
             error.toString(),
-            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getTeamGithubDetailChanges(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_REQUEST));
+    userService.getTeamGithubDetailChanges(teamKey).then(
+      (response) => {
+        dispatch(
+          success(
+            userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_SUCCESS,
+            formatGitHeatmapChangeData(response),
+          )
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_FAILURE,
+            error.toString(),
           )
         );
         failureToast(error.toString());

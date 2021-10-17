@@ -5,13 +5,11 @@ import 'react-calendar-heatmap/dist/styles.css';
 
 const today = new Date();
 
-export default function Heatmap(props) {
+export default function GitUpdateCalendarHeatmap(props) {
   const values = props.values;
   
   return (
     <div>
-      <h3>Calendar-Heatmap of Updates</h3>
-      <p> Click to View Details</p>
       <CalendarHeatmap
         startDate={shiftDate(today, -150)}
         endDate={today}
