@@ -162,7 +162,7 @@ class ProjectHomePage extends Component {
             return (
                 <div key={record.id}>
                   <Space>
-                    <span>{record.gitHubUsername || "--"}</span>
+                    <span>{record.git_name || "--"}</span>
                     <Popover title="Editor" trigger="click" content={
                       <Space>
                         <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.gitHubUsername}/>
@@ -185,7 +185,7 @@ class ProjectHomePage extends Component {
             return (
                 <div key={record.id}>
                   <Space>
-                    <span>{record.jiraUsername || "--"}</span>
+                    <span>{record.jira_name || "--"}</span>
                     <Popover title="Editor" trigger="click" content={
                       <Space>
                         <Input onChange={(e) => this.setCurrentDesc(e.target.value)} defaultValue={record.jiraUsername}/>
@@ -269,6 +269,7 @@ class ProjectHomePage extends Component {
     })
 
     this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+    this.props.getTeamMemberList(this.props.currentTeamKey)
 
   }
 
@@ -290,9 +291,11 @@ class ProjectHomePage extends Component {
   }
   componentDidMount() {
 
-    if(!this.props.teamMemberList){
-      this.props.getTeamMemberList(this.props.currentTeamKey)
-    }
+    // if(!this.props.teamMemberList){
+    //   this.props.getTeamMemberList(this.props.currentTeamKey)
+    // }
+
+    this.props.getTeamMemberList(this.props.currentTeamKey)
 
     this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
 
