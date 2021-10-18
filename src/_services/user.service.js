@@ -21,7 +21,9 @@ export const userService = {
   updateJiraUsername,
   getFileCodeMetrics,
   updateCommits,
+  getAllIndividualContribution,
 
+  
 };
 
 const baseUrl = "/api/v1";
@@ -40,6 +42,30 @@ function getTeamConfluencePages(teamKey) {
       return jsonResponse;
     });
 }
+
+function getAllIndividualContribution (teamKey) {
+  let payload = {
+    space_key: teamKey
+  };
+  
+  let url = "getAllContribution";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(payload),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+
+      console.log("jsonResponse - Individual Contribution");
+      console.log(jsonResponse)
+      return jsonResponse;
+    });
+}
+
 
 function getTeamGithubDetailCommits (teamKey) {
   let payload = {

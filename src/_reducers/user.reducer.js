@@ -23,6 +23,9 @@ const initState = {
   requestTeamGithubDetailChanges: false,
   requestFileCodeMetricsCommits: false,
   requestTenFileCodeMetricsCommits: false,
+
+  requestTaskComparison: false,
+  requestUserComparison: false,
 };
 
 export function user(state = initState, action) {
@@ -249,7 +252,42 @@ export function user(state = initState, action) {
             requestTenFileCodeMetricsCommits: false,
             teamTenFileCodeMetrics: {},
           };
-  
+
+      case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_REQUEST:
+        return {
+          ...state,
+          taskComparison: true,
+        };
+      case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_SUCCESS:
+        return {
+          ...state,
+          requestTaskComparison: false,
+          taskComparison: action.payload,
+        };
+      case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_FAILURE:
+        return {
+          ...state,
+          requestTaskComparison: false,
+          taskComparison: {},
+        };
+
+        case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_REQUEST:
+          return {
+            ...state,
+            userComparison: true,
+          };
+        case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_SUCCESS:
+          return {
+            ...state,
+            requestUserComparison: false,
+            userComparison: action.payload,
+          };
+        case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_FAILURE:
+          return {
+            ...state,
+            requestUserComparison: false,
+            userComparison: {},
+          };
 
 
 

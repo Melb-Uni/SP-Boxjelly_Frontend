@@ -22,6 +22,9 @@ import { Spin } from "antd";
 import CardGroup from "../_utils/CardGroup";
 import {latest_commit, latest_document, latest_card, radar_all_data, 
   horizontal_all_data, column_all_data} from "../_utils/DummyData";
+import TaskStackedBar from "../_utils/TaskStackedBar";
+import UserHorizontalBar from "../_utils/UserHorizontalBar";
+
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
@@ -46,6 +49,17 @@ class IndividualContributionPage extends React.Component {
 
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
+
+    if (selected == commonConstants.TASK_COMPARISON){
+      this.props.getTaskComparisonIndividualContribution(this.props.currentTeamKey);
+    } else if(selected == commonConstants.USER_COMPARISON){
+      this.props.getUserComparisonIndividualContribution(this.props.currentTeamKey);
+
+    } else {
+
+    }
+
+    
     /*
       this.props.getGithubIndividualData(this.props.currentTeamKey);
       this.props.getConfluenceIndividualData(this.props.currentTeamKey)
@@ -58,7 +72,9 @@ class IndividualContributionPage extends React.Component {
 
   componentDidMount() {
     if (this.state.hasConfig) {
-      this.props.getConfluenceIndividualData(this.props.currentTeamKey);
+      //this.props.getConfluenceIndividualData(this.props.currentTeamKey);
+      this.props.getTaskComparisonIndividualContribution(this.props.currentTeamKey);
+      this.props.getUserComparisonIndividualContribution(this.props.currentTeamKey);
     }
   }
 
@@ -92,16 +108,17 @@ class IndividualContributionPage extends React.Component {
             {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.TASK_COMPARISON && (
                   <Container>
-                    <ColumnChart data={column_all_data} />
+                    <TaskStackedBar data={this.props.individualTaskComparison} />
                   </Container>
             )}
             {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.USER_COMPARISON && 
-                typeof this.props.individualConfluenceData !== "undefined" &&
-                JSON.stringify(this.props.individualConfluenceData) !==
-                "{}" &&(
+                // typeof this.props.individualConfluenceData !== "undefined" &&
+                // JSON.stringify(this.props.individualConfluenceData) !==
+                // "{}" &&
+                (
                   <Container>
-                    <Row>
+                    {/* <Row>
                      <h3>Previous Group Confluence Data</h3>
                       <DonutChart
                               data={JSON.parse(
@@ -121,7 +138,8 @@ class IndividualContributionPage extends React.Component {
                       <br/>
                       <hr className="solid"></hr>
                       <br/>
-                      <br/>
+                      <br/> */}
+                      <UserHorizontalBar data={this.props.individualUserComparison} />
 
                      <RadarChart2 data={this.state.radar_all_data} />
 
@@ -158,6 +176,13 @@ class IndividualContributionPage extends React.Component {
                     </Row>
                   </Container>
             )}
+            {this.state.hasConfig &&
+              (!this.props.individualTaskComparison ||
+                this.props.individualTaskComparison == 0) && 
+                (!this.props.individualUserComparison ||
+                  this.props.individualUserComparison.length == 0) && (
+                <InformationalNote message={alertConstants.COLLECTING_DATA} />
+              )}
           </div>
         </div>
       </div>
@@ -165,24 +190,33 @@ class IndividualContributionPage extends React.Component {
   }
 }
 
-
-
-
 function mapState(state) {
   return {
-    individualGithubData: state.user.individualGitHubCommits,
-    individualConfluenceData: state.user.individualConfluencePages,
-    individualJiraData: state.user.individualJiraCounts,
+    // individualGithubData: state.user.individualGitHubCommits,
+    // individualConfluenceData: state.user.individualConfluencePages,
+    // individualJiraData: state.user.individualJiraCounts,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
     teamInfo: state.user.teamInfo,
+
+
+    requestTaskComparison: state.user.individualTaskComparison,
+    individualTaskComparison: state.user.taskComparison,
+
+    requestUserComparison: state.user.individualUserComparison,
+    individualUserComparison: state.user.userComparison,
+
   };
 }
 
 const actionCreators = {
-  getGithubIndividualData: userActions.getGithubIndividualData,
-  getConfluenceIndividualData: userActions.getConfluenceIndividualData,
-  getJiraIndividualData: userActions.getJiraIndividualData,
+  // getGithubIndividualData: userActions.getGithubIndividualData,
+  // getConfluenceIndividualData: userActions.getConfluenceIndividualData,
+  // getJiraIndividualData: userActions.getJiraIndividualData,
+  
+  getTaskComparisonIndividualContribution: userActions.getTaskComparisonIndividualContribution,
+  getUserComparisonIndividualContribution: userActions.getUserComparisonIndividualContribution,
+
 };
 
 const Product = connect(mapState, actionCreators)(IndividualContributionPage);

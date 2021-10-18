@@ -11,6 +11,8 @@ import { formatGitHeatmapChangeData } from "../_utils/formatGitHeatmapChangeData
 import { formatGitTableData } from "../_utils/formatGitTableData.js";
 import { formatFileCodeMetrics } from "../_utils/formatFileCodeMetrics.js";
 import { formatTenFileCodeMetrics } from "../_utils/formatTenFileCodeMetrics.js";
+import { formatTaskComparisonData } from "../_utils/formatTaskComparisonData";
+import { formatUserComparisonData } from "../_utils/formatUserComparisonData";
 
 export const userActions = {
   login,
@@ -40,6 +42,10 @@ export const userActions = {
   getFileCodeMetrics,
   updateCommits,
   getTenFileCodeMetrics,
+  getTaskComparisonIndividualContribution,
+  getUserComparisonIndividualContribution,
+
+
 };
 
 function request(action, payload) {
@@ -103,6 +109,56 @@ function getTeamConfluencePages(teamKey) {
           failure(
             userConstants.GET_TEAM_CONFLUENCE_PAGES_FAILURE,
             error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getTaskComparisonIndividualContribution(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_REQUEST));
+    userService.getAllIndividualContribution(teamKey).then(
+      (response) => {
+        dispatch(
+          success(
+            userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_SUCCESS,
+            formatTaskComparisonData(response),
+          )
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_FAILURE,
+            error.toString(),
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getUserComparisonIndividualContribution(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_REQUEST));
+    userService.getAllIndividualContribution(teamKey).then(
+      (response) => {
+        dispatch(
+          success(
+            userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_SUCCESS,
+            formatUserComparisonData(response),
+          )
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_FAILURE,
+            error.toString(),
           )
         );
         failureToast(error.toString());
