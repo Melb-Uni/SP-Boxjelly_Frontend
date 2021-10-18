@@ -7,6 +7,7 @@ import { unixToDate } from "../_utils/unixToDate.js";
 import { failureToast } from "../_utils/toast";
 import { successToast } from "../_utils/toast";
 import { formatGitHeatmapUpdateData } from "../_utils/formatGitHeatmapUpdateData.js";
+import { formatGitHeatmapChangeData } from "../_utils/formatGitHeatmapChangeData.js";
 import { formatGitTableData } from "../_utils/formatGitTableData.js";
 import { formatFileCodeMetrics } from "../_utils/formatFileCodeMetrics.js";
 import { formatTenFileCodeMetrics } from "../_utils/formatTenFileCodeMetrics.js";
@@ -32,6 +33,7 @@ export const userActions = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  getTeamGithubDetailChanges,
   updateGitUsername,
   updateJiraUsername,
   getTeamGithubTableCommits,
@@ -56,6 +58,18 @@ function unixToDateHelper(jsonData) {
   }
 
   return jsonData;
+}
+
+function formatEventTime(eventArray) {
+  eventArray.forEach(function(event) {
+    const startArray = event.start.split("-")
+    const endArray = event.end.split("-")
+    event.start = new Date(parseInt(startArray[0]), parseInt(startArray[1])-1, parseInt(startArray[2]), 0 , 0)
+    event.end = new Date(parseInt(endArray[0]), parseInt(endArray[1])-1, parseInt(endArray[2]), 23 , 59)
+    console.log(typeof(event.start))
+  })
+
+  return eventArray;
 }
 
 function checkRespCode(response) {
@@ -114,7 +128,31 @@ function getTeamGithubDetailCommits(teamKey) {
           failure(
             userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE,
             error.toString(),
-            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getTeamGithubDetailChanges(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_REQUEST));
+    userService.getTeamGithubDetailChanges(teamKey).then(
+      (response) => {
+        dispatch(
+          success(
+            userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_SUCCESS,
+            formatGitHeatmapChangeData(response),
+          )
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_FAILURE,
+            error.toString(),
           )
         );
         failureToast(error.toString());
@@ -351,7 +389,8 @@ function getTeamConfluenceMeeting(teamKey) {
           dispatch(
             success(
               userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS,
-              unixToDateHelper(response.data)
+              // unixToDateHelper(response.data)
+              formatEventTime(response.data)
             )
           );
         } else {

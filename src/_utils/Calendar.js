@@ -65,7 +65,6 @@ export default function BigCalendar(props){
   const standupList = props.standupList;
 
   function matchDate(date, dateList) { 
-    console.log(date);
     for (let d in dateList) {
       if (moment(date).isSame(moment(dateList[d]), 'day')) {
         return true
@@ -89,9 +88,9 @@ export default function BigCalendar(props){
     const popoverClickRootClose = (
       <Popover id="popover-basic" className={classes.popover}>
         <PopoverTitle><strong>{event.title}</strong></PopoverTitle> 
-        <PopoverContent>
+        {/* <PopoverContent>
           This event is from {events2HourAndMinute(event)[0]} to {events2HourAndMinute(event)[1]}
-        </PopoverContent>
+        </PopoverContent> */}
         <PopoverContent>
           <a href={event.link}>
             More details on Confluence

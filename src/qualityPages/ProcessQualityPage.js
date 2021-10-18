@@ -15,11 +15,13 @@ import { Button } from "bootstrap";
 
 /** new added */
 import DonutChart from "../_utils/DonutChart";
-import CalendarHeatmap from "../_utils/CalendarHeatmap";
+import GitUpdateCalendarHeatmap from "../_utils/GitUpdateCalendarHeatmap";
+import GitChangeCalendarHeatmap from "../_utils/GitChangeCalendarHeatmap";
 import { Tab, Col, Row, Container, DropdownButton, Dropdown} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import burnup from "../_utils/icons/Burnup_Chart.png";
 import burndown from "../_utils/icons/Burndown_Chart.png";
+import CalendarHeatmap1 from "../_utils/CalendarHeatmap1";
 import CalendarHeatmap2 from "../_utils/CalendarHeatmap2";
 import AreaChart from "../_utils/AreaChart";
 import DonutChart2 from "../_utils/DonutChart2";
@@ -59,6 +61,7 @@ class ProcessQualityPage extends React.Component {
 
       
       this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+      this.props.getTeamGithubDetailChanges(this.props.currentTeamKey);
       
   
 
@@ -130,13 +133,13 @@ class ProcessQualityPage extends React.Component {
                 this.state.btnSelected == commonConstants.CONFLUENCE && (
                   <div>
                     <Container>
-                      <Row>
+                      {/* <Row>
                         <LineChart data={this.props.confluenceData} />
                         <br/>
                         <br/>
                         <br/>
                         <br/>
-                      </Row>
+                      </Row> */}
 
                       <Row>
                         <Col xs="9">
@@ -178,7 +181,7 @@ class ProcessQualityPage extends React.Component {
                         <br/>
                         <br/>
                     
-                      {/*<CalendarHeatmap values={randomValues}/>*/}
+                      <CalendarHeatmap1 values={randomValues}/>
                       <CalendarHeatmap2 values={randomValues}/>
 
                     </Container>
@@ -191,17 +194,21 @@ class ProcessQualityPage extends React.Component {
 
                   <div>
                     <Container>
-                        <Row>
+                        {/* <Row>
                           <LineChart data={this.props.githubData} />
                           <br/>
                           <br/>
                           <br/>
                           <br/>
-                        </Row>
+                        </Row> */}
 
-                        
-                        <CalendarHeatmap values={this.props.githubDetailCommits}/>
-                        <CalendarHeatmap2 values={randomValues}/>
+                        <h2 style={{fontSize: "21px"}}><b>GitHub Update Commit Counts</b></h2>
+                        <p style={{fontSize: "16px"}}><i>Click to view more details</i></p>
+                        <GitUpdateCalendarHeatmap values={this.props.githubDetailCommits}/>
+                        <h2 style={{fontSize: "21px"}}><b>GitHub Total Lines Change (Additions & Deletions)</b></h2>
+                        <p style={{fontSize: "16px"}}><i>Click to view more details</i></p>
+                        <p style={{fontSize: "16px"}}><i>Value 1 = 150 lines changed</i></p>
+                        <GitChangeCalendarHeatmap values={this.props.githubDetailChanges}/>
                       
                     </Container>
                   </div>
@@ -214,11 +221,11 @@ class ProcessQualityPage extends React.Component {
 
                   <div>
                     <Container>
-                      <Row>
+                      {/* <Row>
                         <LineChart data={this.props.jiraData} />
                         <br/>
                         <br/>
-                      </Row>
+                      </Row> */}
                       
                       {/*
                       <Row>
@@ -243,7 +250,7 @@ class ProcessQualityPage extends React.Component {
                       <br/>
                       <br/>
 
-                      {/*<CalendarHeatmap values={randomValues}/>*/}
+                      <CalendarHeatmap1 values={randomValues}/>
                       <CalendarHeatmap2 values={randomValues}/>
 
                       <h3>Click to Direct to Jira Report</h3>
@@ -262,6 +269,13 @@ class ProcessQualityPage extends React.Component {
                   </div>
                 )}
             </Spin>
+            {this.state.hasConfig &&
+              (!this.props.githubDetailCommits ||
+                this.props.githubDetailCommits.length == 0) && 
+                (!this.props.githubDetailChanges ||
+                  this.props.githubDetailChanges.length == 0) && (
+                <InformationalNote message={alertConstants.COLLECTING_DATA} />
+              )}
           </div>
         </div>
         <ToastContainer limit={1} />
@@ -322,6 +336,9 @@ function mapState(state) {
     requestTeamGithubDetailCommits: state.user.requestTeamGithubDetailCommits,
     githubDetailCommits: state.user.teamGithubDetailCommits,
 
+    requestTeamGithubDetailChanges: state.user.requestTeamGithubDetailChanges,
+    githubDetailChanges: state.user.teamGithubDetailChanges,
+
   };
 }
 
@@ -332,6 +349,7 @@ const actionCreators = {
 
 
   getTeamGithubDetailCommits: userActions.getTeamGithubDetailCommits,
+  getTeamGithubDetailChanges: userActions.getTeamGithubDetailChanges,
 };
 
 const qualityPage = connect(mapState, actionCreators)(ProcessQualityPage);

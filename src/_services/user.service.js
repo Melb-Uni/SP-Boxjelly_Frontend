@@ -16,6 +16,7 @@ export const userService = {
   getTeamMemberList,
 
   getTeamGithubDetailCommits,
+  getTeamGithubDetailChanges,
   updateGitUsername,
   updateJiraUsername,
   getFileCodeMetrics,
@@ -46,7 +47,6 @@ function getTeamGithubDetailCommits (teamKey) {
   };
   
   let url = "getCommits";
-  console.log("GET_TEAM_GITHUB_DETAIL_COMMITS")
 
   const requestOptions = {
     method: "POST",
@@ -58,7 +58,30 @@ function getTeamGithubDetailCommits (teamKey) {
     .then((response) => response.json())
     .then((jsonResponse) => {
 
-      console.log("jsonResponse");
+      console.log("jsonResponse - Update");
+      console.log(jsonResponse)
+      return jsonResponse;
+    });
+}
+
+function getTeamGithubDetailChanges (teamKey) {
+  let payload = {
+    space_key: teamKey
+  };
+  
+  let url = "getCommitChanges";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(payload),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+
+      console.log("jsonResponse - Change");
       console.log(jsonResponse)
       return jsonResponse;
     });

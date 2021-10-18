@@ -58,24 +58,26 @@ class CommunicationPage extends React.Component {
             {this.state.hasConfig &&
               this.props.confluenceData &&
               this.props.confluenceData.length != 0 && (
-                <Table
-                  columns={this.state.columns}
-                  data={this.props.confluenceData}
-                  width={"80vw"}
-                  height={"50vh"}
-                />
+                <div>
+                  <CustomisedCalendar
+                    events={this.props.confluenceData}
+                    keyDateList={events2Dates(eventsFilter(this.props.confluenceData, 'Key date'))}
+                    meetingList={events2Dates(eventsFilter(this.props.confluenceData, 'Meeting'))}
+                    standupList={events2Dates(eventsFilter(this.props.confluenceData, 'Standup'))}
+                  />  
+                  <Table
+                    columns={this.state.columns}
+                    data={this.props.confluenceData}
+                    width={"80vw"}
+                    height={"50vh"}
+                  />
+                </div>
+                
               )}
           </div>
         </div>
 
-        <div>
-          <CustomisedCalendar
-            events={Events}
-            keyDateList={events2Dates(eventsFilter(Events, 'Key date'))}
-            meetingList={events2Dates(eventsFilter(Events, 'Meeting'))}
-            standupList={events2Dates(eventsFilter(Events, 'Standup'))}
-          />  
-        </div>
+        
       </div>
     );
   }

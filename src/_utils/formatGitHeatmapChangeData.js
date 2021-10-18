@@ -18,7 +18,7 @@ function getThreeMonths(today){
   return three_months;
 }
 
-export function formatGitHeatmapUpdateData(response) {
+export function formatGitHeatmapChangeData(response) {
 
   // sort ascending by date
   response.sort(function(a,b){
@@ -26,6 +26,7 @@ export function formatGitHeatmapUpdateData(response) {
   })
 
   let labelDataMap = getlabelDataMap(response);
+
 
   for (let i = 0; i < response.length; i++){
       let long_date = response[i].date
@@ -47,32 +48,44 @@ export function formatGitHeatmapUpdateData(response) {
       let cur_count = calendar_dict[cur_date]
       let new_count = count + cur_count
       json_info.date = cur_date
-      json_info.count = cur_count
 
-      let authors = labelDataMap.author.slice(count, new_count)
-      json_info.authors = authors
+      let total = labelDataMap.total.slice(count, new_count)
+      let totals = total.reduce(function(a,b){return a + b}, 0)
+      json_info.totals = totals
+
+      let changes = Math.floor(totals/150)
+      if(totals/150 < 1){
+        changes = 1
+      }
+      json_info.count = changes
+
       let sources = labelDataMap.source.slice(count, new_count)
       json_info.sources = sources
-      let messages = labelDataMap.message.slice(count, new_count)
-      json_info.messages = messages     
-      let urls = labelDataMap.url.slice(count, new_count)
-      json_info.urls = urls
+
+      let addition = labelDataMap.additions.slice(count, new_count)
+      let additions = addition.reduce(function(a,b){return a + b}, 0)
+      json_info.additions = additions
+
+      let deletion = labelDataMap.deletions.slice(count, new_count)
+      let deletions = deletion.reduce(function(a,b){return a + b}, 0)
+      json_info.deletions = deletions
 
       count = new_count
-
       calendar_list.push(json_info);
 
     }else {
       json_info.date = cur_date
       json_info.count = 0
-      json_info.authors = []
+      json_info.totals = 0
       json_info.sources = []
-      json_info.messages = []
-      json_info.urls = []
+      json_info.additions = []
+      json_info.deletions = []
 
       calendar_list.push(json_info);
     }
   }
+
+  console.log(calendar_list)
   return calendar_list
 }
 

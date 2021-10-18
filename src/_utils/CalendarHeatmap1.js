@@ -5,7 +5,7 @@ import 'react-calendar-heatmap/dist/styles.css';
 
 const today = new Date();
 
-export default function CalendarHeatmap2(props) {
+export default function CalendarHeatmap1(props) {
   const values = props.values;
   
   return (
@@ -20,7 +20,7 @@ export default function CalendarHeatmap2(props) {
           if (!value) {
             return 'color-empty';
           }
-          return `color-gitlab-${value.count}`;
+          return `color-github-${value.count}`;
         }}
         tooltipDataAttrs={value => {
           return {

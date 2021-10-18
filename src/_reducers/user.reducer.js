@@ -16,10 +16,11 @@ const initState = {
   currentTeamName: "",
   isLogin: false,
   requestLogin: false,
-  teamInfo:{},
+  teamInfo: {},
 
 
   requestTeamGithubDetailCommits: false,
+  requestTeamGithubDetailChanges: false,
   requestFileCodeMetricsCommits: false,
   requestTenFileCodeMetricsCommits: false,
 };
@@ -97,6 +98,8 @@ export function user(state = initState, action) {
         requestTeamConfluencePages: false,
         teamConfluencePages: {},
       };
+
+
     case userConstants.GET_TEAM_GITHUB_COMMITS_REQUEST:
       return {
         ...state,
@@ -188,6 +191,29 @@ export function user(state = initState, action) {
           teamGithubDetailCommits: {},
         };
 
+
+
+      case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_REQUEST:
+        return {
+          ...state,
+          requestTeamGithubDetailChanges: true,
+        };
+      case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_SUCCESS:
+        return {
+          ...state,
+          requestTeamGithubDetailChanges: false,
+          teamGithubDetailChanges: action.payload,
+        };
+      case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_FAILURE:
+        return {
+          ...state,
+          requestTeamGithubDetailChanges: false,
+          teamGithubDetailChanges: {},
+        };
+
+
+
+
       case userConstants.GET_FILE_CODE_METRICS_REQUEST:
         return {
           ...state,
@@ -224,7 +250,6 @@ export function user(state = initState, action) {
             teamTenFileCodeMetrics: {},
           };
   
-
 
 
 
