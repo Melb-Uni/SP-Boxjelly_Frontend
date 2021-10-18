@@ -1,7 +1,8 @@
 export function formatGitTableData(response) {
-    // console.log(response[0]);
-    // console.log(response[0].date);
-    // return [response[0].date, response[0].author, response[0].source, response[0].message, response[0].url]
+    // sort descending by date
+    response.sort(function(a,b){
+        return new Date(b.date) - new Date(a.date);
+    })
     return response.map((item)=>{
         return {
             ...item,
