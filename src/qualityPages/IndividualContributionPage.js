@@ -20,6 +20,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Spin } from "antd";
 //import Card from "../_utils/Card";
 import CardGroup from "../_utils/CardGroup";
+import {latest_commit, latest_document, latest_card, radar_all_data, 
+  horizontal_all_data, column_all_data} from "../_utils/DummyData";
+import TaskStackedBar from "../_utils/TaskStackedBar";
+import UserHorizontalBar from "../_utils/UserHorizontalBar";
+import UserRadarChart from "../_utils/UserRadarChart.js";
+
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
@@ -44,6 +50,17 @@ class IndividualContributionPage extends React.Component {
 
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
+
+    if (selected == commonConstants.TASK_COMPARISON){
+      this.props.getTaskComparisonIndividualContribution(this.props.currentTeamKey);
+    } else if(selected == commonConstants.USER_COMPARISON){
+      this.props.getUserComparisonIndividualContribution(this.props.currentTeamKey);
+
+    } else {
+
+    }
+
+    
     /*
       this.props.getGithubIndividualData(this.props.currentTeamKey);
       this.props.getConfluenceIndividualData(this.props.currentTeamKey)
@@ -56,7 +73,9 @@ class IndividualContributionPage extends React.Component {
 
   componentDidMount() {
     if (this.state.hasConfig) {
-      this.props.getConfluenceIndividualData(this.props.currentTeamKey);
+      //this.props.getConfluenceIndividualData(this.props.currentTeamKey);
+      this.props.getTaskComparisonIndividualContribution(this.props.currentTeamKey);
+      this.props.getUserComparisonIndividualContribution(this.props.currentTeamKey);
     }
   }
 
@@ -90,49 +109,43 @@ class IndividualContributionPage extends React.Component {
             {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.TASK_COMPARISON && (
                   <Container>
-                    <ColumnChart data={column_all_data} />
+                    <br/>
+                    <br/>
+                    <TaskStackedBar data={this.props.individualTaskComparison} />
+                    <br/>
+                    <br/>
+                    <p style={{fontSize: "16px"}}><i>
+                      Hover on the legend to hightlight one task<br/>
+                      Click the legend to exclude one task <br/>
+                    </i></p>
                   </Container>
             )}
             {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.USER_COMPARISON && 
-                typeof this.props.individualConfluenceData !== "undefined" &&
-                JSON.stringify(this.props.individualConfluenceData) !==
-                "{}" &&(
+                // typeof this.props.individualConfluenceData !== "undefined" &&
+                // JSON.stringify(this.props.individualConfluenceData) !==
+                // "{}" &&
+                (
                   <Container>
-                    <Row>
-                     <h3>Previous Group Confluence Data</h3>
-                      <DonutChart
-                              data={JSON.parse(
-                                JSON.stringify(
-                                  this.props.individualConfluenceData[
-                                    this.state.selectedStudent
-                                  ]
-                                )
-                              )}
-                              dataLabel={"Edited Pages"}
-                        />
-                      </Row>
+                      <br/>                     
+                      <br/>
+                      <UserHorizontalBar data={this.props.individualUserComparison} />
                       <br/>
                       <br/>
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the legend to hightlight one student<br/>
+                        Click the legend to exclude one student <br/>
+                      </i></p>
+                      <br/>                     
+                      <br/>
+                      <UserRadarChart data={this.props.individualUserComparison} />
                       <br/>
                       <br/>
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the legend to hightlight one student<br/>
+                        Click the legend to exclude one student <br/>
+                      </i></p>
                       <br/>
-                      <hr className="solid"></hr>
-                      <br/>
-                      <br/>
-
-                     <RadarChart2 data={this.state.radar_all_data} />
-
-                      <br/>
-                      <br/>
-                      <hr className="solid"></hr>
-                      <br/>
-                      <br/>
-
-                     <ColumnChart data={horizontal_all_data} />
-
-                     
-                     
                   </Container>
             )}
             {this.state.hasConfig &&
@@ -156,6 +169,13 @@ class IndividualContributionPage extends React.Component {
                     </Row>
                   </Container>
             )}
+            {this.state.hasConfig &&
+              (!this.props.individualTaskComparison ||
+                this.props.individualTaskComparison == 0) && 
+                (!this.props.individualUserComparison ||
+                  this.props.individualUserComparison.length == 0) && (
+                <InformationalNote message={alertConstants.COLLECTING_DATA} />
+              )}
           </div>
         </div>
       </div>
@@ -163,317 +183,33 @@ class IndividualContributionPage extends React.Component {
   }
 }
 
-const latest_commit = [
-  "user1: This is a latest commits", 
-  "user2: This is a latest commits", 
-  "user3: This is a latest commits", 
-  "user4: This is a latest commits", 
-  "user5: This is a latest commits"];
-
-const latest_document = [
-  "user1: Document Name", 
-  "user2: Document Name", 
-  "user3: Document Name", 
-  "user4: Document Name", 
-  "user5: Document Name"];
-
-const latest_card = [
-  "user1: Card Tag Name", 
-  "user2: Card Tag Name", 
-  "user3: Card Tag Name", 
-  "user4: Card Tag Name", 
-  "user5: Card Tag Name"];
-
-const all_data = [{
-  name: 'user1',
-  data: [40, 23, 20, 21, 15, 11],
-}, {
-  name: 'user2',
-  data: [15, 23, 17, 15, 30, 15],
-}, {
-  name: 'user3',
-  data: [10, 20, 21, 25, 21, 30],
-}, {
-  name: 'user4',
-  data: [10, 24, 21, 17, 17, 30],
-}, {
-  name: 'user5',
-  data: [25, 10, 21, 22, 17, 14],
-}
-];
-
-const radar_all_data = {
-    
-  series: all_data,
-  // series: [all_data[0]],
-  options: {
-    chart: {
-      height: 1000,
-      type: 'radar',
-    },
-    title: {
-      text: "Team Radar Chart: Hover the Name to View Individual, Click to Exclude",
-      align: 'left',
-      margin: 10,
-      offsetX: 0,
-      offsetY: 0,
-      floating: false,
-      style: {
-        fontSize:  '20px',
-        fontWeight:  'bold',
-        //fontFamily:  undefined,
-        color:  '#263238'
-      },
-    },
-    xaxis: {
-      categories: ['Document Updated', 'Document Modified', 'Meeting Attendance', 'Number of Commits', 'Total Code lines', 'Cards Assignment'],
-      labels:{
-        show: true,
-        style: {
-          fontSize:  '12px',
-          fontWeight: 'bold',
-        },
-      },
-    }, 
-    legend: {
-      position: 'bottom',
-      fontSize:  '17px',
-      fontWeight: 'normal',
-    },
-  },
-};
-
-const horizontal_all_data = {
-    
-  series: all_data,
-  options: {
-    chart: {
-      type: 'bar',
-      height: 500,
-      stacked: true,
-      toolbar: {
-        show: true
-      },
-      zoom: {
-        enabled: true
-      },
-      events: {
-        dataPointSelection: function (event, chartContext, config) {
-          console.log(chartContext);
-          
-          // tasks
-          console.log(config.seriesIndex);
-          
-          // user
-          console.log(config.dataPointIndex);
-        }
-      }
-    },
-    title: {
-      text: "Team Bar Chart: Hover the Legend to Show User, Click to Exclude",
-      align: 'left',
-      margin: 10,
-      offsetX: 0,
-      offsetY: 0,
-      floating: false,
-      style: {
-        fontSize:  '20px',
-        fontWeight:  'bold',
-        //fontFamily:  undefined,
-        color:  '#263238'
-      },
-    },
-    yaxis: {
-      labels:{
-        show: true,
-        style: {
-          fontSize:  '12px',
-          fontWeight: 'normal',
-        },
-      },
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-          offsetX: -10,
-          offsetY: 0
-        }
-      }
-    }],
-    plotOptions: {
-      bar: {
-        horizontal: true,
-        borderRadius: 10
-      },
-    },
-    xaxis: {
-      categories: ['Document Updated', 'Document Modified', 'Meeting Attendance', 'Number of Commits', 'Total Code lines', 'Cards Assignment'],
-      tickAmount: 10,
-      max: 100,
-      labels:{
-        show: true,
-        style: {
-          fontSize:  '12px',
-          fontWeight: 'normal',
-        },
-      },
-    },
-    //colors: ['#ff3224', '#ffae00', '#f8ff38', '#8eff38', '#38ffdb', '#386aff'],
-    // use default color
-    legend: {
-      position: 'bottom',
-      fontSize:  '17px',
-      fontWeight: 'normal',
-      /*
-      // use default color
-      markers: {
-        fillColors: ['#ff3224', '#ffae00', '#f8ff38', '#8eff38', '#38ffdb', '#386aff']
-      }
-      */
-    },
-    fill: {
-      opacity: 1
-    }
-  },
-
-
-};
-
-const column_all_data = {
-    
-  series: [{
-    name: 'Document Updated',
-    data: [40, 15, 10, 10, 25]
-  }, {
-    name: 'Document Modified',
-    data: [23, 23, 20, 24, 12]
-  }, {
-    name: 'Meeting Attendance',
-    data: [20, 17, 21, 21, 21]
-  }, {
-    name: 'Number of Commits',
-    data: [21, 15, 25, 17, 22]
-  }, {
-    name: 'Total Code lines',
-    data: [15, 30, 21, 17, 17]
-  }, {
-    name: 'Cards Assignment',
-    data: [11, 15, 30, 30, 14]
-  }
-
-
-  ],
-  options: {
-    chart: {
-      type: 'bar',
-      height: 500,
-      stacked: true,
-      toolbar: {
-        show: true
-      },
-      zoom: {
-        enabled: true
-      },
-      events: {
-        dataPointSelection: function (event, chartContext, config) {
-          console.log(chartContext);
-          
-          // tasks
-          console.log(config.seriesIndex);
-          
-          // user
-          console.log(config.dataPointIndex);
-        }
-      }
-    },
-    title: {
-      text: "Team Bar Chart: Hover the Legend to Compare Task, Click to Exclude",
-      align: 'left',
-      margin: 10,
-      offsetX: 0,
-      offsetY: 0,
-      floating: false,
-      style: {
-        fontSize:  '20px',
-        fontWeight:  'bold',
-        //fontFamily:  undefined,
-        color:  '#263238'
-      },
-    },
-    yaxis: { 
-      show: true,
-      title: {
-        text: "% of Tasks",
-        style: {
-          fontSize:  '15px',
-          fontWeight: 'normal',
-        },
-      },
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-          offsetX: -10,
-          offsetY: 0
-        }
-      }
-    }],
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        borderRadius: 10
-      },
-    },
-    xaxis: {
-      categories: ['user1', 'user2', 'user3', 'user4', 'user5'],
-      labels:{
-        show: true,
-        style: {
-          fontSize:  '15px',
-          fontWeight: 'normal',
-        },
-      }
-    },
-    colors: ['#f03b20', '#feb24c', '#ffeda0', '#2b8cbe', '#a6bddb', '#a1d99b'],
-    legend: {
-      position: 'right',
-      offsetY: 40,
-      fontSize:  '17px',
-      fontWeight: 'normal',
-      
-      markers: {
-        fillColors: ['#f03b20', '#feb24c', '#ffeda0', '#2b8cbe', '#a6bddb', '#a1d99b']
-      }
-    },
-    fill: {
-      opacity: 1
-    }
-  },
-
-
-};
-
-
-
 function mapState(state) {
   return {
-    individualGithubData: state.user.individualGitHubCommits,
-    individualConfluenceData: state.user.individualConfluencePages,
-    individualJiraData: state.user.individualJiraCounts,
+    // individualGithubData: state.user.individualGitHubCommits,
+    // individualConfluenceData: state.user.individualConfluencePages,
+    // individualJiraData: state.user.individualJiraCounts,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
     teamInfo: state.user.teamInfo,
+
+
+    requestTaskComparison: state.user.individualTaskComparison,
+    individualTaskComparison: state.user.taskComparison,
+
+    requestUserComparison: state.user.individualUserComparison,
+    individualUserComparison: state.user.userComparison,
+
   };
 }
 
 const actionCreators = {
-  getGithubIndividualData: userActions.getGithubIndividualData,
-  getConfluenceIndividualData: userActions.getConfluenceIndividualData,
-  getJiraIndividualData: userActions.getJiraIndividualData,
+  // getGithubIndividualData: userActions.getGithubIndividualData,
+  // getConfluenceIndividualData: userActions.getConfluenceIndividualData,
+  // getJiraIndividualData: userActions.getJiraIndividualData,
+  
+  getTaskComparisonIndividualContribution: userActions.getTaskComparisonIndividualContribution,
+  getUserComparisonIndividualContribution: userActions.getUserComparisonIndividualContribution,
+
 };
 
 const Product = connect(mapState, actionCreators)(IndividualContributionPage);
