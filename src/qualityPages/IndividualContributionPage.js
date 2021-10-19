@@ -24,6 +24,7 @@ import {latest_commit, latest_document, latest_card, radar_all_data,
   horizontal_all_data, column_all_data} from "../_utils/DummyData";
 import TaskStackedBar from "../_utils/TaskStackedBar";
 import UserHorizontalBar from "../_utils/UserHorizontalBar";
+import UserRadarChart from "../_utils/UserRadarChart.js";
 
 
 class IndividualContributionPage extends React.Component {
@@ -108,7 +109,15 @@ class IndividualContributionPage extends React.Component {
             {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.TASK_COMPARISON && (
                   <Container>
+                    <br/>
+                    <br/>
                     <TaskStackedBar data={this.props.individualTaskComparison} />
+                    <br/>
+                    <br/>
+                    <p style={{fontSize: "16px"}}><i>
+                      Hover on the legend to hightlight one task<br/>
+                      Click the legend to exclude one task <br/>
+                    </i></p>
                   </Container>
             )}
             {this.state.hasConfig &&
@@ -118,41 +127,25 @@ class IndividualContributionPage extends React.Component {
                 // "{}" &&
                 (
                   <Container>
-                    {/* <Row>
-                     <h3>Previous Group Confluence Data</h3>
-                      <DonutChart
-                              data={JSON.parse(
-                                JSON.stringify(
-                                  this.props.individualConfluenceData[
-                                    this.state.selectedStudent
-                                  ]
-                                )
-                              )}
-                              dataLabel={"Edited Pages"}
-                        />
-                      </Row>
+                      <br/>                     
                       <br/>
-                      <br/>
-                      <br/>
-                      <br/>
-                      <br/>
-                      <hr className="solid"></hr>
-                      <br/>
-                      <br/> */}
                       <UserHorizontalBar data={this.props.individualUserComparison} />
-
-                     <RadarChart2 data={this.state.radar_all_data} />
-
                       <br/>
                       <br/>
-                      <hr className="solid"></hr>
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the legend to hightlight one student<br/>
+                        Click the legend to exclude one student <br/>
+                      </i></p>
+                      <br/>                     
+                      <br/>
+                      <UserRadarChart data={this.props.individualUserComparison} />
                       <br/>
                       <br/>
-
-                     <ColumnChart data={horizontal_all_data} />
-
-                     
-                     
+                      <p style={{fontSize: "16px"}}><i>
+                        Hover on the legend to hightlight one student<br/>
+                        Click the legend to exclude one student <br/>
+                      </i></p>
+                      <br/>
                   </Container>
             )}
             {this.state.hasConfig &&
