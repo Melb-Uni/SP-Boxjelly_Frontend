@@ -13,6 +13,7 @@ import { formatFileCodeMetrics } from "../_utils/formatFileCodeMetrics.js";
 import { formatTenFileCodeMetrics } from "../_utils/formatTenFileCodeMetrics.js";
 import { formatTaskComparisonData } from "../_utils/formatTaskComparisonData";
 import { formatUserComparisonData } from "../_utils/formatUserComparisonData";
+import {formatCardData} from "../_utils/formatCardData";
 
 export const userActions = {
   login,
@@ -44,7 +45,7 @@ export const userActions = {
   getTenFileCodeMetrics,
   getTaskComparisonIndividualContribution,
   getUserComparisonIndividualContribution,
-
+  getAllLastCommit,
 
 };
 
@@ -109,6 +110,31 @@ function getTeamConfluencePages(teamKey) {
           failure(
             userConstants.GET_TEAM_CONFLUENCE_PAGES_FAILURE,
             error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getAllLastCommit(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_LAST_COMMIT_REQUEST));
+    userService.getAllLastCommit(teamKey).then(
+      (response) => {
+        dispatch(
+          success(
+            userConstants.GET_LAST_COMMIT_SUCCESS,
+            formatCardData(response),
+          )
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_LAST_COMMIT_FAILURE,
+            error.toString(),
           )
         );
         failureToast(error.toString());

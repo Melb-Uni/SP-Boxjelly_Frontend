@@ -26,6 +26,8 @@ const initState = {
 
   requestTaskComparison: false,
   requestUserComparison: false,
+
+  requestLastCommit: false,
 };
 
 export function user(state = initState, action) {
@@ -217,78 +219,96 @@ export function user(state = initState, action) {
 
 
 
-      case userConstants.GET_FILE_CODE_METRICS_REQUEST:
-        return {
-          ...state,
-          requestFileCodeMetricsCommits: true,
-        };
-      case userConstants.GET_FILE_CODE_METRICS_SUCCESS:
-        return {
-          ...state,
-          requestFileCodeMetricsCommits: false,
-          teamFileCodeMetrics: action.payload,
-        };
-      case userConstants.GET_FILE_CODE_METRICS_FAILURE:
-        return {
-          ...state,
-          requestFileCodeMetricsCommits: false,
-          teamFileCodeMetrics: {},
-        };
+    case userConstants.GET_FILE_CODE_METRICS_REQUEST:
+      return {
+        ...state,
+        requestFileCodeMetricsCommits: true,
+      };
+    case userConstants.GET_FILE_CODE_METRICS_SUCCESS:
+      return {
+        ...state,
+        requestFileCodeMetricsCommits: false,
+        teamFileCodeMetrics: action.payload,
+      };
+    case userConstants.GET_FILE_CODE_METRICS_FAILURE:
+      return {
+        ...state,
+        requestFileCodeMetricsCommits: false,
+        teamFileCodeMetrics: {},
+      };
 
-        case userConstants.GET_TEN_FILE_CODE_METRICS_REQUEST:
-          return {
-            ...state,
-            requestTenFileCodeMetricsCommits: true,
-          };
-        case userConstants.GET_TEN_FILE_CODE_METRICS_SUCCESS:
-          return {
-            ...state,
-            requestTenFileCodeMetricsCommits: false,
-            teamTenFileCodeMetrics: action.payload,
-          };
-        case userConstants.GET_TEN_FILE_CODE_METRICS_FAILURE:
-          return {
-            ...state,
-            requestTenFileCodeMetricsCommits: false,
-            teamTenFileCodeMetrics: {},
-          };
+    case userConstants.GET_TEN_FILE_CODE_METRICS_REQUEST:
+      return {
+        ...state,
+        requestTenFileCodeMetricsCommits: true,
+      };
+    case userConstants.GET_TEN_FILE_CODE_METRICS_SUCCESS:
+      return {
+        ...state,
+        requestTenFileCodeMetricsCommits: false,
+        teamTenFileCodeMetrics: action.payload,
+      };
+    case userConstants.GET_TEN_FILE_CODE_METRICS_FAILURE:
+      return {
+        ...state,
+        requestTenFileCodeMetricsCommits: false,
+        teamTenFileCodeMetrics: {},
+      };
 
-      case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_REQUEST:
-        return {
-          ...state,
-          taskComparison: true,
-        };
-      case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_SUCCESS:
-        return {
-          ...state,
-          requestTaskComparison: false,
-          taskComparison: action.payload,
-        };
-      case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_FAILURE:
-        return {
-          ...state,
-          requestTaskComparison: false,
-          taskComparison: {},
-        };
+    case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_REQUEST:
+      return {
+        ...state,
+        taskComparison: true,
+      };
+    case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_SUCCESS:
+      return {
+        ...state,
+        requestTaskComparison: false,
+        taskComparison: action.payload,
+      };
+    case userConstants.GET_ALL_INDIVIDUAL_CONTRIBUTION_FAILURE:
+      return {
+        ...state,
+        requestTaskComparison: false,
+        taskComparison: {},
+      };
 
-        case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_REQUEST:
-          return {
-            ...state,
-            userComparison: true,
-          };
-        case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_SUCCESS:
-          return {
-            ...state,
-            requestUserComparison: false,
-            userComparison: action.payload,
-          };
-        case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_FAILURE:
-          return {
-            ...state,
-            requestUserComparison: false,
-            userComparison: {},
-          };
+    case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_REQUEST:
+      return {
+        ...state,
+        userComparison: true,
+      };
+    case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_SUCCESS:
+      return {
+        ...state,
+        requestUserComparison: false,
+        userComparison: action.payload,
+      };
+    case userConstants.GET_USER_INDIVIDUAL_CONTRIBUTION_FAILURE:
+      return {
+        ...state,
+        requestUserComparison: false,
+        userComparison: {},
+      };
 
+    case userConstants.GET_LAST_COMMIT_REQUEST:
+      return {
+        ...state,
+        lastCommit: true,
+      };
+    case userConstants.GET_LAST_COMMIT_SUCCESS:
+      return {
+        ...state,
+        requestLastCommit: false,
+        lastCommit: action.payload,
+      };
+    case userConstants.GET_LAST_COMMIT_FAILURE:
+      return {
+        ...state,
+        requestLastCommit: false,
+        lastCommit: {},
+      };
+  
 
 
 

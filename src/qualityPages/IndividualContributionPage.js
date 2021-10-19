@@ -41,8 +41,6 @@ class IndividualContributionPage extends React.Component {
       hasConfig:
         this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
       
-      radar_all_data: radar_all_data,
-      selectedStudent: "All",
     };
 
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
@@ -55,17 +53,9 @@ class IndividualContributionPage extends React.Component {
       this.props.getTaskComparisonIndividualContribution(this.props.currentTeamKey);
     } else if(selected == commonConstants.USER_COMPARISON){
       this.props.getUserComparisonIndividualContribution(this.props.currentTeamKey);
-
     } else {
-
+      this.props.getAllLastCommit(this.props.currentTeamKey);
     }
-
-    
-    /*
-      this.props.getGithubIndividualData(this.props.currentTeamKey);
-      this.props.getConfluenceIndividualData(this.props.currentTeamKey)
-      this.props.getJiraIndividualData(this.props.currentTeamKey);
-    }*/
     this.setState({
       btnSelected: selected,
     });
@@ -73,9 +63,9 @@ class IndividualContributionPage extends React.Component {
 
   componentDidMount() {
     if (this.state.hasConfig) {
-      //this.props.getConfluenceIndividualData(this.props.currentTeamKey);
       this.props.getTaskComparisonIndividualContribution(this.props.currentTeamKey);
       this.props.getUserComparisonIndividualContribution(this.props.currentTeamKey);
+      this.props.getAllLastCommit(this.props.currentTeamKey);
     }
   }
 
@@ -107,7 +97,8 @@ class IndividualContributionPage extends React.Component {
               }
             > */}
             {this.state.hasConfig &&
-                this.state.btnSelected == commonConstants.TASK_COMPARISON && (
+                this.state.btnSelected == commonConstants.TASK_COMPARISON && 
+                this.props.individualTaskComparison != true && (
                   <Container>
                     <br/>
                     <br/>
@@ -122,9 +113,7 @@ class IndividualContributionPage extends React.Component {
             )}
             {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.USER_COMPARISON && 
-                // typeof this.props.individualConfluenceData !== "undefined" &&
-                // JSON.stringify(this.props.individualConfluenceData) !==
-                // "{}" &&
+                this.props.individualUserComparison != true &&
                 (
                   <Container>
                       <br/>                     
@@ -149,14 +138,15 @@ class IndividualContributionPage extends React.Component {
                   </Container>
             )}
             {this.state.hasConfig &&
-                this.state.btnSelected == commonConstants.MORE_DETAILS && (
+                this.state.btnSelected == commonConstants.MORE_DETAILS && 
+                this.props.individualLastCommit != true &&
+                (
                   <Container>
                     <Row>
                       <CardGroup
                         borders = {['primary', 'danger', 'danger', 'success']}
                         titles = {['Latest Commits','Most Document Updated', 'Most Document Modified', 'Most Card Tag']}
-                        times = {['Last updated 3 mins ago', 'Last updated 10 mins ago', 'Last updated 60 mins ago', 'Last updated 7 mins ago']}
-                        data = {[latest_commit, latest_document, latest_document, latest_card]}
+                        data = {[this.props.individualLastCommit, latest_document, latest_document, latest_card]}
                       />
                       {/**
                       <Card 
@@ -170,10 +160,10 @@ class IndividualContributionPage extends React.Component {
                   </Container>
             )}
             {this.state.hasConfig &&
-              (!this.props.individualTaskComparison ||
-                this.props.individualTaskComparison == 0) && 
-                (!this.props.individualUserComparison ||
-                  this.props.individualUserComparison.length == 0) && (
+              (this.props.individualTaskComparison == true || 
+              this.props.individualUserComparison == true || 
+              this.props.individualLastCommit == true) &&
+              (
                 <InformationalNote message={alertConstants.COLLECTING_DATA} />
               )}
           </div>
@@ -185,13 +175,9 @@ class IndividualContributionPage extends React.Component {
 
 function mapState(state) {
   return {
-    // individualGithubData: state.user.individualGitHubCommits,
-    // individualConfluenceData: state.user.individualConfluencePages,
-    // individualJiraData: state.user.individualJiraCounts,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
     teamInfo: state.user.teamInfo,
-
 
     requestTaskComparison: state.user.individualTaskComparison,
     individualTaskComparison: state.user.taskComparison,
@@ -199,17 +185,15 @@ function mapState(state) {
     requestUserComparison: state.user.individualUserComparison,
     individualUserComparison: state.user.userComparison,
 
+    requestLastCommit: state.user.individualLastCommit,
+    individualLastCommit: state.user.lastCommit,
   };
 }
 
 const actionCreators = {
-  // getGithubIndividualData: userActions.getGithubIndividualData,
-  // getConfluenceIndividualData: userActions.getConfluenceIndividualData,
-  // getJiraIndividualData: userActions.getJiraIndividualData,
-  
   getTaskComparisonIndividualContribution: userActions.getTaskComparisonIndividualContribution,
   getUserComparisonIndividualContribution: userActions.getUserComparisonIndividualContribution,
-
+  getAllLastCommit: userActions.getAllLastCommit,
 };
 
 const Product = connect(mapState, actionCreators)(IndividualContributionPage);

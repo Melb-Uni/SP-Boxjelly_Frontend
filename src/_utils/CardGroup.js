@@ -5,9 +5,8 @@ export default function LatestCardGroup(props) {
 
     const borders = props.borders;
     const titles = props.titles;
-    const times = props.times;
+    // const times = props.times;
     const data = props.data;
-
 
     const cards = titles.map(
       (title, index) => 
@@ -19,9 +18,9 @@ export default function LatestCardGroup(props) {
                     (each) => <Card.Text className="col-sm col-xs-12" key={each} >{each}</Card.Text>
                 )}
             </Card.Body>
-            <Card.Footer>
+            {/* <Card.Footer>
                 <small className="text-muted">{times[index]}</small>
-            </Card.Footer>
+            </Card.Footer> */}
             </Card>
         </div>
     );
