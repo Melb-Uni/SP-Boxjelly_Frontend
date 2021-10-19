@@ -22,8 +22,8 @@ export const userService = {
   getFileCodeMetrics,
   updateCommits,
   getAllIndividualContribution,
+  getAllLastCommit
 
-  
 };
 
 const baseUrl = "/api/v1";
@@ -39,6 +39,30 @@ function getTeamConfluencePages(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
+      return jsonResponse;
+    });
+}
+
+
+function getAllLastCommit (teamKey) {
+  let payload = {
+    space_key: teamKey
+  };
+  
+  let url = "getLastCommit";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(payload),
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+
+      console.log("jsonResponse - Last Commit");
+      console.log(jsonResponse)
       return jsonResponse;
     });
 }
