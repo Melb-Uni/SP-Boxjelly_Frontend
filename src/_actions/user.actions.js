@@ -15,7 +15,7 @@ import { formatTaskComparisonData } from "../_utils/formatTaskComparisonData";
 import { formatUserComparisonData } from "../_utils/formatUserComparisonData";
 import {formatCardData} from "../_utils/formatCardData";
 import {formatConHeatmapUpdateData} from "../_utils/formatConHeatmapUpdateData";
-
+import {formatConCardData} from "../_utils/formatConCardData";
 
 export const userActions = {
   login,
@@ -49,6 +49,7 @@ export const userActions = {
   getUserComparisonIndividualContribution,
   getAllLastCommit,
   getTeamConfluenceUpdate,
+  getIndividualConfluenceUpdate,
 
 };
 
@@ -523,6 +524,38 @@ function getTeamConfluenceUpdate(teamKey) {
         dispatch(
           failure(
             userConstants.GET_TEAM_CONFLUENCE_UPDATE_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
+function getIndividualConfluenceUpdate(teamKey) {
+  return (dispatch) => {
+    userService.getIndividualConfluenceUpdate(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_INDIVIDUAL_CONFLUENCE_UPDATE_SUCCESS,
+              formatConCardData(response.data)
+            )
+          );
+        } else {
+          dispatch(
+          failure(
+            userConstants.GET_INDIVIDUAL_CONFLUENCE_UPDATE_FAILURE,
+            response.message
+          )
+        );
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_INDIVIDUAL_CONFLUENCE_UPDATE_FAILURE,
             error.toString()
           )
         );

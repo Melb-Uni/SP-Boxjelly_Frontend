@@ -1,35 +1,32 @@
-export function formatCardData(response) {
+export function formatConCardData(response) {
 
     let labelDataMap = getlabelDataMap(response);
 
     let names = [], commits = [];
 
-    for (let i = 0; i < labelDataMap.user.length; i++){
-        names.push((labelDataMap.user[i]).replace('-', ""))
+    for (let i = 0; i < labelDataMap.displayName.length; i++){
+        names.push((labelDataMap.displayName[i]).replace('-', ""))
         commits.push([
-            labelDataMap.date[i].slice(0, 10),
-            labelDataMap.git_username[i],
-            labelDataMap.message[i], 
+            labelDataMap.time[i].slice(0, 10),
+            labelDataMap.title[i],
             labelDataMap.url[i],
-            (labelDataMap.user[i]).replace('-', ""),
+            (labelDataMap.displayName[i]).replace('-', ""),
           ])
     }
 
-    names.sort()
+    names.sort()   
 
     commits.sort(function(a,b){
-        return names.indexOf(a[4]) - names.indexOf(b[4]);
+        return names.indexOf(a[3]) - names.indexOf(b[3]);
     })
-
 
     let datasets = []
     for (let i = 0; i < names.length; i++){
         datasets.push(
             "Name: " + names[i] + "\n" +
             "Date: " + commits[i][0] + "\n" +
-            "Username: " + commits[i][1] + "\n" +
-            "Message: " + commits[i][2] + "\n" +
-            "URL: " + commits[i][3] + "\n" 
+            "Title: " + commits[i][1] + "\n" +
+            "URL: " + commits[i][2] + "\n" 
         )
     }
     return datasets;
