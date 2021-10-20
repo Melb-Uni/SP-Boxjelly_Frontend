@@ -50,6 +50,7 @@ export const userActions = {
   getAllLastCommit,
   getTeamConfluenceUpdate,
   getIndividualConfluenceUpdate,
+  getNewstConfluence,
 
 };
 
@@ -297,6 +298,32 @@ function updateCommits(jsonData) {
         }
     );
   };
+}
+
+function getNewstConfluence(jsonData) {
+    return (dispatch) => {
+        dispatch(request(userConstants.GET_NEWST_CONFLUENCE_REQUEST));
+        userService.getNewstConfluence(jsonData).then(
+            (response) => {
+                dispatch(
+                    success(
+                        userConstants.GET_NEWST_CONFLUENCE_SUCCESS,
+                        response,
+                    )
+                );
+            },
+            (error) => {
+                dispatch(
+                    failure(
+                        userConstants.GET_NEWST_CONFLUENCE_FAILURE,
+                        error.toString(),
+                        error.toString()
+                    )
+                );
+                failureToast(error.toString());
+            }
+        );
+    };
 }
 
 function updateJiraUsername(jsonData) {

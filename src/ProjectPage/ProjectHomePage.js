@@ -14,7 +14,8 @@ import {
   Button,
   Tabs,
   message,
-  Popover
+  Popover,
+  Tree
 } from 'antd';
 import { jira } from "./temp";
 import {
@@ -40,6 +41,23 @@ class ProjectHomePage extends Component {
       githubDetailCommits:[],
       backendList:[],
       frontendList:[],
+      treeList:[],
+      tempTree:[
+        {
+          title: "2. Design Concept",
+          key:'2',
+          displayName: "Chien-Lin Chen",
+          url: "https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/2. Design Concept",
+          children:[
+            {
+              title: "2-1. Goal",
+              key:'2-1',
+              displayName: "Chien-Lin Chen",
+              url: "https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/2. Design Concept",
+            }
+          ]
+        },
+      ],
       gitColumns: [
         {
           title: "Repository",
@@ -281,6 +299,35 @@ class ProjectHomePage extends Component {
         frontendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'frontend')
       })
     }
+    if(this.props.newstConfluence){
+
+      const allTreeList = this.props.newstConfluence.data.filter((item)=>item.title.indexOf(".")!=-1)
+
+      const allF = allTreeList.filter((item)=>{
+        return item.title.indexOf(". ")!=-1 && item.title.indexOf("-")<=-1
+      })
+
+      const data = []
+      allF.forEach((item)=>{
+        const obj = {...item}
+        const fNumber = item.title.split(". ")[0]
+        if(fNumber === '0' || fNumber === '1' || fNumber === '8')return
+        obj['children'] = []
+        allTreeList.forEach((k)=>{
+          if(k.title.indexOf("-") && k.title.split("-")[0] === fNumber){
+            obj['children'].push(k)
+          }
+        })
+        data.push(obj)
+      })
+      // console.log(data)
+
+      this.setState({
+        ...this.state,
+        treeList:data,
+      })
+    }
+    console.log(this.props.newstConfluence)
     this.setState({ show: e.target.value }, () => {
       if (this.state.show !== "") {
         this.setState({
@@ -298,6 +345,8 @@ class ProjectHomePage extends Component {
     this.props.getTeamMemberList(this.props.currentTeamKey)
 
     this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+
+    this.props.getNewstConfluence(this.props.currentTeamKey);
 
   }
 
@@ -413,24 +462,34 @@ class ProjectHomePage extends Component {
                         </div>
                       case "confluence":
                         return <ConfluenceContent>
+                          {/*{JSON.stringify(this.state.treeList)}*/}
                           <Collapse ghost>
                             <Panel header={<Span>SP-Boxjelly Team</Span>} >
                               <Collapse ghost>
-                                <Panel header={<Span>2.Design Concept</Span>}>
-                                  <P>2.1 Goal</P>
-                                  <P>2.2 Business Case</P>
-                                  <P>2.3 Non-Functional Requirement</P>
-                                  <P>2.4 User Stories</P>
-                                  <P>2.5 Use-Case Model</P>
-                                  <P>2.6 Use-Case Specification</P>
-                                </Panel>
-                                <Panel header={<Span>3.Architecture</Span>}>
-                                  <P>Architecture document</P>
-                                </Panel>
-                                <Panel header={<Span>4.Product Backlog</Span>}>
-                                  <P>4.1. Sprint 1 - Backlog</P>
-                                  <P>4.2. Sprint 2 - Backlog</P>
-                                </Panel>
+                                {
+                                  this.state.treeList.map((item)=>(
+                                      <Panel header={<Span>{item.title}</Span>} key={item.title}>
+                                        {item.children.map((k)=>(
+                                            <P key={k.title}>{k.title}</P>
+                                        ))}
+                                      </Panel>
+                                  ))
+                                }
+                                {/*<Panel header={<Span>2.Design Concept</Span>}>*/}
+                                {/*  <P>2.1 Goal</P>*/}
+                                {/*  <P>2.2 Business Case</P>*/}
+                                {/*  <P>2.3 Non-Functional Requirement</P>*/}
+                                {/*  <P>2.4 User Stories</P>*/}
+                                {/*  <P>2.5 Use-Case Model</P>*/}
+                                {/*  <P>2.6 Use-Case Specification</P>*/}
+                                {/*</Panel>*/}
+                                {/*<Panel header={<Span>3.Architecture</Span>}>*/}
+                                {/*  <P>Architecture document</P>*/}
+                                {/*</Panel>*/}
+                                {/*<Panel header={<Span>4.Product Backlog</Span>}>*/}
+                                {/*  <P>4.1. Sprint 1 - Backlog</P>*/}
+                                {/*  <P>4.2. Sprint 2 - Backlog</P>*/}
+                                {/*</Panel>*/}
                               </Collapse>
                             </Panel>
                           </Collapse>
@@ -463,6 +522,7 @@ function mapState(state) {
     teamGithubDetailCommits: state.user.teamGithubDetailCommits,
     updateGitUserName: state.user.updateGitUserName,
     updateJiraUserName: state.user.updateJiraUserName,
+    newstConfluence: state.user.newstConfluence,
   };
 }
 const actionCreators = {
@@ -471,6 +531,7 @@ const actionCreators = {
   updateGitUsername:userActions.updateGitUsername,
   updateJiraUsername:userActions.updateJiraUsername,
   updateCommits:userActions.updateCommits,
+  getNewstConfluence:userActions.getNewstConfluence,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);
