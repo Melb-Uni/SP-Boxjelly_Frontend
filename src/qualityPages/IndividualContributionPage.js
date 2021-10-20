@@ -55,6 +55,7 @@ class IndividualContributionPage extends React.Component {
       this.props.getUserComparisonIndividualContribution(this.props.currentTeamKey);
     } else {
       this.props.getAllLastCommit(this.props.currentTeamKey);
+      this.props.getIndividualConfluenceUpdate(this.props.currentTeamKey);
     }
     this.setState({
       btnSelected: selected,
@@ -66,6 +67,7 @@ class IndividualContributionPage extends React.Component {
       this.props.getTaskComparisonIndividualContribution(this.props.currentTeamKey);
       this.props.getUserComparisonIndividualContribution(this.props.currentTeamKey);
       this.props.getAllLastCommit(this.props.currentTeamKey);
+      // this.props.getIndividualConfluenceUpdate(this.props.currentTeamKey)
     }
   }
 
@@ -145,8 +147,8 @@ class IndividualContributionPage extends React.Component {
                     <Row>
                       <CardGroup
                         borders = {['primary', 'danger', 'danger', 'success']}
-                        titles = {['Latest Commits','Most Document Updated', 'Most Document Modified', 'Most Card Tag']}
-                        data = {[this.props.individualLastCommit, latest_document, latest_document, latest_card]}
+                        titles = {['Latest Commits','Latest Document Updated', 'Most Document Modified', 'Most Card Tag']}
+                        data = {[this.props.individualLastCommit, this.props.individualLatestCommit, latest_document, latest_card]}
                       />
                       {/**
                       <Card 
@@ -162,7 +164,8 @@ class IndividualContributionPage extends React.Component {
             {this.state.hasConfig &&
               (this.props.individualTaskComparison == true || 
               this.props.individualUserComparison == true || 
-              this.props.individualLastCommit == true) &&
+              this.props.individualLastCommit == true ||
+              this.props.individualLatestCommit == true ) &&
               (
                 <InformationalNote message={alertConstants.COLLECTING_DATA} />
               )}
@@ -187,6 +190,9 @@ function mapState(state) {
 
     requestLastCommit: state.user.individualLastCommit,
     individualLastCommit: state.user.lastCommit,
+
+    requestLatestCommit: state.user.individualLatestCommit,
+    individualLatestCommit: state.user.latestCommit,
   };
 }
 
@@ -194,6 +200,7 @@ const actionCreators = {
   getTaskComparisonIndividualContribution: userActions.getTaskComparisonIndividualContribution,
   getUserComparisonIndividualContribution: userActions.getUserComparisonIndividualContribution,
   getAllLastCommit: userActions.getAllLastCommit,
+  getIndividualConfluenceUpdate: userActions.getIndividualConfluenceUpdate,
 };
 
 const Product = connect(mapState, actionCreators)(IndividualContributionPage);

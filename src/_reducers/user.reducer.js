@@ -331,7 +331,23 @@ export function user(state = initState, action) {
           teamConfluenceUpdate: {},
         };
   
-
+      case userConstants.GET_INDIVIDUAL_CONFLUENCE_UPDATE_REQUEST:
+        return {
+          ...state,
+          latestCommit: true,
+        };
+      case userConstants.GET_INDIVIDUAL_CONFLUENCE_UPDATE_SUCCESS:
+        return {
+          ...state,
+          requestLatestCommit: false,
+          latestCommit: action.payload,
+        };
+      case userConstants.GET_INDIVIDUAL_CONFLUENCE_UPDATE_FAILURE:
+        return {
+          ...state,
+          requestLatestCommit: false,
+          latestCommit: {},
+        };
 
 
 
