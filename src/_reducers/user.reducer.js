@@ -28,6 +28,8 @@ const initState = {
   requestUserComparison: false,
 
   requestLastCommit: false,
+  
+  requestTeamConfluenceUpdate: false,
 };
 
 export function user(state = initState, action) {
@@ -308,6 +310,26 @@ export function user(state = initState, action) {
         requestLastCommit: false,
         lastCommit: {},
       };
+
+
+
+      case userConstants.GET_TEAM_CONFLUENCE_UPDATE_REQUEST:
+        return {
+          ...state,
+          requestTeamConfluenceUpdate: true,
+        };
+      case userConstants.GET_TEAM_CONFLUENCE_UPDATE_SUCCESS:
+        return {
+          ...state,
+          requestTeamConfluenceUpdate: false,
+          teamConfluenceUpdate: action.payload,
+        };
+      case userConstants.GET_TEAM_CONFLUENCE_UPDATE_FAILURE:
+        return {
+          ...state,
+          requestTeamConfluenceUpdate: false,
+          teamConfluenceUpdate: {},
+        };
   
 
 

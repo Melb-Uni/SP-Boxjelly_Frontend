@@ -26,6 +26,7 @@ import CalendarHeatmap2 from "../_utils/CalendarHeatmap2";
 import AreaChart from "../_utils/AreaChart";
 import DonutChart2 from "../_utils/DonutChart2";
 import {donut_data, one_doc_time, two_doc_time, all_doc_time} from "../_utils/DummyData";
+import ConUpdateCalendarHeatmap from "../_utils/ConUpdateCalendarHeatmap";
 
 
 class ProcessQualityPage extends React.Component {
@@ -54,9 +55,11 @@ class ProcessQualityPage extends React.Component {
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
     if (selected == commonConstants.CONFLUENCE) {
-      this.props.getTeamConfluencePages(this.props.currentTeamKey);
+      // this.props.getTeamConfluencePages(this.props.currentTeamKey);
+      this.props.getTeamConfluenceUpdate(this.props.currentTeamKey);
+
     } else if (selected == commonConstants.GITHUB) {
-      this.props.getTeamGithubCommits(this.props.currentTeamKey);
+      // this.props.getTeamGithubCommits(this.props.currentTeamKey);
 
 
       
@@ -89,7 +92,8 @@ class ProcessQualityPage extends React.Component {
 
   componentDidMount() {
     if (this.state.hasConfig) {
-      this.props.getTeamConfluencePages(this.props.currentTeamKey);
+      // this.props.getTeamConfluencePages(this.props.currentTeamKey);
+      // this.props.getTeamConfluenceUpdate(this.props.currentTeamKey);
     }
     //comment previous 
     //window.addEventListener("scroll", this.handleScroll);
@@ -141,6 +145,16 @@ class ProcessQualityPage extends React.Component {
                         <br/>
                       </Row> */}
 
+                        <h2 style={{fontSize: "21px"}}><b>Confluence Update Document Counts</b></h2>
+                        <p style={{fontSize: "16px"}}><i>Click to view more details</i></p>
+                        <p style={{fontSize: "16px"}}><i>Value 1 ~= 5 updates changed</i></p>
+
+                        <ConUpdateCalendarHeatmap values={this.props.confluenceTeamConfluenceUpdate}/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
                       <Row>
                         <Col xs="9">
                           <AreaChart data={this.state.doc_time} />
@@ -176,13 +190,11 @@ class ProcessQualityPage extends React.Component {
                       {/* <Row>
                           <LineChart data={this.state.timespent} />
                       </Row> */}
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
+      
+
                     
-                      <CalendarHeatmap1 values={randomValues}/>
-                      <CalendarHeatmap2 values={randomValues}/>
+                      {/* <CalendarHeatmap1 values={randomValues}/>
+                      <CalendarHeatmap2 values={randomValues}/> */}
 
                     </Container>
 
@@ -339,6 +351,9 @@ function mapState(state) {
     requestTeamGithubDetailChanges: state.user.requestTeamGithubDetailChanges,
     githubDetailChanges: state.user.teamGithubDetailChanges,
 
+    requestTeamConfluenceUpdate: state.user.requestTeamConfluenceUpdate,
+    confluenceTeamConfluenceUpdate: state.user.teamConfluenceUpdate,
+
   };
 }
 
@@ -350,6 +365,8 @@ const actionCreators = {
 
   getTeamGithubDetailCommits: userActions.getTeamGithubDetailCommits,
   getTeamGithubDetailChanges: userActions.getTeamGithubDetailChanges,
+
+  getTeamConfluenceUpdate: userActions.getTeamConfluenceUpdate,
 };
 
 const qualityPage = connect(mapState, actionCreators)(ProcessQualityPage);
