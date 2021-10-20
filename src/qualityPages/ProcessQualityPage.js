@@ -127,25 +127,17 @@ class ProcessQualityPage extends React.Component {
                 selected={this.state.btnSelected}
               />
             )}
-            <Spin
+            {/* <Spin
               spinning={
                 this.props.requestTeamConfluencePages ||
                 this.props.requestTeamGithubCommits ||
                 this.props.requestTeamJiraTickets
               }
-            >
+            > */}
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.CONFLUENCE && (
                   <div>
                     <Container>
-                      {/* <Row>
-                        <LineChart data={this.props.confluenceData} />
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                      </Row> */}
-
                       <Row>
                         <Col xs="9">
                           <AreaChart data={this.state.doc_time} />
@@ -175,23 +167,15 @@ class ProcessQualityPage extends React.Component {
                             </DropdownButton>
                         </Col>
                           
-                      </Row>
-                        
-                      
-                      {/* <Row>
-                          <LineChart data={this.state.timespent} />
-                      </Row> */}
+                      </Row>      
                         <br/>
                         <br/>
                         <br/>
                         <br/>
-
-                        {/* <ConUpdateCalendarHeatmap values={this.props.confluenceTeamConfluenceUpdate}/> */}
-                    
-                      <CalendarHeatmap1 values={randomValues}/>
-                      <CalendarHeatmap2 values={randomValues}/>
-
-
+                        <h2 style={{fontSize: "21px"}}><b>Confluence Update Document Counts</b></h2>
+                        <p style={{fontSize: "16px"}}><i>Click to view more details</i></p>
+                        <p style={{fontSize: "16px"}}><i>Value 1 ~= 5 updates changed</i></p>
+                        <ConUpdateCalendarHeatmap values={this.props.confluenceTeamConfluenceUpdate}/>
 
                     </Container>
 
@@ -203,20 +187,13 @@ class ProcessQualityPage extends React.Component {
 
                   <div>
                     <Container>
-                        {/* <Row>
-                          <LineChart data={this.props.githubData} />
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                        </Row> */}
-
                         <h2 style={{fontSize: "21px"}}><b>GitHub Update Commit Counts</b></h2>
                         <p style={{fontSize: "16px"}}><i>Click to view more details</i></p>
+                        <p style={{fontSize: "16px"}}><i>Value 1 ~= 3 updates changed</i></p>
                         <GitUpdateCalendarHeatmap values={this.props.githubDetailCommits}/>
                         <h2 style={{fontSize: "21px"}}><b>GitHub Total Lines Change (Additions & Deletions)</b></h2>
                         <p style={{fontSize: "16px"}}><i>Click to view more details</i></p>
-                        <p style={{fontSize: "16px"}}><i>Value 1 = 150 lines changed</i></p>
+                        <p style={{fontSize: "16px"}}><i>Value 1 ~= 150 lines changed</i></p>
                         <GitChangeCalendarHeatmap values={this.props.githubDetailChanges}/>
                       
                     </Container>
@@ -259,8 +236,8 @@ class ProcessQualityPage extends React.Component {
                       <br/>
                       <br/>
 
-                      <CalendarHeatmap1 values={randomValues}/>
-                      <CalendarHeatmap2 values={randomValues}/>
+                      {/* <CalendarHeatmap1 values={randomValues}/>
+                      <CalendarHeatmap2 values={randomValues}/> */}
 
                       <h3>Click to Direct to Jira Report</h3>
                       <br/>
@@ -277,12 +254,11 @@ class ProcessQualityPage extends React.Component {
 
                   </div>
                 )}
-            </Spin>
+            {/* </Spin> */}
             {this.state.hasConfig &&
-              (!this.props.githubDetailCommits ||
-                this.props.githubDetailCommits.length == 0) && 
-                (!this.props.githubDetailChanges ||
-                  this.props.githubDetailChanges.length == 0) && (
+              (this.props.githubDetailCommits == true ||
+               this.props.githubDetailChanges == true ||
+               this.props.confluenceTeamConfluenceUpdate == true) && (
                 <InformationalNote message={alertConstants.COLLECTING_DATA} />
               )}
           </div>

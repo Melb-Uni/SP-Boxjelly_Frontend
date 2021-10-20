@@ -24,9 +24,7 @@ export default function ConUpdateCalendarHeatmap(props) {
           return {
             'data-tip': `${value.date} has count: ${value.count} 
             Authors: ${value.authors} 
-            Sources: ${value.sources} 
-            Message: ${value.messages}
-            Urls: ${value.urls}
+            Sources: ${value.titles} 
             `,
           };
         }}

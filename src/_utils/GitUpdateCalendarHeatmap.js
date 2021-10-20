@@ -26,7 +26,6 @@ export default function GitUpdateCalendarHeatmap(props) {
             Authors: ${value.authors} 
             Sources: ${value.sources} 
             Message: ${value.messages}
-            Urls: ${value.urls}
             `,
           };
         }}

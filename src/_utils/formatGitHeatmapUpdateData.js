@@ -44,10 +44,18 @@ export function formatGitHeatmapUpdateData(response) {
     let cur_date = three_months[i]
 
     if (calendar_dict.hasOwnProperty(cur_date)){
+
+      console.log(cur_date)
       let cur_count = calendar_dict[cur_date]
       let new_count = count + cur_count
       json_info.date = cur_date
-      json_info.count = cur_count
+
+      // json_info.count = cur_count
+      let round_count = Math.floor(cur_count/5)
+      if (cur_count/5 > 0 && cur_count/5 < 1){
+          round_count = 1
+      }
+      json_info.count = round_count
 
       let authors = labelDataMap.author.slice(count, new_count)
       json_info.authors = authors
@@ -55,12 +63,15 @@ export function formatGitHeatmapUpdateData(response) {
       json_info.sources = sources
       let messages = labelDataMap.message.slice(count, new_count)
       json_info.messages = messages     
-      let urls = labelDataMap.url.slice(count, new_count)
-      json_info.urls = urls
+      // let urls = labelDataMap.url.slice(count, new_count)
+      // json_info.urls = urls
 
       count = new_count
 
       calendar_list.push(json_info);
+      console.log(json_info)
+      console.log("--------------------------------------")
+    
 
     }else {
       json_info.date = cur_date
@@ -68,11 +79,12 @@ export function formatGitHeatmapUpdateData(response) {
       json_info.authors = []
       json_info.sources = []
       json_info.messages = []
-      json_info.urls = []
+      // json_info.urls = []
 
       calendar_list.push(json_info);
     }
   }
+  console.log(calendar_list)
   return calendar_list
 }
 
