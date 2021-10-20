@@ -22,7 +22,8 @@ export const userService = {
   getFileCodeMetrics,
   updateCommits,
   getAllIndividualContribution,
-  getAllLastCommit
+  getAllLastCommit,
+  getTeamConfluenceUpdate
 
 };
 
@@ -39,6 +40,25 @@ function getTeamConfluencePages(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
+      return jsonResponse;
+    });
+}
+
+function getTeamConfluenceUpdate(teamKey) {
+  let url = baseUrl + "/confluence/getConfluenceUpdate/spaces/" + teamKey;
+
+  const requestOptions = {
+    method: "GET",
+    credentials: "include",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+
+      console.log("jsonResponse - Confluence Update")
+      console.log(jsonResponse)
+
       return jsonResponse;
     });
 }

@@ -14,6 +14,8 @@ import { formatTenFileCodeMetrics } from "../_utils/formatTenFileCodeMetrics.js"
 import { formatTaskComparisonData } from "../_utils/formatTaskComparisonData";
 import { formatUserComparisonData } from "../_utils/formatUserComparisonData";
 import {formatCardData} from "../_utils/formatCardData";
+import {formatConHeatmapUpdateData} from "../_utils/formatConHeatmapUpdateData";
+
 
 export const userActions = {
   login,
@@ -46,6 +48,7 @@ export const userActions = {
   getTaskComparisonIndividualContribution,
   getUserComparisonIndividualContribution,
   getAllLastCommit,
+  getTeamConfluenceUpdate,
 
 };
 
@@ -488,6 +491,38 @@ function getTeamConfluenceMeeting(teamKey) {
         dispatch(
           failure(
             userConstants.GET_TEAM_CONFLUENCE_MEETINGS_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
+function getTeamConfluenceUpdate(teamKey) {
+  return (dispatch) => {
+    userService.getTeamConfluenceUpdate(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_CONFLUENCE_UPDATE_SUCCESS,
+              formatConHeatmapUpdateData(response.data)
+            )
+          );
+        } else {
+          dispatch(
+          failure(
+            userConstants.GET_TEAM_CONFLUENCE_UPDATE_FAILURE,
+            response.message
+          )
+        );
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_CONFLUENCE_UPDATE_FAILURE,
             error.toString()
           )
         );
