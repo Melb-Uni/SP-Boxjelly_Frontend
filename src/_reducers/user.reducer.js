@@ -28,6 +28,7 @@ const initState = {
   requestUserComparison: false,
 
   requestLastCommit: false,
+  requestTeamConfluenceUpdate: false,
 };
 
 export function user(state = initState, action) {
@@ -178,43 +179,63 @@ export function user(state = initState, action) {
       };
 
 
-      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST:
-        return {
-          ...state,
-          requestTeamGithubDetailCommits: true,
-        };
-      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_SUCCESS:
-        return {
-          ...state,
-          requestTeamGithubDetailCommits: false,
-          teamGithubDetailCommits: action.payload,
-        };
-      case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE:
-        return {
-          ...state,
-          requestTeamGithubDetailCommits: false,
-          teamGithubDetailCommits: {},
-        };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST:
+      return {
+        ...state,
+        requestTeamGithubDetailCommits: true,
+      };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_SUCCESS:
+      return {
+        ...state,
+        requestTeamGithubDetailCommits: false,
+        teamGithubDetailCommits: action.payload,
+      };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_FAILURE:
+      return {
+        ...state,
+        requestTeamGithubDetailCommits: false,
+        teamGithubDetailCommits: {},
+      };
 
 
 
-      case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_REQUEST:
-        return {
-          ...state,
-          requestTeamGithubDetailChanges: true,
-        };
-      case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_SUCCESS:
-        return {
-          ...state,
-          requestTeamGithubDetailChanges: false,
-          teamGithubDetailChanges: action.payload,
-        };
-      case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_FAILURE:
-        return {
-          ...state,
-          requestTeamGithubDetailChanges: false,
-          teamGithubDetailChanges: {},
-        };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_REQUEST:
+      return {
+        ...state,
+        requestTeamGithubDetailChanges: true,
+      };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_SUCCESS:
+      return {
+        ...state,
+        requestTeamGithubDetailChanges: false,
+        teamGithubDetailChanges: action.payload,
+      };
+    case userConstants.GET_TEAM_GITHUB_DETAIL_CHANGES_FAILURE:
+      return {
+        ...state,
+        requestTeamGithubDetailChanges: false,
+        teamGithubDetailChanges: {},
+      };
+
+
+    case userConstants.GET_TEAM_CONFLUENCE_UPDATE_REQUEST:
+      return {
+        ...state,
+        requestTeamConfluenceUpdate: true,
+      };
+    case userConstants.GET_TEAM_CONFLUENCE_UPDATE_SUCCESS:
+      return {
+        ...state,
+        requestTeamConfluenceUpdate: false,
+        teamConfluenceUpdate: action.payload,
+      };
+    case userConstants.GET_TEAM_CONFLUENCE_UPDATE_FAILURE:
+      return {
+        ...state,
+        requestTeamConfluenceUpdate: false,
+        teamConfluenceUpdate: {},
+      };
+
 
 
 
