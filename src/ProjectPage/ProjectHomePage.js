@@ -40,6 +40,7 @@ class ProjectHomePage extends Component {
       githubDetailCommits:[],
       backendList:[],
       frontendList:[],
+      treeList:[],
       gitColumns: [
         {
           title: "Repository",
@@ -274,13 +275,50 @@ class ProjectHomePage extends Component {
   }
 
   handleSelect = (e) => {
-    if(this.props.teamGithubDetailCommits){
+    console.log(e.target.value)
+    if(e.target.value === 'github' && this.props.teamGithubDetailCommits){
+
+      // this.setState((prevState, props)=>({
+      //   ...this.state,
+      //   backendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'backend'),
+      //   frontendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'frontend')
+      //
+      // }))
+
       this.setState({
         ...this.state,
         backendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'backend'),
         frontendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'frontend')
       })
     }
+
+    if(e.target.value === 'confluence' && this.props.newstConfluence){
+      const allTreeList = this.props.newstConfluence.data.filter((item)=>item.title.indexOf(".")!=-1)
+      const allF = allTreeList.filter((item)=>{
+        return item.title.indexOf(". ")!=-1 && item.title.indexOf("-")<=-1
+      })
+
+      const data = []
+      allF.forEach((item)=>{
+        const obj = {...item}
+        const fNumber = item.title.split(". ")[0]
+        if(fNumber === '0' || fNumber === '1' || fNumber === '8')return
+        obj['children'] = []
+        allTreeList.forEach((k)=>{
+          if(k.title.indexOf("-") && k.title.split("-")[0] === fNumber){
+            obj['children'].push(k)
+          }
+        })
+        data.push(obj)
+      })
+      console.log(data)
+
+      this.setState({
+        ...this.state,
+        treeList:data,
+      })
+    }
+
     this.setState({ show: e.target.value }, () => {
       if (this.state.show !== "") {
         this.setState({
@@ -299,6 +337,8 @@ class ProjectHomePage extends Component {
 
     this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
 
+    this.props.getNewstConfluence(this.props.currentTeamKey);
+
   }
 
   componentWillUnmount() {
@@ -308,20 +348,21 @@ class ProjectHomePage extends Component {
 
   render() {
     const { Panel } = Collapse;
-    const Span = ({ children }) => (
-      <span title={`${children} author`}><img src="/icons/page.png" alt="page" />
+    const Span = (props) => (
+      <span title={`${props.children} author`}><img src="/icons/page.png" alt="page" />
         &nbsp;&nbsp;&nbsp;
-        <a href="https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues"
+        <a href={props.url}
           style={{ textDecoration: "none", color: "rgb(12,48,74)" }}
           onClick={(e) => { e.stopPropagation() }}>
-          {children}</a></span>
+          {props.children}</a></span>
     )
 
-    const P = ({ children }) => (
-      <p title={`${children} author`}>
-        <a href="https://github.com/patanamon/COMP90082-SM1-2021-SP-Frontend/issues"
+    const P = (props) => (
+      <p title={`${props.children} author`}>
+        <a href={props.url}
+           onClick={(e) => { e.stopPropagation() }}
           style={{ textDecoration: "none", color: "rgb(12,48,74)" }}>
-          <img src="/icons/page.png" alt="page" /> &nbsp;&nbsp;&nbsp;{children}</a>
+          <img src="/icons/page.png" alt="page" /> &nbsp;&nbsp;&nbsp;{props.children}</a>
       </p>
     )
 
@@ -416,21 +457,15 @@ class ProjectHomePage extends Component {
                           <Collapse ghost>
                             <Panel header={<Span>SP-Boxjelly Team</Span>} >
                               <Collapse ghost>
-                                <Panel header={<Span>2.Design Concept</Span>}>
-                                  <P>2.1 Goal</P>
-                                  <P>2.2 Business Case</P>
-                                  <P>2.3 Non-Functional Requirement</P>
-                                  <P>2.4 User Stories</P>
-                                  <P>2.5 Use-Case Model</P>
-                                  <P>2.6 Use-Case Specification</P>
-                                </Panel>
-                                <Panel header={<Span>3.Architecture</Span>}>
-                                  <P>Architecture document</P>
-                                </Panel>
-                                <Panel header={<Span>4.Product Backlog</Span>}>
-                                  <P>4.1. Sprint 1 - Backlog</P>
-                                  <P>4.2. Sprint 2 - Backlog</P>
-                                </Panel>
+                                {
+                                  this.state.treeList.map((item)=>(
+                                    <Panel header={<Span url={item.url}>{item.title}</Span>} key={item.title}>
+                                      {item.children.map((k)=>(
+                                        <P url={k.url} key={k.title}>{k.title}</P>
+                                      ))}
+                                    </Panel>
+                                  ))
+                                }
                               </Collapse>
                             </Panel>
                           </Collapse>
@@ -463,6 +498,7 @@ function mapState(state) {
     teamGithubDetailCommits: state.user.teamGithubDetailCommits,
     updateGitUserName: state.user.updateGitUserName,
     updateJiraUserName: state.user.updateJiraUserName,
+    newstConfluence: state.user.newstConfluence,
   };
 }
 const actionCreators = {
@@ -471,6 +507,7 @@ const actionCreators = {
   updateGitUsername:userActions.updateGitUsername,
   updateJiraUsername:userActions.updateJiraUsername,
   updateCommits:userActions.updateCommits,
+  getNewstConfluence:userActions.getNewstConfluence,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);
