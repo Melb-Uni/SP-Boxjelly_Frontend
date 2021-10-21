@@ -269,14 +269,15 @@ class ProjectHomePage extends Component {
       space_key:this.props.currentTeamKey
     })
 
-    this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+
     this.props.getTeamMemberList(this.props.currentTeamKey)
 
   }
 
   handleSelect = (e) => {
     console.log(e.target.value)
-    if(e.target.value === 'github' && this.props.teamGithubDetailCommits){
+    if(e.target.value === 'github'){
+      this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
 
       // this.setState((prevState, props)=>({
       //   ...this.state,
@@ -287,8 +288,8 @@ class ProjectHomePage extends Component {
 
       this.setState({
         ...this.state,
-        backendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'backend'),
-        frontendList:this.props.teamGithubDetailCommits.filter((item)=>item.source === 'frontend')
+        backendList: this.props.teamGithubDetailCommits.filter((item) => item.source === 'backend'),
+        frontendList: this.props.teamGithubDetailCommits.filter((item) => item.source === 'frontend')
       })
     }
 
@@ -333,17 +334,17 @@ class ProjectHomePage extends Component {
     //   this.props.getTeamMemberList(this.props.currentTeamKey)
     // }
 
-    this.props.getTeamMemberList(this.props.currentTeamKey)
-
-    this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
-
-    this.props.getNewstConfluence(this.props.currentTeamKey);
+    // this.props.getTeamMemberList(this.props.currentTeamKey)
+    //
+    // this.props.getTeamGithubDetailCommits(this.props.currentTeamKey);
+    //
+    // this.props.getNewstConfluence(this.props.currentTeamKey);
 
   }
 
   componentWillUnmount() {
-    this.timerEditorGithubName && clearTimeout(this.timerEditorGithubName);
-    this.timerEditorJiraName && clearTimeout(this.timerEditorJiraName);
+    // this.timerEditorGithubName && clearTimeout(this.timerEditorGithubName);
+    // this.timerEditorJiraName && clearTimeout(this.timerEditorJiraName);
   }
 
   render() {
