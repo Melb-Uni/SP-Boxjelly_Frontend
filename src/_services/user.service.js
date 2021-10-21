@@ -25,7 +25,7 @@ export const userService = {
   getAllLastCommit,
   getTeamConfluenceUpdate,
   getIndividualConfluenceUpdate,
-  getNewstConfluence,
+
 };
 
 const baseUrl = "/api/v1";
@@ -150,22 +150,6 @@ function getTeamGithubDetailCommits (teamKey) {
 
       console.log("jsonResponse - Update");
       console.log(jsonResponse)
-      return jsonResponse;
-    });
-}
-
-function getNewstConfluence (teamKey) {
-
-  let url = baseUrl + "/confluence/getNewstConfluence/spaces/" + teamKey;
-
-  const requestOptions = {
-    method: "GET",
-    credentials: "include",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
       return jsonResponse;
     });
 }
