@@ -179,6 +179,23 @@ export function user(state = initState, action) {
         updateCommits: {},
       };
 
+    case userConstants.GET_NEWST_CONFLUENCE_REQUEST:
+      return {
+        ...state,
+        requestGetNewstConfluence: true,
+      };
+    case userConstants.GET_NEWST_CONFLUENCE_SUCCESS:
+      return {
+        ...state,
+        requestGetNewstConfluence: false,
+        newstConfluence: action.payload,
+      };
+    case userConstants.GET_NEWST_CONFLUENCE_FAILURE:
+      return {
+        ...state,
+        requestGetNewstConfluence: false,
+        getNewstConfluence: {},
+      };
 
       case userConstants.GET_TEAM_GITHUB_DETAIL_COMMITS_REQUEST:
         return {
