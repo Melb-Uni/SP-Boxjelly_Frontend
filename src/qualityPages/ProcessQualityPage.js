@@ -100,11 +100,11 @@ class ProcessQualityPage extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    // window.removeEventListener("scroll", this.handleScroll);
   }
 
   componentDidUpdate() {
-    window.scrollTo(0, parseInt(this.state.scrollPosition));
+    // window.scrollTo(0, parseInt(this.state.scrollPosition));
   }
 
   
@@ -126,13 +126,13 @@ class ProcessQualityPage extends React.Component {
                 selected={this.state.btnSelected}
               />
             )}
-            <Spin
+            {/* <Spin
               spinning={
                 this.props.requestTeamConfluencePages ||
                 this.props.requestTeamGithubCommits ||
                 this.props.requestTeamJiraTickets
               }
-            >
+            > */}
               {this.state.hasConfig &&
                 this.state.btnSelected == commonConstants.CONFLUENCE && (
                   <div>
@@ -280,7 +280,7 @@ class ProcessQualityPage extends React.Component {
 
                   </div>
                 )}
-            </Spin>
+            {/* </Spin> */}
             {this.state.hasConfig &&
               (!this.props.githubDetailCommits ||
                 this.props.githubDetailCommits.length == 0) && 

@@ -6,6 +6,7 @@ export function formatUserComparisonData(response) {
     for (let i = 0; i < labelDataMap.realName.length; i++){
         names.push((labelDataMap.realName[i]).replace('-', ""))
         tasks.push([
+            (labelDataMap.realName[i]).replace('-', ""),
             (labelDataMap.con_update_per[i]).toFixed(2), 
             (labelDataMap.con_att_per[i]).toFixed(2),
             (labelDataMap.git_update_per[i]).toFixed(2),
@@ -22,6 +23,7 @@ export function formatUserComparisonData(response) {
 
     let datasets = []
     for (let i = 0; i < names.length; i++){
+        tasks[i].shift();
         datasets.push(
             {
                 name: names[i],
