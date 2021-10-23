@@ -1,43 +1,3 @@
-# COMP90082-2021-SM2-Boxjelly
-
-### Branches
-
-#### Branch Name, Features, Author
-
-<pre>
-**Home Page**
-
-**Project Overview Page**
-
-**Product Quality Page**
-ProductQuality_scitools, ButtonGroup, show directory structure into PolarArea and directory/function metrics into Treemap, jennychen89 <br />
-
-**Process Quality Page**
-ProcessQuality, show Jira pie chart & Github, Confluence, Jira modifications/updates calendar heatmap, Line Graph for Time spent in Confluence, jennychen89 <br />
-
-**Communication Page**
-feature/Calendar Integration, show calendar for key/meeting dates , Communicaiton Page, breh97 <br />
-
-**Individual Contribution Page**
-radar_chart, show individual contribution in the radar chart, Individual Contribution Page, jennychen89 <br />
-
-</pre>
-
-
-### Tag/Version
-
-#### Version 1: (2021.)
-
-#### Version 2: (2021.)
-
-
-### Release
-
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
       This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -51,21 +11,11 @@ This project aims to have a software system that automatically gathers and summa
 
 [2.0 Deployment](#2.0)
 
-[3.0 Usage](#2.0)
+[3.0 Usage](#3.0)
 
-  * [3.1 Database](#3.1)
+[4.0 Roadmap](#4.0)
 
-  * [3.2 API Documentation](#3.2)
-
-  * [3.3 Digital Prototype](#3.3)
-
-[4.0 Contributing / Extending](#4.0)
-
-  * [4.1 APIs](#4.1)
-
-  * [4.2 Web Application](#4.2)
- 
-[5.0 Architecture Diagrams](#5.0)
+[5.0 Contributing](#5.0)
 
 [6.0 Change Log](#6.0)
 
@@ -83,11 +33,27 @@ The tools and processes that students use for these projects (as stated in Backg
 
 This project aims to have a software system that automatically gathers and summarise all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Projects (COMP90082) developed. This will allow course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
 
+## Details
+
+Project Overview: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/1.1+Project+Overview  
+
+Quality Requirement: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/1.2+Quality+Requirements  
+
+Persona: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/1-3.+Persona  
+
+Goal Models: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/1-4.+Goal+Models  
+
+Project Analysis Metrics: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/1.5+Project+Analysis+Metrics  
+
 <h1 id="2.0"> 2.0 Deployment </h1>
 
 ## Overview 
 
 The Software Project application is developed by JavaScript in the front-end and Python3 Django framework and MySQL databases in the back-end.
+
+Frontend: https://github.com/Melb-Uni/SP-Boxjelly_Frontend  
+
+Backend: https://github.com/Melb-Uni/SP-Boxjelly_Backend  
 
 The steps for installing and deploying Software Project easily is as follows:
 
@@ -106,6 +72,11 @@ The steps for installing and deploying Software Project easily is as follows:
 5. Create MySQL tables python manage.py migrate. If the database changes, use command python manage.py makemigrations to update metadata of database, then python manage.py migrate to update database structure.  
 6. Start server python manage.py runserver,  the back-end is now running on http://127.0.0.1:8000/  
 
+## SciTools Understand
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/12-2.+Scitools+Understand+Deployment
+
+**Note: Updated for Mac and Windows**
 
 ## Available Scripts
 
@@ -144,166 +115,72 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+
 <h1 id="3.0"> 3.0 Usage </h1>
 
+<h2 id="3.1"> 3.1 API Documentation </h2>
 
-<h1 id="3.1"> 3.1 Database </h1>
+Sprint 0: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/11-1.+Sprint+0%3A+API  
 
-### Database Schema:
+Sprint 1: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/11-2.+Sprint+1%3A+API  
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.0+Database+schema
+Sprint 2: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/11-3.+Sprint+2%3A+API
 
 
- <h1 id="3.2">3.2 API Documentation </h1>
-<h2> Sprint 0</h2>
+<h2 id="3.2"> 3.2 Quality Assurance & Testing </h2>
 
-### Subject:
+### Quality Assurance
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.1+Subject
+Functional Testing: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/6-1.+Functional+Testing  
 
-### Project:
+Non-Functional Testing: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/6-2.+Non-functional+Testing  
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.2+Project
+Acceptance Criteria: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/6-3.+Acceptance+Criteria  
 
-### Team:
+Functional Test Cases: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/6-4.+Functional+Test+Cases  
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.3+Team
 
-### Confluence:
+Frontend Code Review: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/14-2-2.+Frontend+Code+Review  
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.4+Confluence
+Backend Code Review: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/14-2-1.+Backend+Code+Review    
 
-### Jira:
+### Curl Test
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.5+Jira
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/17-2.+Quality+Assurance+and+Testing
 
-### Git:
+<h2 id="3.3"> 3.3 Architecture </h2>
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.6+Git
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/3.+Architecture  
 
+<h2 id="3.4"> 3.4 Library </h2>
 
-## Sprint 1: 
+Frontend: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/14-3-2.+Frontend+Library  
 
-### Acceptance Test
+Backend: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/14-3-1.+Backend+Library  
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.1+Acceptance+Test
 
-### Confluence API Designer
+<h1 id="4.0"> 4.0 Roadmap </h1>
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.2+Confluence+API+Design
+<h2 id="4.1"> 4.1 Design Concepts </h2>
 
-### Database Design
+User Stories: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/2-4.+User+Stories  
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.3+Database+Design
+Use-Case Model: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/2-5.+Use-Case+Model  
 
-### Data Sample
+Use-Case Specification: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/2-6.+Use-Case+Specification   
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.4+Data+Sample
+Prototype: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/13.+Prototype  
 
-### Mock API Constructor
+<h2 id="4.2"> 4.2 Product Backlog </h2>
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.5+Mock+API+Construction+Instructions
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/4.+Product+Backlog  
 
-### Workload Separation
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.6+Workload+Separation
+<h1 id="5.0"> 5.0 Contributing </h1>
 
-## Sprint 2:
+Final Scope: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/17-1.+Final+Scope+of+the+Project
 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
-
-<h1 id="3.3"> 3.3 Digital Prototype </h1>
-
-Digital Prototype Package is able to download via below link:
-
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/4+Prototypes
-
-
-## 1. Coordinator Homepage:
-
-In coordinator homepage: Shows the list of team members and their corresponding projects.
-A coordinator can Viewing Project, Importing Project and Viewing Specific Imported Project.
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-1.Coordinatorhomepage 
-
-### 1.1 Viewing Projects
-
-As a coordinator, access your home page to view all imported projects.
-
-### 1.2 Importing Projects
-
-As a coordinator, select projects that coordinator wants to import. The coordinator can search through the search bar for the project name that he/she wants to import, and then select the project name. The project is automatically loaded into the select project area below, allowing the coordinator to select multiple projects at once. Then click Import button to import multiple items at once. And all imported projects will show the name of the project, Confluence Link, in the table below.
-
-Please note that the subject selection bar are currently not functional.
-
-### 1.3 Viewing Specific Imported Project
-
-As a coordinator, click on the specific project name to access the details about that team. Currently, this button is hardcoded to link to team SP's details and will need to be extended in order to view the details of any team.
-
-
-## 2. Viewing Team's Process Quality
-
-In process quality page includes statistical and/or graphical summaries on sprint velocity and burndown, documentation on Confluence, code review frequency and coverage and code commits. 
-For software engineering tools include GitHub, JIRA and Confluence.
-Here is the link to the UI of the process quality page. 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-3.Processquality
-
-## 3. Viewing Team's Product Quality
-In product quality page includes statistical and/or graphical summaries by code analysed tool (TBC) on: Code quality, Test code quality. For Software Engineering tools include Git (Team's choice of GitHub, GitLab or Bitbucket).
-Here is the link to the UI of the product quality page. 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-4.Productquality 
-
-## 4. Viewing Team's Communication Quality
-
-In communication quality page includes statistical and/or graphical summaries on comments from engineering tools which are GitHub, Confluence.
-Here is the link to the UI of the current communication quality page. 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-5.Communicationquality
-
-## 5. Viewing Team Individuals' Contribution
-
-In individuals' contribution page includes statistical and/or graphical summaries of every team member's activities which are: task completion on JIRA, Code reviews on Git and Documentation contribution on Confluence.
-For software engineering tools include Git (Team's choice of GitHub, GitLab or BitBucket), JIRA, and Confluence.
-Here is the link to the UI of the current individuals' contribution page.
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-6.Individualcontributionpage
-
-## 6. Team Configuration Page 
-
-As a coordinator, you may update the team configuration by clicking on the 'Configuration' button on the sidebar. Here the URLs for each of the team's tools should be set (currently not implemented). The account names/ emails for each team member's Slack and github accounts must be set in order to access their individual details in the 'Individual Contribution' section.
-Here is the link to the UI of the current configuration page.
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-7.Configuration
-
-## 7. Login Page
-
-On the Login page, you can log in to the SP project by entering your email address and password. 
-Here is the link to the UI of the current login page.
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team+S2#DesignupdateFrontendteamS2-8.Loginpage
-
-
-<h1 id="4.0"> 4.0 Contributing / Extending </h1>
-
-<h1 id="4.1"> 4.1 APIs </h1>
-
-### API versions
-
-Sprint 0 API:
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1+Sprint+0%3A+API
-
-Sprint 1 API:
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2+Sprint+1%3A+API
-
-Sprint 2 API:
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
-
-
-<h1 id="4.2"> 4.2 Web Application </h1>
-
-## Calling APIs
-
-Relevant file is for API interfaces: 
-src/_services/user.service.js
-
-You can use this Url to call the API http://18.167.74.23:18000/api/v1 
-
-## 1. Coordinator Home Page
+## 5.1 Coordinator Home Page
 
 Relevant files are: 
 src/CoordinatorPage/CoordinatorHomePage.js 
@@ -314,35 +191,35 @@ src/CoordinatorPage/CoordinatorHomePage.js
 
 The project list page shows all the projects that the coordinator is responsible for. Details of the project provide the information of confluence link and "Delete" buttons. The homepage also supports importing projects by a search bar.
 
-## 2. Project Overview Page
+## 5.2 Project Overview Page
 
 Relevant files is: 
 src/ProjectPage/ProjectHomePage.js
 
 The form provides student information including student name, student profile, student ID and email address for the project.
 
-## 3. Process Quality Page
+## 5.3. Process Quality Page
 
 Relevant files is: 
 src/ProjectPage/ProcessQualityPage.js
 
 This part helps coordinators to evaluate the process quality of the project through Jira, Confluence, and Github. Different buttons present different charts of the tool, and the selected button is dark to let the user know which platform is on the screen. By clicking on the Github filter, coordinators can make a view of the line chart of commit times over time. Jira filter illustrates the line chart of items on the To-do-list. The confluence filter shows the line chart of the number of pages.  
 
-## 4. Product Quality Page
+## 5.4 Product Quality Page
 
 Relevant files is: 
 src/ProjectPage/ProductQualityPage.js
 
 This page helps coordinators to evaluate the product quality based on static code analysis. Includes project name and a list of criteria that measures product quality. 
 
-## 5. Communication Page
+## 5.5 Communication Page
 
 Relevant files is: 
 src/qualityPages/CommunicationQualityPage.js
 
 This page shows the activeness of communication on Confluence and Github. Check the Confluence button, it will show a list of every meeting with meeting time and meeting minutes, the cells of meeting minutes will be links that are able to be clicked. Check the Github card, it will show a line chart of the number of comments over time.
 
-## 6. Individual Contribution Page
+## 5.6 Individual Contribution Page
 
 Relevant files are: 
 src/qualityPages/IndividualContributionPage.js
@@ -350,14 +227,14 @@ src/qualityPages/IndividualContributionPage.js
 
 This page helps coordinators to see the proportion of individual contribution directly. It has a drop-down option bar that has a list of student names to select. The button group of three platforms represents Github, Jira, and Confluence. Check the drop-down option bars to see every student’s contribution in the three channels. The contribution is shown in a pie chart. The pie chart shows the contribution of the selected student.
 
-## 7. Project Configuration Page 
+## 5.7 Project Configuration Page 
 
 Relevant files is: 
 src/ProjectPage/ProjectSettingsPage.js
 
 This page allows the user to check and update the link of Github, Jira. Paste the link of the two channels on this page to get all the information easily on other pages. 
 
-## 8. Login Page 
+## 5.8 Login Page 
 
 Relevant files are:
 src/LoginRegister/LoginPage.js
@@ -365,23 +242,6 @@ src/LoginRegister/LoginPage.js
 
 This page is the entry page to an SP project that requires user identification and authentication, performed by entering a username which is an email address and password combination.
 
-<h1 id="5.0"> 5.0 Architecture Diagrams </h1>
-
-### Use Case Diagram
-
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.1+Use+Case+Diagram
-
-### Domain Model
-
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.2+Domain+Model
-
-### Process Diagram
-
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.3+Process+Diagram
-
-### Communication Diagram
-
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Communication+Diagram
 
 <h1 id="6.0"> 6.0 Change Log </h1> 
 
@@ -442,3 +302,39 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Commun
 •	Added input check   
 •	Added a no_meeting_minutes alert message  
 •	Updated data sample  
+
+# COMP90082-2021-SM2-Boxjelly
+
+### Branches
+
+#### Branch Name, Features, Author
+
+<pre>
+**Home Page**
+
+**Project Overview Page**
+
+**Product Quality Page**
+ProductQuality_scitools, ButtonGroup, show directory structure into PolarArea and directory/function metrics into Treemap, jennychen89 <br />
+
+**Process Quality Page**
+ProcessQuality, show Jira pie chart & Github, Confluence, Jira modifications/updates calendar heatmap, Line Graph for Time spent in Confluence, jennychen89 <br />
+
+**Communication Page**
+feature/Calendar Integration, show calendar for key/meeting dates , Communicaiton Page, breh97 <br />
+
+**Individual Contribution Page**
+radar_chart, show individual contribution in the radar chart, Individual Contribution Page, jennychen89 <br />
+
+</pre>
+
+
+### Tag/Version
+
+#### Version 1: (2021.)
+
+#### Version 2: (2021.)
+
+
+### Release
+
