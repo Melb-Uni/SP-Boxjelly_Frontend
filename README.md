@@ -182,21 +182,21 @@ Final Scope: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2
 
 ## 5.1 Coordinator Home Page
 
-Relevant files are: 
-src/CoordinatorPage/CoordinatorHomePage.js 
-& src/CoordinatorPage/CoordinatorHomePage.css 
-& src/CoordinatorPage/ImportProjectPage.js
-& src/CoordinatorPage/ImportProjectPage.css
-& src/CoordinatorPage/ProjectList.js
-
 The project list page shows all the projects that the coordinator is responsible for. Details of the project provide the information of confluence link and "Delete" buttons. The homepage also supports importing projects by a search bar.
+
+#### Relevant files
+src/CoordinatorPage/CoordinatorHomePage.js   
+src/CoordinatorPage/CoordinatorHomePage.css   
+src/CoordinatorPage/ImportProjectPage.js  
+src/CoordinatorPage/ImportProjectPage.css  
+src/CoordinatorPage/ProjectList.js  
 
 ## 5.2 Project Overview Page
 
-Relevant files is: 
-src/ProjectPage/ProjectHomePage.js
-
 This page first shows the Member page, which provides student information including student name, student profile, student ID and email address for the project. And it also allows the coordinator to input the GitHub username and Jira username for each student. In addition, when selecting the GitHub table, it will show the whole commit records including the repository, author name, commits, branch name time and the url, of all project members in terms of frontend and backend respectively. When checking the Jira table, it shows the Jira board as well as a table showing activity name, date time, what did they do and the corresponding url. Check the Confluence table, it shows the Confluence page tree and by clicking the page name, it can jump to the Confluence page.
+
+#### Relevant files
+src/ProjectPage/ProjectHomePage.js
 
 ## 5.3 Product Quality Page
 This page helps coordinators to evaluate the product quality based on code analysis from Understand SciTools. The buttons are Directory Metrics, Frontend Metrics, and Backend Metrics.
@@ -233,10 +233,10 @@ src/ProjectPage/ProcessQualityPage.js
 
 ## 5.5 Communication Page
 
-Relevant files is: 
-src/qualityPages/CommunicationQualityPage.js
-
 This page shows the activeness of communication on Confluence. The events will be shown on a calendar, and they will be divided into three categories - key dates, meetings and standup. The details of an event will be shown after clicking on the event, and it includes title of the event and a URL linking to Confluence page. 
+
+#### Relevant files
+src/qualityPages/CommunicationQualityPage.js
 
 ## 5.6 Individual Contribution Page
 
@@ -255,16 +255,15 @@ Horizontal Stacked Bar Chart of the individual document updated times, meeting a
 Show every team members latest commits and latest document updated in card group. Displayed name, date, username, the latest commit message and url for GitHub commits in a blue border card. Similarly, name, date, document titles and url for Confluence latest document updated in the red border card.
 
 #### Relevant files: 
-
 src/qualityPages/IndividualContributionPage.js  
 src/qualityPages/IndividualContributionPage.css
 
 ## 5.7 Project Configuration Page 
 
-Relevant files is: 
-src/ProjectPage/ProjectSettingsPage.js
-
 This page allows the user to check and update the link of Github, Jira and personal token of Github account. Paste the link of the two channels on this page to get all the information easily on other pages. The system will not run smoothily before completing configuration. 
+
+#### Relevant files
+src/ProjectPage/ProjectSettingsPage.js
 
 ## 5.8 Login Page 
 
@@ -357,16 +356,16 @@ Backend: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/1
 
 #### Version 1: (2021.09.19)
 
-Frontend:
+Frontend: v1.0   
 
 #### Version 2: (2021.10.24)
 
-Frontend:  
+Frontend:    
 
 Backend:  
 
 ### Release
 
-Frontend:  
+Frontend: COMP90082_2021_SM2_SP-Boxjelly-Frontend_Sprint_1.   
 
-Backend:  
+Backend:    
