@@ -196,7 +196,7 @@ The project list page shows all the projects that the coordinator is responsible
 Relevant files is: 
 src/ProjectPage/ProjectHomePage.js
 
-The form provides student information including student name, student profile, student ID and email address for the project.
+This page first shows the Member page, which provides student information including student name, student profile, student ID and email address for the project. And it also allows the coordinator to input the GitHub username and Jira username for each student. In addition, when selecting the GitHub table, it will show the whole commit records including the repository, author name, commits, branch name time and the url, of all project members in terms of frontend and backend respectively. When checking the Jira table, it shows the Jira board as well as a table showing activity name, date time, what did they do and the corresponding url. Check the Confluence table, it shows the Confluence page tree and by clicking the page name, it can jump to the Confluence page.
 
 ## 5.3 Product Quality Page
 This page helps coordinators to evaluate the product quality based on code analysis from Understand SciTools. The buttons are Directory Metrics, Frontend Metrics, and Backend Metrics.
