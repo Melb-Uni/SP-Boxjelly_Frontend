@@ -198,19 +198,38 @@ src/ProjectPage/ProjectHomePage.js
 
 The form provides student information including student name, student profile, student ID and email address for the project.
 
-## 5.3. Process Quality Page
+## 5.3 Product Quality Page
+This page helps coordinators to evaluate the product quality based on code analysis from Understand SciTools. The buttons are Directory Metrics, Frontend Metrics, and Backend Metrics.
 
-Relevant files is: 
-src/ProjectPage/ProcessQualityPage.js
+#### Directory Metrics:  
 
-This part helps coordinators to evaluate the process quality of the project through Jira, Confluence, and Github. Different buttons present different charts of the tool, and the selected button is dark to let the user know which platform is on the screen. By clicking on the Github filter, coordinators can make a view of the line chart of commit times over time. Jira filter illustrates the line chart of items on the To-do-list. The confluence filter shows the line chart of the number of pages.  
+Show Top 10 Countline JavaScript files for frontend and Python files for backend in Polar Area Charts. Compare both frontend and backend directories' number of classes, executable units, files, functions, methods and local methods in Horizontal Bar Chart. Used Radar Chart to demonstrate the composition of lines: code, comment and blank lines for frontend. Declarative code, executable code, comment, and blank lines for backend. Show number of total lines and ratio of
+comment to code after these graphs. Compare the number of total statements (declarative/executable) in Radial Bar Charts. A table for the rest of the metrics: path count, cyclomatic, essentail and max nesting. 
 
-## 5.4 Product Quality Page
+#### Frontend & Backend Metrics:
 
-Relevant files is: 
+Compare top 10 countline files in Tree Map and allow the coordinator to choose the metrics from the dropdown menu. Available metrics are: CountDeclClass, CountDeclExecutableUnit, CountDeclFunction, CountPath, Cyclomatic, Essential, MaxNesting, CountLine, RatioCommentToCode, CountCodeLine, CountExecutableCodeLine(backend only), CountExecutableCode (backend only), CountBlankLine, CountCommentLine, CountStatement, CountDeclarativeStatement, CountExecutableStatement. Show these ten files in Radar Chart for line comparison and Stacked Bar Chart for statement comparison.
+
+#### Relevant files
 src/ProjectPage/ProductQualityPage.js
 
-This page helps coordinators to evaluate the product quality based on static code analysis. Includes project name and a list of criteria that measures product quality. 
+## 5.4. Process Quality Page
+
+This part helps coordinators to evaluate the process quality of the project through Confluence, Github, and Jira. Different buttons present different charts of the tool, and the selected button is dark to let the user know which platform is on the screen. 
+
+#### Confluence: 
+
+A calendar heatmap that show the update times for each day. One count is around 5 update times. Hover on the day to view date, count value, authors and document titles.
+
+#### GitHub:
+
+A calendar heatmap that show the update times for each day. One count is 1 update time. Hover on the day to view date, count value, authors, sources, commit messages and urls.
+
+A calendar heatmap that show the file changes for each day. One count is 150 line changes. Hover on the day to view date, count value, total file line change, total line addition, total line deletion and source
+
+#### Relevant files
+
+src/ProjectPage/ProcessQualityPage.js
 
 ## 5.5 Communication Page
 
@@ -221,11 +240,24 @@ This page shows the activeness of communication on Confluence and Github. Check 
 
 ## 5.6 Individual Contribution Page
 
-Relevant files are: 
-src/qualityPages/IndividualContributionPage.js
-& src/qualityPages/IndividualContributionPage.css
+This page helps coordinators to see the proportion of individual contribution directly. The button group represents Task Comparison, User Comparison and More Details. Values are displayed in percentage and they are calculated by divided total team contribution.
 
-This page helps coordinators to see the proportion of individual contribution directly. It has a drop-down option bar that has a list of student names to select. The button group of three platforms represents Github, Jira, and Confluence. Check the drop-down option bars to see every student’s contribution in the three channels. The contribution is shown in a pie chart. The pie chart shows the contribution of the selected student.
+#### Task Comparison:
+
+Stacked Bar Chart of the individual document updated times, meeting attendence, number of commits, and number of total line changes. Student names are at the x-axis. Red shade color for Confluence data: individual document updated times and meeting attendence. Blue shade color for GitHub data: individual number of commits and number of total line changes.
+
+#### User Comparison:
+
+Horizontal Stacked Bar Chart of the individual document updated times, meeting attendence, number of commits, and number of total line changes. Tasks are at the y-axis. Radar Chart of the individual document updated times, meeting attendence, number of commits, and number of total line changes. Same color for the same names for these two graphs.
+
+#### More Details:  
+
+Show every team members latest commits and latest document updated in card group. Displayed name, date, username, the latest commit message and url for GitHub commits in a blue border card. Similarly, name, date, document titles and url for Confluence latest document updated in the red border card.
+
+#### Relevant files: 
+
+src/qualityPages/IndividualContributionPage.js  
+src/qualityPages/IndividualContributionPage.css
 
 ## 5.7 Project Configuration Page 
 
@@ -236,105 +268,105 @@ This page allows the user to check and update the link of Github, Jira. Paste th
 
 ## 5.8 Login Page 
 
-Relevant files are:
-src/LoginRegister/LoginPage.js
-& src/LoginRegister/RegisterPage.js
-
 This page is the entry page to an SP project that requires user identification and authentication, performed by entering a username which is an email address and password combination.
+
+#### Relevant files:  
+src/LoginRegister/LoginPage.js  
+src/LoginRegister/RegisterPage.js  
 
 
 <h1 id="6.0"> 6.0 Change Log </h1> 
 
+## Sprint Summary
 
-## Version 1: (2021.April.02)
-### 2021.3.27  
-•	Initial GitHub Project created  
-•	Digital Prototype 1.0 Completed  
-•	Digital Prototype 2.0 Completed according to Client’s feedback  
-### 2021.4.02  
-•	Created Data Sample: JSON format in an API level for each API  
+Sprint 0: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-1.+Sprint+0  
 
+Sprint 1: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2.+Sprint+1   
 
-## Version 2: (2021.April.30)
-### 2021.4.22  
-•	Created configure page  
-### 2021.4.24  
-•	Communication page UI was finished   
-•	Updated UI and added showing history function for configure page  
-### 2021.4.26  
-•	Finished project overview page  
-### 2021.4.27  
-•	Changed layout for Individual Page  
-•	Coordinator homepage completed a part of API connections with backend   
-•	Communication quality page can interact with backend locally  
-### 2021.4.28  
-•	Coordinator Homepage UI updated  
-•	Product quality completed API connections  
-•	Updated Coordinator Homepage UI  
-### 2021.4.29  
-•	Updated API code for Individual Contribution Page  
-•	Coordinator Home page removed box shadow  
-### 2021.4.30  
-•	Modified project homepage  
-•	Coordinator homepage local API deployment  
-•	Project homepage API code completed  
+Sprint 2: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3.+Sprint+2   
 
+## Meeting Summary
 
-## Version 3: (2021.May.31)
+Sprint 0: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-1-1.+Sprint+0+Meeting+Summary  
 
-### 2021.5.01  
-•	Bug fix communication quality page  
-### 2021.5.05  
-•	Product quality API unify testing with backend  
+Sprint 1: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-1.+Sprint+1+Meeting+Summary   
 
-### 2021.5.06  
-•	Bugfix communication quality page  
-### 2021.5.07  
-•	Bugfix communication quality page  
-•	Added saving git username and password function  
-•	Changed the context of the column of meeting minutes to clickable URLs  
-### 2021.5.08  
-•	Completed Sprint 2 communication quality page  
-### 2021.5.13  
-•	Coordinator Homepage UI added a drawer for showing student information  
-•	Updated API for Configure page  
-### 2021.5.28
-•	Added input check   
-•	Added a no_meeting_minutes alert message  
-•	Updated data sample  
+Sprint 2: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-1.+Sprint+2+Meeting+Summary  
 
-# COMP90082-2021-SM2-Boxjelly
+## Trello Board
 
-### Branches
+Sprint 0: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-1-2.+Sprint+0+Trello  
 
-#### Branch Name, Features, Author
+Sprint 1: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-2.+Sprint+1+Trello   
 
-<pre>
-**Home Page**
+Sprint 2: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-2.+Sprint+2+Trello  
 
-**Project Overview Page**
+## Sprint Planning
 
-**Product Quality Page**
-ProductQuality_scitools, ButtonGroup, show directory structure into PolarArea and directory/function metrics into Treemap, jennychen89 <br />
+Sprint 0: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-1-3.+Sprint+1+Planning   
 
-**Process Quality Page**
-ProcessQuality, show Jira pie chart & Github, Confluence, Jira modifications/updates calendar heatmap, Line Graph for Time spent in Confluence, jennychen89 <br />
+Sprint 1: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-8.+Sprint+2+Planning     
 
-**Communication Page**
-feature/Calendar Integration, show calendar for key/meeting dates , Communicaiton Page, breh97 <br />
+## Sprint 1: (2021.August.22 - 2021.09.19)
 
-**Individual Contribution Page**
-radar_chart, show individual contribution in the radar chart, Individual Contribution Page, jennychen89 <br />
+### Frontend
 
-</pre>
+Project Overview: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-5-1.+Project+Overview+Page  
 
+Product Quality: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-5-2.+Product+Quality+Page    
+
+Process Quality: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-5-3.+Process+Quality+Page  
+
+Communication: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-5-4.+Communication+Quality+Page   
+
+Individual Contribution: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-5-5.+Individual+Contribution+Page       
+
+### Backend
+
+Postman: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-4-1.+Postman+Showcase  
+
+Database: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-2-4-2.+Database+Information    
+
+## Sprint 2: (2021.09.20 - 2021.10.24)
+
+### Frontend
+
+Project Overview: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-5-1.+Sprint+2+-+Project+Overview+Page    
+
+Product Quality: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-5-2.+Sprint+2+-+Product+Quality+Page      
+
+Process Quality: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-5-3.+Sprint+2+-+Process+Quality+Page  
+
+Communication: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-5-4.+Sprint+2+-+Communication+Quality+page     
+
+Individual Contribution: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-5-5.+Sprint+2+-+Individual+Contribution+Page        
+
+### Backend
+
+Curl: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-4-1.+Curl+Showcase 
+
+Database: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/7-3-4-2.+Database      
+
+## Branches
+
+Frontend: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/14-1-2.+Frontend+Branch  
+
+Backend: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/14-1-1.+Backend+Branch  
 
 ### Tag/Version
 
-#### Version 1: (2021.)
+#### Version 1: (2021.09.19)
 
-#### Version 2: (2021.)
+Frontend:
 
+#### Version 2: (2021.10.24)
+
+Frontend:  
+
+Backend:  
 
 ### Release
 
+Frontend:  
+
+Backend:  
