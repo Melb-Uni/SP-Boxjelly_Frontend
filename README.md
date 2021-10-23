@@ -236,7 +236,7 @@ src/ProjectPage/ProcessQualityPage.js
 Relevant files is: 
 src/qualityPages/CommunicationQualityPage.js
 
-This page shows the activeness of communication on Confluence and Github. Check the Confluence button, it will show a list of every meeting with meeting time and meeting minutes, the cells of meeting minutes will be links that are able to be clicked. Check the Github card, it will show a line chart of the number of comments over time.
+This page shows the activeness of communication on Confluence. The events will be shown on a calendar, and they will be divided into three categories - key dates, meetings and standup. The details of an event will be shown after clicking on the event, and it includes title of the event and a URL linking to Confluence page. 
 
 ## 5.6 Individual Contribution Page
 
@@ -264,7 +264,7 @@ src/qualityPages/IndividualContributionPage.css
 Relevant files is: 
 src/ProjectPage/ProjectSettingsPage.js
 
-This page allows the user to check and update the link of Github, Jira. Paste the link of the two channels on this page to get all the information easily on other pages. 
+This page allows the user to check and update the link of Github, Jira and personal token of Github account. Paste the link of the two channels on this page to get all the information easily on other pages. The system will not run smoothily before completing configuration. 
 
 ## 5.8 Login Page 
 
