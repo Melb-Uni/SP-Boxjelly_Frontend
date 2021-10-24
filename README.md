@@ -126,8 +126,11 @@ Sprint 1: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/
 
 Sprint 2: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/11-3.+Sprint+2%3A+API
 
+<h2 id="3.2"> Database </h2>
 
-<h2 id="3.2"> 3.2 Quality Assurance & Testing </h2>
+https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?pageId=83142618  
+
+<h2 id="3.3"> 3.3 Quality Assurance & Testing </h2>
 
 ### Quality Assurance
 
@@ -148,11 +151,11 @@ Backend Code Review: https://confluence.cis.unimelb.edu.au:8443/display/COMP9008
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/17-2.+Quality+Assurance+and+Testing
 
-<h2 id="3.3"> 3.3 Architecture </h2>
+<h2 id="3.4"> 3.4 Architecture </h2>
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/3.+Architecture  
 
-<h2 id="3.4"> 3.4 Library </h2>
+<h2 id="3.5"> 3.5 Library </h2>
 
 Frontend: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/14-3-2.+Frontend+Library  
 
@@ -354,18 +357,20 @@ Backend: https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM2SP/1
 
 ### Tag/Version
 
-#### Version 1: (2021.09.19)
+#### Version 1: (2021.09.19)  
 
-Frontend: v1.0   
+Frontend: v1.0  
 
-#### Version 2: (2021.10.24)
+#### Version 2: (2021.10.24)  
 
-Frontend:    
+Frontend: v2.0 
 
-Backend:  
+Backend: v1.0   
 
-### Release
+### Release 
 
-Frontend: COMP90082_2021_SM2_SP-Boxjelly-Frontend_Sprint_1.   
+Frontend: COMP90082_2021_SM2_SP-Boxjelly-Frontend_Sprint_1 (2021.09.19)  
 
-Backend:    
+Frontend: COMP90082_2021_SM2_SP-Boxjelly-Frontend_Sprint_2 (2021.10.24)  
+
+Backend: COMP90082_2021_SM2_SP-Boxjelly-Frontend_Sprint_2 (2021.10.24)      
